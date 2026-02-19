@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PERMAFROST FUTURES // SOVEREIGN BIO-CLEARING PROTOCOL // 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap');
+  :root {
+    --void:#06090F;--deep:#080D18;--ice-surface:#0C1625;
+    --cryo:#4AB3E8;--cryo-dim:#1A5070;
+    --ice:#D8E8F4;--ice-dim:rgba(216,232,244,.55);--ice-ghost:rgba(216,232,244,.12);
+    --amber:#C8861A;--sonar:#00C8FF;--line:rgba(74,179,232,.1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--void);color:var(--ice);font-family:'IBM Plex Mono',monospace;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
+  body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(74,179,232,.05) 0%,transparent 60%),radial-gradient(ellipse 60% 30% at 20% 100%,rgba(200,134,26,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+  section,nav,header,footer,.sys-bar{position:relative;z-index:10}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes sysscan{to{left:110%}}
+
+  .sys-bar{background:var(--deep);border-bottom:2px solid var(--cryo-dim);padding:7px 48px;display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ice-dim);overflow:hidden;position:relative}
+  .sys-bar::after{content:'';position:absolute;top:0;left:-200px;width:80px;height:100%;background:linear-gradient(90deg,transparent,rgba(74,179,232,.08),transparent);animation:sysscan 8s linear infinite}
+  .sys-bar .c{color:var(--cryo);font-weight:700}.sys-bar .a{color:var(--amber);font-weight:700}.sys-bar .blink{animation:blink 1.2s step-end infinite}
+
+  nav{background:rgba(6,9,15,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+  .nav-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 48px}
+  .nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:.1em;color:var(--ice);text-decoration:none;text-transform:uppercase;padding:20px 40px 20px 0;border-right:1px solid var(--line);line-height:1}
+  .nav-logo .sub{display:block;font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:400;color:var(--cryo);letter-spacing:.22em;margin-top:4px;opacity:.8}
+  .nav-links{display:flex;list-style:none;padding-left:0;height:100%;margin-left:32px}
+  .nav-links a{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-dim);text-decoration:none;padding:0 20px;height:100%;display:flex;align-items:center;border-right:1px solid var(--line);transition:all .2s}
+  .nav-links a:hover{color:var(--cryo);background:rgba(74,179,232,.04)}
+  .nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--void);background:var(--cryo);padding:12px 28px;text-decoration:none;margin-left:28px;transition:all .2s}
+  .nav-cta:hover{background:var(--ice);transform:translateY(-1px)}
+
+  .hero{max-width:1400px;margin:0 auto;padding:72px 48px 80px;display:grid;grid-template-columns:1fr 500px;gap:72px;align-items:start}
+  .hero-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--cryo);margin-bottom:36px;display:flex;align-items:center;gap:14px;opacity:0;animation:fadeUp .8s ease .3s forwards}
+  .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--cryo);opacity:.6}
+  .hero-eyebrow .dot{width:6px;height:6px;background:var(--cryo);border-radius:50%;animation:blink 1.4s step-end infinite;flex-shrink:0}
+  .hero-headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(58px,8vw,118px);font-weight:900;line-height:.88;letter-spacing:-.01em;text-transform:uppercase;color:var(--ice);opacity:0;animation:fadeUp 1s ease .5s forwards}
+  .hero-headline .cryo{display:block;color:var(--cryo);text-shadow:0 0 60px rgba(74,179,232,.3)}
+  .hero-headline .shift{display:block;margin-left:60px}
+  .hero-headline .ghost{display:block;margin-left:120px;font-weight:300;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:.52em;letter-spacing:.06em;opacity:.22;text-transform:none}
+  .hero-body{font-size:13px;line-height:1.85;color:var(--ice-dim);max-width:520px;margin-top:44px;border-left:2px solid var(--cryo-dim);padding-left:20px;opacity:0;animation:fadeUp 1s ease .8s forwards}
+  .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px;opacity:0;animation:fadeUp 1s ease 1s forwards}
+  .meta-cell{background:var(--deep);padding:24px 20px;transition:background .2s}
+  .meta-cell:hover{background:var(--ice-surface)}
+  .meta-cell .lbl{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ice-dim);opacity:.5;margin-bottom:10px}
+  .meta-cell .val{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;color:var(--cryo);line-height:1;letter-spacing:-.02em}
+  .meta-cell .val.amber{color:var(--amber)}
+  .meta-cell .unit{font-size:9.5px;color:var(--ice-dim);opacity:.45;margin-top:7px;line-height:1.4}
+
+  .drill-frame{background:var(--void);border:1px solid rgba(74,179,232,.2);box-shadow:0 0 0 1px rgba(74,179,232,.05),0 0 40px rgba(74,179,232,.04),inset 0 0 60px rgba(0,0,0,.5);position:relative;overflow:hidden}
+  .drill-titlebar{background:var(--deep);border-bottom:1px solid rgba(74,179,232,.15);padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+  .drill-title{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--cryo);opacity:.8}
+  .drill-controls{display:flex;gap:6px}
+  .d-dot{width:9px;height:9px;border-radius:50%;background:var(--ice-ghost);border:1px solid rgba(74,179,232,.3)}
+  .d-dot.live{background:var(--cryo);animation:blink 2s step-end infinite}
+  .drill-screen{position:relative;background:var(--void);overflow:hidden}
+  .drill-screen::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.12) 3px,rgba(0,0,0,.12) 4px);pointer-events:none;z-index:20}
+  .drill-screen::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(0,200,255,.04) 0%,transparent 65%);pointer-events:none;z-index:19}
+  #depthCanvas{display:block;width:100%}
+  .drill-readout{padding:12px 16px 14px;background:rgba(0,4,8,.9);border-top:1px solid rgba(74,179,232,.1)}
+  .dr-line{font-size:9.5px;color:var(--cryo-dim);letter-spacing:.06em;line-height:1.65}
+  .dr-line .b{color:var(--cryo)}.dr-line .a{color:var(--amber)}.dr-line .w{color:var(--ice);opacity:.6}
+  .dr-cursor{display:inline-block;width:6px;height:10px;background:var(--sonar);vertical-align:middle;margin-left:2px;animation:blink .9s step-end infinite}
+
+  .h-rule{border:none;border-top:1px solid var(--line);margin:0}
+  .sec-tag{display:inline-block;font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;padding:6px 14px;margin-bottom:48px;border:1px solid}
+  .sec-tag.cryo{color:var(--cryo);border-color:rgba(74,179,232,.3);background:rgba(74,179,232,.05)}
+  .sec-tag.amber{color:var(--amber);border-color:rgba(200,134,26,.3);background:rgba(200,134,26,.05)}
+  .sec-tag.light{color:var(--ice-dim);border-color:var(--line)}
+
+  .strata-section{background:var(--deep);padding:88px 48px;position:relative;overflow:hidden}
+  .strata-section::before{content:'';position:absolute;inset:0;background:linear-gradient(175deg,rgba(74,179,232,.02) 0%,transparent 40%),linear-gradient(5deg,rgba(200,134,26,.015) 0%,transparent 50%);pointer-events:none}
+  .strata-inner{max-width:1400px;margin:0 auto;position:relative;z-index:2}
+  .strata-grid{display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start}
+  .strata-left{position:sticky;top:100px}
+  .strata-index{font-family:'Barlow Condensed',sans-serif;font-size:160px;font-weight:900;line-height:.8;color:var(--cryo);opacity:.08;letter-spacing:-.06em;user-select:none;margin-bottom:24px}
+  .strata-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--cryo);opacity:.6}
+  .strata-body h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,4vw,60px);font-weight:800;line-height:1;text-transform:uppercase;margin-bottom:36px;letter-spacing:.01em;max-width:720px}
+  .strata-body h2 .c{color:var(--cryo)}.strata-body h2 .a{color:var(--amber)}
+  .strata-body p{font-size:13px;line-height:1.85;color:var(--ice-dim);margin-bottom:20px;max-width:640px;opacity:.85}
+  .strata-body p strong{color:var(--ice);font-weight:700}
+
+  .layers{padding:80px 48px;max-width:1400px;margin:0 auto}
+  .layers-header{margin-bottom:52px}
+  .layers-header h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,5vw,72px);font-weight:900;text-transform:uppercase;line-height:.92;margin-top:18px;letter-spacing:.01em}
+  .layers-header h2 .c{color:var(--cryo)}.layers-header h2 .a{color:var(--amber)}
+  .depth-column{display:grid;grid-template-columns:120px 1fr;gap:0;border:1px solid var(--line);overflow:hidden}
+  .depth-axis{background:var(--deep);border-right:1px solid var(--line);display:flex;flex-direction:column}
+  .depth-marker{padding:0 16px;font-size:8.5px;letter-spacing:.12em;color:var(--cryo-dim);display:flex;align-items:center;border-bottom:1px solid var(--line);position:relative}
+  .depth-marker::after{content:'';position:absolute;right:-1px;width:6px;height:1px;background:var(--cryo-dim);opacity:.4}
+  .layer-cards{display:flex;flex-direction:column}
+  .layer-card{padding:36px 40px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;transition:background .3s;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+  .layer-card:hover{background:rgba(74,179,232,.02)}
+  .layer-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%}
+  .l1::before{background:var(--cryo)}.l2::before{background:rgba(74,179,232,.55)}.l3::before{background:rgba(74,179,232,.3)}.l4::before{background:var(--amber)}.l5::before{background:rgba(200,134,26,.45)}
+  .layer-card .age{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
+  .l1 .age,.l2 .age,.l3 .age{color:var(--cryo);opacity:.8}.l4 .age,.l5 .age{color:var(--amber);opacity:.8}
+  .layer-card h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;color:var(--ice)}
+  .layer-card p{font-size:12px;line-height:1.7;color:var(--ice-dim);opacity:.65;max-width:560px}
+  .layer-stat{text-align:right;flex-shrink:0}
+  .layer-stat .n{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;line-height:1;letter-spacing:-.02em}
+  .l1 .n,.l2 .n,.l3 .n{color:var(--cryo)}.l4 .n,.l5 .n{color:var(--amber)}
+  .layer-stat .u{font-size:9px;color:var(--ice-dim);opacity:.4;margin-top:5px;letter-spacing:.08em}
+
+  .market{background:linear-gradient(180deg,var(--void) 0%,var(--deep) 100%);padding:80px 48px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .market-inner{max-width:1400px;margin:0 auto}
+  .market-inner h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(44px,6vw,90px);font-weight:900;text-transform:uppercase;line-height:.92;margin-bottom:64px;letter-spacing:.01em;max-width:900px}
+  .market-inner h2 .c{color:var(--cryo)}.market-inner h2 .dim{opacity:.25;font-weight:300}
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .stat-box{background:var(--void);padding:44px 32px;text-align:center;transition:background .25s}
+  .stat-box:hover{background:var(--ice-surface)}
+  .stat-box .n{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;line-height:1;letter-spacing:-.02em}
+  .stat-box.blue .n{color:var(--cryo)}.stat-box.amber .n{color:var(--amber)}
+  .stat-box .l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice-dim);opacity:.45;margin-top:14px;line-height:1.5}
+
+  .proof{padding:80px 48px;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .proof-left h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,4vw,64px);font-weight:800;text-transform:uppercase;line-height:1;letter-spacing:.01em;margin-top:18px}
+  .proof-left h2 .c{color:var(--cryo)}
+  .proof-left p{font-size:13px;line-height:1.8;color:var(--ice-dim);opacity:.7;margin-top:24px;max-width:440px}
+  .proof-item{padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+  .proof-item:last-child{border-bottom:none}
+  .proof-num{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;line-height:1;color:var(--cryo);opacity:.35;letter-spacing:-.02em;min-width:40px}
+  .proof-text .title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ice);margin-bottom:6px}
+  .proof-text p{font-size:12px;line-height:1.65;color:var(--ice-dim);opacity:.55}
+
+  .cta{text-align:center;padding:100px 48px;position:relative;overflow:hidden}
+  .cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(74,179,232,.04) 0%,transparent 65%);pointer-events:none}
+  .cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,7vw,108px);font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.01em;margin-bottom:52px;color:var(--ice);position:relative}
+  .cta h2 .c{color:var(--cryo)}.cta h2 .a{color:var(--amber)}
+  .cta h2 .dim{opacity:.2;font-weight:300;font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;font-size:.72em;display:block;letter-spacing:.04em}
+  .cta-forum{display:flex;justify-content:center;gap:64px;margin-bottom:52px;flex-wrap:wrap}
+  .forum-person{text-align:center}
+  .forum-role{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);opacity:.8;margin-bottom:6px}
+  .forum-name{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ice);margin-bottom:4px}
+  .forum-org{font-size:10px;color:var(--ice-dim);opacity:.5;letter-spacing:.1em}
+  .cta-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;position:relative}
+  .btn-cryo{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--void);background:var(--cryo);padding:18px 52px;border:none;text-decoration:none;transition:all .2s;cursor:pointer}
+  .btn-cryo:hover{background:var(--ice);transform:translateY(-2px);box-shadow:0 16px 40px rgba(74,179,232,.2)}
+  .btn-ghost{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ice);background:transparent;padding:18px 52px;border:1px solid rgba(216,232,244,.2);text-decoration:none;transition:all .2s}
+  .btn-ghost:hover{border-color:var(--cryo);color:var(--cryo)}
+
+  footer{border-top:1px solid var(--line);padding:44px 48px}
+  .footer-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+  .footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--ice)}
+  .footer-logo .sub{display:block;font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--cryo);letter-spacing:.18em;margin-top:4px;opacity:.6}
+  .footer-right{text-align:right;font-size:9.5px;line-height:1.7;color:var(--ice-dim);opacity:.4}
+  .footer-right strong{color:var(--cryo);opacity:1}
+
+  .sr{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+  .sr.in{opacity:1;transform:translateY(0)}
+  .sr.d1{transition-delay:.1s}.sr.d2{transition-delay:.2s}.sr.d3{transition-delay:.3s}
+
+  @media(max-width:960px){
+    .hero{grid-template-columns:1fr;padding:48px 24px}
+    .drill-frame{display:none}
+    .hero-meta{grid-template-columns:1fr}
+    .strata-grid{grid-template-columns:1fr}
+    .strata-index{display:none}
+    .layers,.market,.proof,.cta,footer{padding-left:24px;padding-right:24px}
+    .depth-column{grid-template-columns:80px 1fr}
+    .layer-card{grid-template-columns:1fr;gap:20px}
+    .layer-stat{text-align:left}
+    .stats-row{grid-template-columns:repeat(2,1fr)}
+    .proof{grid-template-columns:1fr;gap:40px}
+    .nav-links{display:none}
+    .nav-inner{grid-template-columns:1fr auto;padding:0 20px}
+    .footer-inner{flex-direction:column;gap:20px;text-align:center}
+    .footer-right{text-align:center}
+    .sys-bar{padding:7px 20px;font-size:8px}
+    .strata-section{padding:60px 24px}
+  }
+</style>
+</head>
+<body>
+
+<div class="sys-bar">
+  <span>PERMAFROST FUTURES // <span class="c">SOVEREIGN BIO-CLEARING PROTOCOL</span> // <span class="blink">■</span> DOCTRINE ACTIVE</span>
+  <span>KRYONIS · ОБР · KURCHATOV · <span class="a">IV FORUM · 26 FEB 2026</span></span>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">PERMAFROST FUTURES<span class="sub">cryocapital.exchange · kryonis.global</span></a>
+    <ul class="nav-links">
+      <li><a href="#thesis">Thesis</a></li>
+      <li><a href="#protocol">Protocol</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+    </ul>
+    <a href="#forum" class="nav-cta">Sovereign Briefing</a>
+  </div>
+</nav>
+
+<section>
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow"><div class="dot"></div>Deep Strata Analysis · Siberia Bio-Territory · Live Protocol</div>
+      <h1 class="hero-headline">
+        <span class="cryo">The world's</span>
+        <span class="shift">largest archive</span>
+        <span class="shift">has no ledger.</span>
+        <span class="ghost">until now.</span>
+      </h1>
+      <p class="hero-body">Russia's cryosphere spans 65% of national territory — containing 1–10 trillion base units of latent bio-capital frozen across geological epochs. Ancient microbial ecosystems. Preserved genetic archives. Irreplaceable thermodynamic states. Unregistered. Unprotected. Until now.</p>
+      <div class="hero-meta">
+        <div class="meta-cell">
+          <div class="lbl">Estimated Bio-Capital Reserve</div>
+          <div class="val" data-count="10" data-suffix="T BCU" data-int="0">—</div>
+          <div class="unit">Base units, sovereign accounting scale</div>
+        </div>
+        <div class="meta-cell">
+          <div class="lbl">Biological Record Depth</div>
+          <div class="val amber" data-count="1.8" data-suffix="M yr">—</div>
+          <div class="unit">Continuous cryo-archive, Siberia</div>
+        </div>
+        <div class="meta-cell">
+          <div class="lbl">ОБР Scientific Network</div>
+          <div class="val" data-count="3025" data-int="1">—</div>
+          <div class="unit">Members · 59 regional departments</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drill-frame">
+      <div class="drill-titlebar">
+        <span class="drill-title">BIO-CAPITAL SCANNER // SBCP VERIFICATION // SIBERIA ZONE I</span>
+        <div class="drill-controls"><div class="d-dot"></div><div class="d-dot"></div><div class="d-dot live"></div></div>
+      </div>
+      <div class="drill-screen"><canvas id="depthCanvas" width="480" height="400"></canvas></div>
+      <div class="drill-readout">
+        <div class="dr-line"><span class="b">SYS</span> >> sbcp_scanner v1.0 ACTIVE</div>
+        <div class="dr-line"><span class="b">DEPTH</span> >> current stratum: <span class="b" id="dd">847.3m</span></div>
+        <div class="dr-line"><span class="a">AGE</span>  >> stratum age: <span class="a" id="da">11,400 yr BP</span></div>
+        <div class="dr-line"><span class="b">BIO</span>  >> organic content: <span class="b" id="db">34.7%</span></div>
+        <div class="dr-line"><span class="w">▸</span> kurchatov_verify next_layer <span class="dr-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="h-rule">
+
+<section class="strata-section" id="thesis">
+  <div class="strata-inner">
+    <span class="sec-tag cryo">01 / Founding Doctrine</span>
+    <div class="strata-grid sr">
+      <div class="strata-left">
+        <div class="strata-index">01</div>
+        <div class="strata-label">The Thesis</div>
+      </div>
+      <div class="strata-body">
+        <h2>Permafrost is not a problem.<br>It is <span class="c">archived capital.</span><br>It belongs to <span class="a">Russia.</span></h2>
+        <p>Every financial system ever built extracted value from the present. The Sovereign Bio-Clearing Protocol operates on a different premise: the most concentrated repository of biological intelligence on Earth has been preserved in Siberian permafrost for up to 1.8 million years — and Russia has never registered, measured, or governed it.</p>
+        <p>This is not oil. This is not gas. This is <strong>thermodynamic sovereignty</strong> — compressed, preserved, and now subject to Russian sovereign accounting through the Bio-Clearing Unit framework.</p>
+        <p>Capital that is not recognised is capital that is surrendered. While Russia holds the world's largest sovereign cryospheric endowment, no standard exists for its classification, verification, or deployment. PERMAFROST FUTURES is the doctrine that changes this.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="h-rule">
+
+<section class="layers" id="protocol">
+  <div class="layers-header sr">
+    <span class="sec-tag amber">02 / Protocol Architecture</span>
+    <h2>Four sovereign <span class="c">functions.</span><br><span class="a">One clearing architecture.</span></h2>
+  </div>
+  <div class="depth-column sr">
+    <div class="depth-axis">
+      <div class="depth-marker" style="height:130px;padding-top:50px;">I</div>
+      <div class="depth-marker" style="height:130px;padding-top:50px;">II</div>
+      <div class="depth-marker" style="height:130px;padding-top:50px;">III</div>
+      <div class="depth-marker" style="height:130px;padding-top:50px;">IV</div>
+      <div class="depth-marker" style="height:130px;padding-top:50px;">V</div>
+    </div>
+    <div class="layer-cards">
+      <div class="layer-card l1">
+        <div>
+          <div class="age">Sovereign Function · Territorial Survey</div>
+          <h3>Inventory</h3>
+          <p>Standardised bio-thermodynamic survey protocols for priority permafrost zones. ОБР's 59 regional departments deploy across Western Siberia and the Lena River basin. Phase I: five priority zones, 2026–2030.</p>
+        </div>
+        <div class="layer-stat"><div class="n">59</div><div class="u">ОБР regional depts</div></div>
+      </div>
+      <div class="layer-card l2">
+        <div>
+          <div class="age">Sovereign Function · Scientific Authority</div>
+          <h3>Verification</h3>
+          <p>All bio-capital assessments submitted for independent verification by the Kurchatov Institute — Russia's premier state scientific authority. Kurchatov seal transforms assessments into formally recognised sovereign bio-capital claims.</p>
+        </div>
+        <div class="layer-stat"><div class="n">KI</div><div class="u">Kurchatov Institute</div></div>
+      </div>
+      <div class="layer-card l3">
+        <div>
+          <div class="age">Sovereign Function · Asset Classification</div>
+          <h3>Classification</h3>
+          <p>Verified assets classified into five sovereign bio-capital asset classes with applicable Bio-Clearing Unit valuation. BCU is the sovereign accounting unit — not denominated in any external currency. The standard, not the market, determines value.</p>
+        </div>
+        <div class="layer-stat"><div class="n">5</div><div class="u">BCU asset classes</div></div>
+      </div>
+      <div class="layer-card l4">
+        <div>
+          <div class="age">Sovereign Function · Reserve Ledger</div>
+          <h3>Clearing</h3>
+          <p>Cleared assets enter the PERMAFROST FUTURES sovereign reserve ledger. Deployable through sovereign-to-sovereign agreements, strategic research licences, or held as long-term state reserve. Phase III: ЦФА (Federal Law No. 259-FZ) multilateral framework.</p>
+        </div>
+        <div class="layer-stat"><div class="n">ЦФА</div><div class="u">Russian legal framework</div></div>
+      </div>
+      <div class="layer-card l5">
+        <div>
+          <div class="age">Legal Anchor · International Precedent</div>
+          <h3>Nagoya Protocol</h3>
+          <p>Russia is a signatory to the Convention on Biological Diversity. The Nagoya Protocol grants sovereign Prior Informed Consent, Mutually Agreed Terms, and Benefit-Sharing rights over all biological genetic resources within national territory. The SBCP operationalises rights Russia already holds.</p>
+        </div>
+        <div class="layer-stat"><div class="n">CBD</div><div class="u">International legal anchor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="market" id="architecture">
+  <div class="market-inner">
+    <span class="sec-tag light sr">03 / Sovereign Architecture</span>
+    <h2 class="sr">KRYONIS is the standard.<br><span class="c">PERMAFROST FUTURES</span><br>is the ledger.<br><span class="dim">The Russian state is the sovereign.</span></h2>
+    <div class="stats-row sr">
+      <div class="stat-box blue"><div class="n">BCU</div><div class="l">Bio-Clearing Units<br>not euros, not dollars</div></div>
+      <div class="stat-box amber"><div class="n">1–10T</div><div class="l">Base units of latent<br>cryospheric bio-capital</div></div>
+      <div class="stat-box blue"><div class="n">65%</div><div class="l">Russian territory<br>covered by permafrost</div></div>
+      <div class="stat-box amber"><div class="n">100yr</div><div class="l">Civilisational horizon<br>Phase I–III roadmap</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="proof" id="roadmap">
+  <div class="proof-left sr">
+    <span class="sec-tag cryo">04 / Roadmap</span>
+    <h2>Three phases.<br><span class="c">One century.</span></h2>
+    <p>The first sovereign act happens February 26, 2026. Everything that follows — Pan-Arctic framework, ЦФА instruments, civilisational bio-reserve — rests on the protocol declared that day. The standard precedes the instrument. The registry precedes the asset.</p>
+  </div>
+  <div class="proof-right sr d2">
+    <div class="proof-item">
+      <div class="proof-num">I</div>
+      <div class="proof-text">
+        <div class="title">Siberian Sovereign Inventory · 2026–2030</div>
+        <p>KRYONIS/ОБР survey protocols. Kurchatov-verified baseline inventories for five priority zones in Western Siberia and the Lena basin. Russia–China 90-day sovereign pilot. Initiated at IV Forum of Future Technologies, February 26, 2026.</p>
+      </div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">II</div>
+      <div class="proof-text">
+        <div class="title">Pan-Arctic Sovereign Framework · 2030–2040</div>
+        <p>Pan-Arctic Bio-Capital Registry under Russian-defined standards. Bilateral sovereign bio-capital agreements with Arctic states. SBCP submitted to CBD/Nagoya bodies as model implementation. Russia becomes architect of global cryospheric bio-capital doctrine.</p>
+      </div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">III</div>
+      <div class="proof-text">
+        <div class="title">Sovereign ЦФА Instruments · 2040–2055</div>
+        <p>BCU-denominated multilateral bio-capital arrangements under Federal Law No. 259-FZ. Full Russian federal jurisdiction. Central Bank oversight. No dependence on Western financial infrastructure. Tokenisation is a late-stage function — not a foundational mechanism.</p>
+      </div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">∞</div>
+      <div class="proof-text">
+        <div class="title">The Doctrine · 100–300 Year Horizon</div>
+        <p>Russia does not need to monetise its permafrost bio-capital immediately. It needs to register it before others define what it is worth. The SBCP is the instrument through which that fact becomes sovereign strategic reality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="forum">
+  <h2 class="sr">The doctrine<br>is <span class="c">ready.</span><br><span class="a">26 February.</span><br><span class="dim">IV Forum of Future Technologies · Moscow</span></h2>
+  <div class="cta-forum sr d1">
+    <div class="forum-person">
+      <div class="forum-role">Strategic Director · KRYONIS</div>
+      <div class="forum-name">Steven Alber</div>
+      <div class="forum-org">KRYONIS Sovereign Systems Limited · kryonis.global</div>
+    </div>
+    <div class="forum-person">
+      <div class="forum-role">President · Russian Society of Biotechnologists</div>
+      <div class="forum-name">Raif G. Vasilov</div>
+      <div class="forum-org">ОБР · 3,025 Members · 59 Regional Departments</div>
+    </div>
+  </div>
+  <div class="cta-btns sr d2">
+    <a href="mailto:info@kryonis.global" class="btn-cryo">Request Sovereign Briefing</a>
+    <a href="#protocol" class="btn-ghost">Read the Protocol</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">PERMAFROST FUTURES<span class="sub">SOVEREIGN BIO-CLEARING PROTOCOL · SBCP v1.0 · FEB 2026</span></div>
+    <div class="footer-right"><strong>cryocapital.exchange</strong><br>KRYONIS Sovereign Systems · ОБР · Kurchatov Institute<br>Nagoya Protocol Anchor · ЦФА Federal Law 259-FZ · Moscow 2026</div>
+  </div>
+</footer>
+
+<script>
+const canvas=document.getElementById('depthCanvas'),ctx=canvas.getContext('2d'),W=canvas.width,H=canvas.height;
+const strata=[
+  {name:'BIOME RESERVE',start:0,end:.18,cA:'#4AB3E8',cB:'#1A5070'},
+  {name:'GENETIC ARCHIVE',start:.18,end:.36,cA:'#3A9FD4',cB:'#0D3A56'},
+  {name:'CARBON RESERVE',start:.36,end:.54,cA:'#2A8FC0',cB:'#092A40'},
+  {name:'THERMO ASSET',start:.54,end:.76,cA:'#C8861A',cB:'#6B4208'},
+  {name:'BIO-HERITAGE',start:.76,end:1,cA:'#A06814',cB:'#4A2C06'},
+];
+const particles=[];
+strata.forEach((s,si)=>{
+  const c=si<3?16:10;
+  for(let i=0;i<c;i++) particles.push({x:80+Math.random()*(W-100),y:(s.start+Math.random()*(s.end-s.start))*H,r:1+Math.random()*2.5,layer:si,phase:Math.random()*Math.PI*2,speed:.003+Math.random()*.008,bright:.2+Math.random()*.6});
+});
+const cracks=[];
+for(let i=0;i<8;i++){
+  const x=80+Math.random()*(W-100),y0=Math.random()*H,segs=[];
+  let cx=x,cy=y0;
+  for(let j=0;j<6+Math.floor(Math.random()*6);j++){cx+=(Math.random()-.5)*24;cy+=8+Math.random()*20;segs.push({x:cx,y:Math.min(cy,H)});}
+  cracks.push({x0:x,y0,segs,alpha:.04+Math.random()*.08});
+}
+let scanY=0,scanDir=1;
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  strata.forEach(s=>{
+    const y0=s.start*H,y1=s.end*H,g=ctx.createLinearGradient(0,y0,0,y1);
+    g.addColorStop(0,s.cA+'22');g.addColorStop(1,s.cB+'44');
+    ctx.fillStyle=g;ctx.fillRect(0,y0,W,y1-y0);
+    if(s.start>0){ctx.beginPath();ctx.moveTo(0,y0);ctx.lineTo(W,y0);ctx.strokeStyle=s.cA+'30';ctx.lineWidth=1;ctx.setLineDash([4,8]);ctx.stroke();ctx.setLineDash([]);}
+    ctx.font='8px "IBM Plex Mono"';ctx.fillStyle=s.cA+'55';ctx.fillText(s.name,W-108,y0+14);
+  });
+  cracks.forEach(c=>{ctx.beginPath();ctx.moveTo(c.x0,c.y0);c.segs.forEach(s=>ctx.lineTo(s.x,s.y));ctx.strokeStyle=`rgba(74,179,232,${c.alpha})`;ctx.lineWidth=.5;ctx.stroke();});
+  ctx.strokeStyle='rgba(74,179,232,.2)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(40,0);ctx.lineTo(40,H);ctx.stroke();
+  for(let i=0;i<=10;i++){const y=(i/10)*H,l=i%5===0?10:5;ctx.beginPath();ctx.moveTo(40-l,y);ctx.lineTo(40,y);ctx.strokeStyle=`rgba(74,179,232,${i%5===0?.5:.2})`;ctx.stroke();if(i%5===0&&i>0){ctx.font='7px "IBM Plex Mono"';ctx.fillStyle='rgba(74,179,232,.4)';ctx.fillText(Math.round(i/10*2000)+'m',2,y+3);}}
+  particles.forEach(p=>{p.phase+=p.speed;const pulse=.4+.6*Math.abs(Math.sin(p.phase)),c=p.layer<3?'74,179,232':'200,134,26',a=pulse*p.bright*.8,g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);g.addColorStop(0,`rgba(${c},${a*.6})`);g.addColorStop(1,`rgba(${c},0)`);ctx.beginPath();ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();ctx.beginPath();ctx.arc(p.x,p.y,p.r*.5,0,Math.PI*2);ctx.fillStyle=`rgba(${c},${a})`;ctx.fill();});
+  scanY+=.6*scanDir;if(scanY>H-2)scanDir=-1;if(scanY<2)scanDir=1;
+  const sg=ctx.createLinearGradient(0,scanY-20,0,scanY+20);sg.addColorStop(0,'rgba(0,200,255,0)');sg.addColorStop(.5,'rgba(0,200,255,.12)');sg.addColorStop(1,'rgba(0,200,255,0)');ctx.fillStyle=sg;ctx.fillRect(0,scanY-20,W,40);
+  ctx.beginPath();ctx.moveTo(0,scanY);ctx.lineTo(W,scanY);ctx.strokeStyle='rgba(0,200,255,.7)';ctx.lineWidth=1;ctx.shadowBlur=6;ctx.shadowColor='#00C8FF';ctx.stroke();ctx.shadowBlur=0;
+  ctx.beginPath();ctx.moveTo(36,scanY-4);ctx.lineTo(44,scanY);ctx.lineTo(36,scanY+4);ctx.closePath();ctx.fillStyle='#00C8FF';ctx.fill();
+  requestAnimationFrame(draw);
+}
+draw();
+
+const ages=['9,200 yr BP','11,400 yr BP','18,000 yr BP','45,000 yr BP','120,000 yr BP','340,000 yr BP','680,000 yr BP','1,200,000 yr BP','1,800,000 yr BP'];
+let dv=847.3;
+setInterval(()=>{dv+=.1+Math.random()*.4;document.getElementById('dd').textContent=dv.toFixed(1)+'m';document.getElementById('da').textContent=ages[Math.floor(Math.random()*ages.length)];document.getElementById('db').textContent=(28+Math.random()*18).toFixed(1)+'%';},2400);
+
+function countUp(el,target,isInt,suffix,dur=1600){
+  const s=performance.now(),u=n=>{const p=Math.min((n-s)/dur,1),e=1-Math.pow(1-p,3),v=e*target,d=isInt?Math.round(v).toLocaleString():v.toFixed(1);el.textContent=d+(suffix||'');if(p<1)requestAnimationFrame(u);};requestAnimationFrame(u);
+}
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target;
+    if(el.classList.contains('val')&&el.dataset.count){countUp(el,parseFloat(el.dataset.count),el.dataset.int==='1',el.dataset.suffix||'');obs.unobserve(el);}
+    if(el.classList.contains('sr')){el.classList.add('in');obs.unobserve(el);}
+  });
+},{threshold:.12});
+document.querySelectorAll('.val,.sr').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
