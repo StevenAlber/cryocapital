@@ -6,7 +6,6 @@
   <title>CryoCapital Exchange — Market Infrastructure v1</title>
   <meta name="description" content="CryoCapital Exchange — infrastructure for listing, verification, classification, clearing, and settlement of cryosphere-backed capital assets." />
 
-  <!-- Minimal, serious, institutional baseline. Replace fonts/colors later if needed. -->
   <style>
     :root{
       --bg:#070A10; --panel:#0B1220; --panel2:#0A0F1A;
@@ -27,7 +26,6 @@
     a{color:inherit}
     .wrap{max-width:1240px; margin:0 auto; padding:0 22px}
 
-    /* Top utilities */
     .topbar{
       position:sticky; top:0; z-index:1000;
       background:rgba(7,10,16,.88);
@@ -85,7 +83,6 @@
       border-color:rgba(92,200,255,.34);
     }
 
-    /* Status ribbon */
     .ribbon{
       border-bottom:1px solid var(--line);
       background:linear-gradient(90deg, rgba(92,200,255,.08), rgba(214,165,58,.06));
@@ -105,7 +102,6 @@
     .dot.warn{background:var(--danger); box-shadow:0 0 0 4px rgba(255,77,77,.10)}
     .dot.info{background:var(--accent); box-shadow:0 0 0 4px rgba(92,200,255,.10)}
 
-    /* Sections */
     section{padding:70px 0}
     .grid2{display:grid; grid-template-columns: 1.15fr .85fr; gap:28px; align-items:start}
     .panel{
@@ -156,7 +152,6 @@
       border-color:rgba(214,165,58,.28);
     }
 
-    /* Market board */
     .board-head{
       display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
       padding:18px 22px; border-bottom:1px solid var(--line);
@@ -182,7 +177,6 @@
     .status.cleared .dot{background:var(--ok)}
     .status.pending .dot{background:rgba(231,238,247,.55)}
 
-    /* Cards */
     .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
     .card{
       padding:18px;
@@ -200,7 +194,6 @@
     .card p{margin:0; color:var(--muted); line-height:1.7; font-size:13px}
     .card .mini{margin-top:10px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55)}
 
-    /* Workflow */
     .steps{display:grid; grid-template-columns:repeat(5,1fr); gap:10px}
     .step{
       padding:16px;
@@ -218,10 +211,7 @@
     .step .d{color:var(--muted); line-height:1.65; font-size:13px}
     .step .out{margin-top:10px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55)}
 
-    /* Forms (v1) */
-    .form{
-      display:grid; gap:12px;
-    }
+    .form{display:grid; gap:12px}
     label{
       display:block; font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
       color:rgba(231,238,247,.62);
@@ -236,13 +226,14 @@
       color:var(--text);
       outline:none;
       font-size:14px;
+      font-family:var(--sans);
     }
+    input:focus,select:focus,textarea:focus{border-color:rgba(92,200,255,.4)}
     textarea{min-height:96px; resize:vertical}
     .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
     .hint{font-size:13px; color:var(--muted); line-height:1.6}
     .fine{font-size:12px; color:rgba(231,238,247,.55); line-height:1.6}
 
-    /* Footer */
     footer{
       padding:46px 0;
       border-top:1px solid var(--line);
@@ -258,7 +249,6 @@
     .foot a:hover{opacity:1; text-decoration:underline}
     .cols{display:grid; grid-template-columns:repeat(3, minmax(160px, 1fr)); gap:18px}
 
-    /* Responsive */
     @media (max-width: 980px){
       .nav{display:none}
       .grid2{grid-template-columns:1fr}
@@ -268,11 +258,14 @@
       th,td{padding:12px 14px}
       section{padding:54px 0}
     }
+    @media (max-width:640px){
+      .ribbon-inner{gap:8px}
+      .pill{font-size:10px; padding:6px 8px}
+    }
   </style>
 </head>
 
 <body>
-  <!-- TOPBAR: Brand / Nav / Language Toggle -->
   <div class="topbar">
     <div class="wrap">
       <div class="topbar-inner">
@@ -302,7 +295,6 @@
       </div>
     </div>
 
-    <!-- STATUS RIBBON: must scream "LIVE" -->
     <div class="ribbon">
       <div class="wrap">
         <div class="ribbon-inner">
@@ -327,7 +319,6 @@
     </div>
   </div>
 
-  <!-- HERO -->
   <main id="top">
     <section>
       <div class="wrap">
@@ -368,7 +359,6 @@
             </p>
           </div>
 
-          <!-- RIGHT: Launch Panel (replace with live widgets later) -->
           <aside class="panel">
             <div class="board-head">
               <div>
@@ -398,19 +388,12 @@
                   <div class="mini t" data-en="registry entries" data-ru="записи реестра">registry entries</div>
                 </div>
               </div>
-
-              <div style="margin-top:14px" class="hint t"
-                data-en="Replace these counters with real data (API / CMS / manual v1). The page must feel operational."
-                data-ru="Замените счётчики на реальные данные (API / CMS / ручной v1). Страница должна ощущаться как работающая система.">
-                Replace these counters with real data (API / CMS / manual v1). The page must feel operational.
-              </div>
             </div>
           </aside>
         </div>
       </div>
     </section>
 
-    <!-- MARKET / REGISTRY -->
     <section id="market">
       <div class="wrap">
         <div class="kicker t" data-en="Registry v1" data-ru="Реестр v1">Registry v1</div>
@@ -424,9 +407,8 @@
             <div class="board-meta t" data-en="Filter: All" data-ru="Фильтр: все">Filter: All</div>
           </div>
 
-          <!-- TABLE: Replace rows with live registry feed -->
           <div style="overflow:auto">
-            <table aria-label="Active listings">
+            <table>
               <thead>
                 <tr>
                   <th class="t" data-en="Asset class" data-ru="Класс актива">Asset class</th>
@@ -438,49 +420,40 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Cryo Biome Reserve</strong><div class="fine">BAIN-CCX-0007</div></td>
-                  <td>Western Siberia</td>
+                  <td><strong class="t" data-en="Cryo Biome Reserve" data-ru="Криогенный биомный резерв">Cryo Biome Reserve</strong><div class="fine">BAIN-CCX-0007</div></td>
+                  <td class="t" data-en="Western Siberia" data-ru="Западная Сибирь">Western Siberia</td>
                   <td>0.8–1.6T (ref)</td>
                   <td><span class="status inventory"><span class="dot"></span><span class="t" data-en="Inventory" data-ru="Инвентаризация">Inventory</span></span></td>
                   <td><a class="btn" style="padding:8px 10px;border-radius:12px" href="#list"><span class="t" data-en="Submit update" data-ru="Обновить">Submit update</span></a></td>
                 </tr>
                 <tr>
-                  <td><strong>Carbon Stability Stratum</strong><div class="fine">BAIN-CCX-0011</div></td>
-                  <td>Lena Basin</td>
+                  <td><strong class="t" data-en="Carbon Stability Stratum" data-ru="Слой углеродной стабильности">Carbon Stability Stratum</strong><div class="fine">BAIN-CCX-0011</div></td>
+                  <td class="t" data-en="Lena Basin" data-ru="Бассейн Лены">Lena Basin</td>
                   <td>2.4T (ref)</td>
                   <td><span class="status verify"><span class="dot"></span><span class="t" data-en="Under verification" data-ru="На верификации">Under verification</span></span></td>
                   <td><a class="btn" style="padding:8px 10px;border-radius:12px" href="#access"><span class="t" data-en="Request access" data-ru="Запросить доступ">Request access</span></a></td>
                 </tr>
                 <tr>
-                  <td><strong>Thermodynamic Gradient Zone</strong><div class="fine">BAIN-CCX-0014</div></td>
-                  <td>Arctic Corridor</td>
+                  <td><strong class="t" data-en="Thermodynamic Gradient Zone" data-ru="Термодинамическая зона градиента">Thermodynamic Gradient Zone</strong><div class="fine">BAIN-CCX-0014</div></td>
+                  <td class="t" data-en="Arctic Corridor" data-ru="Арктический коридор">Arctic Corridor</td>
                   <td>TBD</td>
                   <td><span class="status pending"><span class="dot"></span><span class="t" data-en="Survey open" data-ru="Съёмка открыта">Survey open</span></span></td>
                   <td><a class="btn" style="padding:8px 10px;border-radius:12px" href="#list"><span class="t" data-en="List asset" data-ru="Листинг">List asset</span></a></td>
                 </tr>
                 <tr>
-                  <td><strong>Preserved Genetic Archive</strong><div class="fine">BAIN-CCX-0019</div></td>
+                  <td><strong class="t" data-en="Preserved Genetic Archive" data-ru="Законсервированный генетический архив">Preserved Genetic Archive</strong><div class="fine">BAIN-CCX-0019</div></td>
                   <td>Yakutia</td>
-                  <td>Under assessment</td>
+                  <td class="t" data-en="Under assessment" data-ru="На оценке">Under assessment</td>
                   <td><span class="status cleared"><span class="dot"></span><span class="t" data-en="Cleared" data-ru="Клиринг пройден">Cleared</span></span></td>
                   <td><a class="btn" style="padding:8px 10px;border-radius:12px" href="#docs"><span class="t" data-en="View terms" data-ru="Условия">View terms</span></a></td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-          <div class="pad" style="padding:18px 22px;">
-            <div class="hint t"
-                 data-en="This is the Exchange feel. Keep it live: a registry feed, statuses, and a clear action per row."
-                 data-ru="Это ощущение биржи. Держите блок живым: лента реестра, статусы и действие в каждой строке.">
-              This is the Exchange feel. Keep it live: a registry feed, statuses, and a clear action per row.
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- HOW IT WORKS -->
     <section id="how">
       <div class="wrap">
         <div class="kicker t" data-en="How it works" data-ru="Как работает">How it works</div>
@@ -493,9 +466,9 @@
             </span>
           </h2>
           <p class="hint t"
-             data-en="v1 is an operational pipeline. It is not a story. It produces artifacts: an Asset ID, a verified profile, a class assignment, and a registry entry."
-             data-ru="v1 — это операционный конвейер. Не история. Он производит артефакты: Asset ID, верифицированный профиль, присвоение класса и запись в реестре.">
-            v1 is an operational pipeline. It is not a story. It produces artifacts: an Asset ID, a verified profile, a class assignment, and a registry entry.
+             data-en="v1 is an operational pipeline. It produces artifacts: an Asset ID, a verified profile, a class assignment, and a registry entry."
+             data-ru="v1 — это операционный конвейер. Он производит артефакты: Asset ID, верифицированный профиль, присвоение класса и запись в реестре.">
+            v1 is an operational pipeline. It produces artifacts: an Asset ID, a verified profile, a class assignment, and a registry entry.
           </p>
 
           <div style="height:14px"></div>
@@ -507,28 +480,24 @@
               <div class="d t" data-en="Submit territory/asset parameters and initial documentation." data-ru="Подайте параметры территории/актива и исходные материалы.">Submit territory/asset parameters and initial documentation.</div>
               <div class="out t" data-en="Output: Asset ID" data-ru="Выход: Asset ID">Output: Asset ID</div>
             </div>
-
             <div class="step">
               <div class="n">02</div>
               <div class="t t" data-en="Verify" data-ru="Верификация">Verify</div>
               <div class="d t" data-en="Route to scientific verification layer (institutional workflow)." data-ru="Маршрутизация в научную верификацию (институциональный процесс).">Route to scientific verification layer (institutional workflow).</div>
               <div class="out t" data-en="Output: Verified profile" data-ru="Выход: Верифицированный профиль">Output: Verified profile</div>
             </div>
-
             <div class="step">
               <div class="n">03</div>
               <div class="t t" data-en="Classify" data-ru="Классификация">Classify</div>
               <div class="d t" data-en="Assign capital class + reference band according to the Exchange taxonomy." data-ru="Присвойте класс капитала + референсный диапазон по таксономии биржи.">Assign capital class + reference band according to the Exchange taxonomy.</div>
               <div class="out t" data-en="Output: Class + band" data-ru="Выход: Класс + диапазон">Output: Class + band</div>
             </div>
-
             <div class="step">
               <div class="n">04</div>
               <div class="t t" data-en="Clear" data-ru="Клиринг">Clear</div>
               <div class="d t" data-en="Register into the clearing ledger and lock reserve state." data-ru="Внесите в клиринговый реестр и зафиксируйте статус резерва.">Register into the clearing ledger and lock reserve state.</div>
               <div class="out t" data-en="Output: Registry entry" data-ru="Выход: Запись в реестре">Output: Registry entry</div>
             </div>
-
             <div class="step">
               <div class="n">05</div>
               <div class="t t" data-en="Settle" data-ru="Урегулирование">Settle</div>
@@ -540,25 +509,19 @@
       </div>
     </section>
 
-    <!-- LIST AN ASSET -->
     <section id="list">
       <div class="wrap">
         <div class="kicker t" data-en="List an asset" data-ru="Подать актив">List an asset</div>
 
         <div class="grid2">
           <div class="panel pad">
-            <h2 style="margin:0 0 10px 0" class="t"
-                data-en="Submit Cryo Asset (v1)"
-                data-ru="Подача крио-актива (v1)">
-              Submit Cryo Asset (v1)
-            </h2>
+            <h2 style="margin:0 0 10px 0" class="t" data-en="Submit Cryo Asset (v1)" data-ru="Подача крио-актива (v1)">Submit Cryo Asset (v1)</h2>
             <p class="hint t"
                data-en="v1 submission is structured. You will receive an Asset ID and a status. Verification routing is institutional."
                data-ru="Подача v1 — структурированная. Вы получите Asset ID и статус. Маршрутизация верификации — институциональная.">
               v1 submission is structured. You will receive an Asset ID and a status. Verification routing is institutional.
             </p>
 
-            <!-- v1 Form: wire to backend later -->
             <form class="form" onsubmit="return handleSubmit(event)">
               <div class="row2">
                 <div>
@@ -627,66 +590,45 @@
               </div>
 
               <p class="fine t"
-                 data-en="v1 is a controlled pipeline. Submissions may be queued. You will receive an Asset ID and a status within the operational window."
-                 data-ru="v1 — контролируемый конвейер. Заявки могут ставиться в очередь. Вы получите Asset ID и статус в рамках операционного окна.">
-                v1 is a controlled pipeline. Submissions may be queued. You will receive an Asset ID and a status within the operational window.
+                 data-en="v1 is a controlled pipeline. You will receive an Asset ID and a status within the operational window."
+                 data-ru="v1 — контролируемый конвейер. Вы получите Asset ID и статус в рамках операционного окна.">
+                v1 is a controlled pipeline. You will receive an Asset ID and a status within the operational window.
               </p>
             </form>
           </div>
 
           <aside class="panel pad">
-            <h2 style="margin:0 0 10px 0" class="t"
-                data-en="What you get in v1"
-                data-ru="Что вы получаете в v1">
-              What you get in v1
-            </h2>
-
+            <h2 style="margin:0 0 10px 0" class="t" data-en="What you get in v1" data-ru="Что вы получаете в v1">What you get in v1</h2>
             <div class="cards" style="grid-template-columns:1fr;">
               <div class="card">
-                <h3 class="t" data-en="Asset ID" data-ru="Asset ID">Asset ID</h3>
+                <h3>Asset ID</h3>
                 <p class="t" data-en="A unique identifier for tracking the asset through the pipeline." data-ru="Уникальный идентификатор для отслеживания по конвейеру.">A unique identifier for tracking the asset through the pipeline.</p>
                 <div class="mini">BAIN-CCX-####</div>
               </div>
-
               <div class="card">
                 <h3 class="t" data-en="Status tracking" data-ru="Статусы">Status tracking</h3>
-                <p class="t" data-en="Transparent states: Inventory → Verification → Classified → Cleared." data-ru="Прозрачные статусы: Инвентаризация → Верификация → Класс → Клиринг.">Transparent states: Inventory → Verification → Classified → Cleared.</p>
+                <p class="t" data-en="Inventory → Verification → Classified → Cleared." data-ru="Инвентаризация → Верификация → Класс → Клиринг.">Inventory → Verification → Classified → Cleared.</p>
               </div>
-
               <div class="card">
                 <h3 class="t" data-en="Clearing ledger entry" data-ru="Запись в реестре">Clearing ledger entry</h3>
-                <p class="t" data-en="Cleared assets are registered for institutional settlement and reserve logic." data-ru="Клиринговые активы регистрируются для институционального урегулирования и логики резерва.">Cleared assets are registered for institutional settlement and reserve logic.</p>
+                <p class="t" data-en="Cleared assets registered for institutional settlement and reserve logic." data-ru="Клиринговые активы регистрируются для институционального урегулирования и логики резерва.">Cleared assets registered for institutional settlement and reserve logic.</p>
               </div>
             </div>
-
-            <div style="height:14px"></div>
-            <p class="hint t"
-               data-en="Secondary liquidity and trading instruments are phase features. The Exchange starts with registry + clearing reality."
-               data-ru="Вторичная ликвидность и торговые инструменты — по фазам. Биржа начинается с реестра и клиринговой реальности.">
-              Secondary liquidity and trading instruments are phase features. The Exchange starts with registry + clearing reality.
-            </p>
           </aside>
         </div>
       </div>
     </section>
 
-    <!-- ACCESS / ONBOARDING -->
     <section id="access">
       <div class="wrap">
         <div class="kicker t" data-en="Access" data-ru="Доступ">Access</div>
-
         <div class="panel pad">
-          <h2 style="margin:0 0 10px 0" class="t"
-              data-en="Institutional onboarding"
-              data-ru="Институциональный онбординг">
-            Institutional onboarding
-          </h2>
+          <h2 style="margin:0 0 10px 0" class="t" data-en="Institutional onboarding" data-ru="Институциональный онбординг">Institutional onboarding</h2>
           <p class="hint t"
              data-en="CryoCapital Exchange is designed for institutional counterparties. Access is granted by role and mandate."
              data-ru="CryoCapital Exchange рассчитан на институциональных участников. Доступ выдаётся по роли и мандату.">
             CryoCapital Exchange is designed for institutional counterparties. Access is granted by role and mandate.
           </p>
-
           <div class="cards">
             <div class="card">
               <h3 class="t" data-en="Sovereign / Public" data-ru="Государственный контур">Sovereign / Public</h3>
@@ -704,9 +646,7 @@
               <div class="mini t" data-en="Access: compliance gate" data-ru="Доступ: комплаенс">Access: compliance gate</div>
             </div>
           </div>
-
           <div style="height:16px"></div>
-
           <div class="actions">
             <a class="btn primary" href="mailto:info@cryocapital.exchange">
               <span class="t" data-en="Request access" data-ru="Запросить доступ">Request access</span>
@@ -715,119 +655,47 @@
               <span class="t" data-en="Read governance" data-ru="Читать управление">Read governance</span>
             </a>
           </div>
-
-          <p class="fine t" style="margin-top:12px"
-             data-en="Replace mailto with a real onboarding form + ticketing pipeline when ready."
-             data-ru="Замените mailto на форму онбординга + систему заявок, когда будете готовы.">
-            Replace mailto with a real onboarding form + ticketing pipeline when ready.
-          </p>
         </div>
       </div>
     </section>
 
-    <!-- DOCS / GOVERNANCE -->
     <section id="docs">
       <div class="wrap">
         <div class="kicker t" data-en="Docs" data-ru="Документы">Docs</div>
-
         <div class="grid2">
           <div class="panel pad">
-            <h2 style="margin:0 0 10px 0" class="t"
-                data-en="Documentation hub"
-                data-ru="Центр документации">
-              Documentation hub
-            </h2>
-            <p class="hint t"
-               data-en="Use this section to link the whitepapers, the taxonomy, listing requirements, and the v1 status definitions."
-               data-ru="Здесь размещаются whitepaper’ы, таксономия, требования листинга и определения статусов v1.">
-              Use this section to link the whitepapers, the taxonomy, listing requirements, and the v1 status definitions.
-            </p>
-
+            <h2 style="margin:0 0 10px 0" class="t" data-en="Documentation" data-ru="Документация">Documentation</h2>
             <div class="cards" style="grid-template-columns:1fr;">
               <div class="card">
                 <h3 class="t" data-en="Whitepaper (EN)" data-ru="Whitepaper (EN)">Whitepaper (EN)</h3>
                 <p class="t" data-en="Founding framework and protocol rationale." data-ru="Фундаментальная рамка и логика протокола.">Founding framework and protocol rationale.</p>
-                <div class="actions" style="margin-top:12px">
-                  <a class="btn" href="#" onclick="alert('Link this to your hosted PDF / doc'); return false;">
-                    <span class="t" data-en="Open" data-ru="Открыть">Open</span>
-                  </a>
-                </div>
+                <div class="actions" style="margin-top:12px"><a class="btn" href="#">Open →</a></div>
               </div>
-
               <div class="card">
                 <h3 class="t" data-en="Whitepaper (RU)" data-ru="Whitepaper (RU)">Whitepaper (RU)</h3>
                 <p class="t" data-en="Russian-language protocol articulation." data-ru="Русскоязычное изложение протокола.">Russian-language protocol articulation.</p>
-                <div class="actions" style="margin-top:12px">
-                  <a class="btn" href="#" onclick="alert('Link this to your hosted PDF / doc'); return false;">
-                    <span class="t" data-en="Open" data-ru="Открыть">Open</span>
-                  </a>
-                </div>
+                <div class="actions" style="margin-top:12px"><a class="btn" href="#">Открыть →</a></div>
               </div>
-
               <div class="card">
                 <h3 class="t" data-en="Taxonomy & Listing Rules" data-ru="Таксономия и правила листинга">Taxonomy & Listing Rules</h3>
-                <p class="t" data-en="Asset classes, required fields, verification routing, and status lifecycle." data-ru="Классы активов, обязательные поля, маршрутизация верификации и жизненный цикл статусов.">Asset classes, required fields, verification routing, and status lifecycle.</p>
+                <p class="t" data-en="Asset classes, verification routing, and status lifecycle." data-ru="Классы активов, маршрутизация верификации и жизненный цикл статусов.">Asset classes, verification routing, and status lifecycle.</p>
               </div>
             </div>
           </div>
 
           <aside class="panel pad">
-            <h2 style="margin:0 0 10px 0" class="t"
-                data-en="Operational definitions (v1)"
-                data-ru="Операционные определения (v1)">
-              Operational definitions (v1)
-            </h2>
-            <p class="hint t"
-               data-en="Keep it crisp. Exchange pages must define operational objects, not ideology."
-               data-ru="Коротко и по делу. Биржа должна определять операционные объекты, а не идеологию.">
-              Keep it crisp. Exchange pages must define operational objects, not ideology.
-            </p>
-
-            <div class="card">
-              <h3 class="t" data-en="Asset ID" data-ru="Asset ID">Asset ID</h3>
-              <p class="t" data-en="A persistent identifier for a listed cryo asset. Tracks lifecycle and audit trail." data-ru="Постоянный идентификатор для листинга крио-актива. Отслеживает цикл и аудит.">A persistent identifier for a listed cryo asset. Tracks lifecycle and audit trail.</p>
-            </div>
+            <h2 style="margin:0 0 10px 0" class="t" data-en="Operational definitions" data-ru="Операционные определения">Operational definitions</h2>
+            <div class="card"><h3>Asset ID</h3><p class="t" data-en="Persistent identifier for a listed cryo asset. Tracks lifecycle and audit trail." data-ru="Постоянный идентификатор крио-актива. Отслеживает цикл и аудит.">Persistent identifier for a listed cryo asset. Tracks lifecycle and audit trail.</p></div>
             <div style="height:10px"></div>
-            <div class="card">
-              <h3 class="t" data-en="Clearing" data-ru="Клиринг">Clearing</h3>
-              <p class="t" data-en="Registry entry with validated class + verified profile + reserve/settlement readiness." data-ru="Запись в реестре с валидированным классом + верифицированным профилем + готовностью резерва/урегулирования.">Registry entry with validated class + verified profile + reserve/settlement readiness.</p>
-            </div>
+            <div class="card"><h3 class="t" data-en="Clearing" data-ru="Клиринг">Clearing</h3><p class="t" data-en="Registry entry with validated class + verified profile + settlement readiness." data-ru="Запись в реестре с валидированным классом + верифицированным профилем + готовностью к урегулированию.">Registry entry with validated class + verified profile + settlement readiness.</p></div>
             <div style="height:10px"></div>
-            <div class="card">
-              <h3 class="t" data-en="Settlement" data-ru="Урегулирование">Settlement</h3>
-              <p class="t" data-en="Institutional agreements via approved counterparties and terms. (Secondary markets are phased.)" data-ru="Институциональные соглашения через утверждённых контрагентов и условия. (Вторичный рынок — по фазам.)">Institutional agreements via approved counterparties and terms. (Secondary markets are phased.)</p>
-            </div>
+            <div class="card"><h3 class="t" data-en="Settlement" data-ru="Урегулирование">Settlement</h3><p class="t" data-en="Institutional agreements via approved counterparties. Secondary markets are phased." data-ru="Институциональные соглашения через утверждённых контрагентов. Вторичный рынок — по фазам.">Institutional agreements via approved counterparties. Secondary markets are phased.</p></div>
           </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="wrap">
-        <div class="kicker t" data-en="FAQ" data-ru="FAQ">FAQ</div>
-        <div class="panel pad">
-          <div class="cards" style="grid-template-columns:1fr 1fr;">
-            <div class="card">
-              <h3 class="t" data-en="Is this crypto?" data-ru="Это крипта?">Is this crypto?</h3>
-              <p class="t" data-en="No. v1 is registry + clearing pipeline. Instruments are phased and role-gated." data-ru="Нет. v1 — реестр + клиринговый конвейер. Инструменты — по фазам и по ролям.">No. v1 is registry + clearing pipeline. Instruments are phased and role-gated.</p>
-            </div>
-            <div class="card">
-              <h3 class="t" data-en="Who can list?" data-ru="Кто может листить?">Who can list?</h3>
-              <p class="t" data-en="Institutional operators: sovereign/regional/scientific roles. Access is gated." data-ru="Институциональные операторы: государственные/региональные/научные роли. Доступ ограничен.">Institutional operators: sovereign/regional/scientific roles. Access is gated.</p>
-            </div>
-          </div>
-          <p class="fine t" style="margin-top:12px"
-             data-en="Add 6–10 FAQ items max. Keep answers short and operational."
-             data-ru="Добавьте 6–10 вопросов максимум. Ответы короткие, операционные.">
-            Add 6–10 FAQ items max. Keep answers short and operational.
-          </p>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="wrap">
       <div class="foot">
@@ -835,19 +703,12 @@
           <div style="display:flex; align-items:center; gap:12px;">
             <div class="brand-badge" aria-hidden="true" style="width:24px;height:24px;border-radius:9px"></div>
             <div>
-              <strong class="t" data-en="CryoCapital Exchange" data-ru="CryoCapital Exchange">CryoCapital Exchange</strong><br />
+              <strong>CryoCapital Exchange</strong><br />
               <span class="t" data-en="Market Infrastructure v1" data-ru="Рыночная инфраструктура v1">Market Infrastructure v1</span>
             </div>
           </div>
-          <div class="fine" style="margin-top:10px">
-            <span class="t"
-              data-en="© 2026 CryoCapital Exchange. All rights reserved."
-              data-ru="© 2026 CryoCapital Exchange. Все права защищены.">
-              © 2026 CryoCapital Exchange. All rights reserved.
-            </span>
-          </div>
+          <div class="fine" style="margin-top:10px">© 2026 CryoCapital Exchange. cryocapital.exchange</div>
         </div>
-
         <div class="cols">
           <div>
             <div class="fine" style="font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55);">Product</div>
@@ -857,7 +718,6 @@
               <a href="#list" class="t" data-en="Listing" data-ru="Листинг">Listing</a>
             </div>
           </div>
-
           <div>
             <div class="fine" style="font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55);">Institutional</div>
             <div style="margin-top:10px; display:grid; gap:6px;">
@@ -866,50 +726,41 @@
               <a href="mailto:info@cryocapital.exchange">info@cryocapital.exchange</a>
             </div>
           </div>
-
           <div>
             <div class="fine" style="font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55);">Legal</div>
             <div style="margin-top:10px; display:grid; gap:6px;">
-              <a href="#" onclick="alert('Link to Terms');return false;" class="t" data-en="Terms" data-ru="Условия">Terms</a>
-              <a href="#" onclick="alert('Link to Privacy');return false;" class="t" data-en="Privacy" data-ru="Конфиденциальность">Privacy</a>
-              <a href="#" onclick="alert('Link to Disclosures');return false;" class="t" data-en="Disclosures" data-ru="Раскрытия">Disclosures</a>
+              <a href="#" class="t" data-en="Terms" data-ru="Условия">Terms</a>
+              <a href="#" class="t" data-en="Privacy" data-ru="Конфиденциальность">Privacy</a>
+              <a href="#" class="t" data-en="Disclosures" data-ru="Раскрытия">Disclosures</a>
             </div>
           </div>
         </div>
       </div>
-
       <div class="fine t" style="margin-top:22px; opacity:.7"
-           data-en="Disclaimer: v1 provides registry and clearing pipeline. Any capital instruments or secondary trading are phased and subject to role-gated compliance."
-           data-ru="Дисклеймер: v1 — это реестр и клиринговый конвейер. Инструменты капитала и вторичная торговля — по фазам и при ограниченном доступе.">
-        Disclaimer: v1 provides registry and clearing pipeline. Any capital instruments or secondary trading are phased and subject to role-gated compliance.
+           data-en="Disclaimer: v1 provides registry and clearing pipeline. Capital instruments and secondary trading are phased and subject to role-gated compliance. KRYONIS Sovereign Systems · ОБР · Kurchatov Institute · CBD Art.15 · ЦФА 259-FZ"
+           data-ru="Дисклеймер: v1 — реестр и клиринговый конвейер. Инструменты капитала и вторичная торговля — по фазам. KRYONIS Sovereign Systems · ОБР · Курчатовский институт · КБР Ст.15 · ЦФА 259-ФЗ">
+        Disclaimer: v1 provides registry and clearing pipeline. Capital instruments and secondary trading are phased and subject to role-gated compliance. KRYONIS Sovereign Systems · ОБР · Kurchatov Institute · CBD Art.15 · ЦФА 259-FZ
       </div>
     </div>
   </footer>
 
   <script>
-    // --- Language system: EN primary, RU toggle ---
     let lang = "en";
 
     function setLang(l){
       lang = l;
       document.documentElement.lang = l;
-
       document.getElementById("btn-en").classList.toggle("active", l === "en");
       document.getElementById("btn-ru").classList.toggle("active", l === "ru");
-
       document.querySelectorAll(".t").forEach(el => {
-        const key = l === "ru" ? "data-ru" : "data-en";
-        const val = el.getAttribute(key);
+        const val = el.getAttribute("data-" + l);
         if (val) el.innerHTML = val;
       });
-
-      // Keep title in EN/RU
       document.title = l === "ru"
         ? "CryoCapital Exchange — Рыночная инфраструктура v1"
         : "CryoCapital Exchange — Market Infrastructure v1";
     }
 
-    // Timestamp (fake for v1; replace with real data feed time)
     function stamp(){
       const d = new Date();
       document.getElementById("ts").textContent = d.toISOString().slice(0,19).replace("T"," ");
@@ -917,16 +768,14 @@
     stamp();
     setInterval(stamp, 15000);
 
-    // v1 form stub
     function handleSubmit(e){
       e.preventDefault();
       alert(lang === "ru"
-        ? "Заявка создана (demo). Подключите backend: сохранение заявки, присвоение Asset ID, статусный трекер."
-        : "Submission created (demo). Wire backend: store submission, assign Asset ID, status tracker.");
+        ? "Заявка создана (demo). Подключите backend для присвоения Asset ID и статусного трекинга."
+        : "Submission created (demo). Wire backend: assign Asset ID, status tracker.");
       return false;
     }
 
-    // EN by default
     setLang("en");
   </script>
 </body>
