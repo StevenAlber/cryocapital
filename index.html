@@ -11,16 +11,24 @@
     --cryo:#4AB3E8;--cryo-dim:#1A5070;
     --ice:#D8E8F4;--ice-dim:rgba(216,232,244,.55);--ice-ghost:rgba(216,232,244,.12);
     --amber:#C8861A;--sonar:#00C8FF;--line:rgba(74,179,232,.1);
+    --warning:#FF4444;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--void);color:var(--ice);font-family:'IBM Plex Mono',monospace;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  html{scroll-behavior:smooth;background:#06090F}
+  body{background:#06090F;background-color:#06090F;color:var(--ice);font-family:'IBM Plex Mono',monospace;overflow-x:hidden;-webkit-font-smoothing:antialiased}
   body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
   body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(74,179,232,.05) 0%,transparent 60%),radial-gradient(ellipse 60% 30% at 20% 100%,rgba(200,134,26,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
   section,nav,header,footer,.sys-bar{position:relative;z-index:10}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
   @keyframes sysscan{to{left:110%}}
+  @keyframes urgentpulse{0%,100%{opacity:1;color:var(--warning)}50%{opacity:.5;color:var(--amber)}}
+
+  /* URGENT ALERT BAR — new */
+  .alert-bar{background:rgba(255,68,68,.08);border-bottom:1px solid rgba(255,68,68,.25);padding:8px 48px;display:flex;justify-content:center;align-items:center;gap:20px;font-size:9px;letter-spacing:.22em;text-transform:uppercase}
+  .alert-bar .warn{color:var(--warning);font-weight:700;animation:urgentpulse 2s ease-in-out infinite}
+  .alert-bar .msg{color:var(--ice-dim)}
+  .alert-bar .date{color:var(--amber);font-weight:700}
 
   .sys-bar{background:var(--deep);border-bottom:2px solid var(--cryo-dim);padding:7px 48px;display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ice-dim);overflow:hidden;position:relative}
   .sys-bar::after{content:'';position:absolute;top:0;left:-200px;width:80px;height:100%;background:linear-gradient(90deg,transparent,rgba(74,179,232,.08),transparent);animation:sysscan 8s linear infinite}
@@ -45,7 +53,11 @@
   .hero-headline .shift{display:block;margin-left:60px}
   .hero-headline .ghost{display:block;margin-left:120px;font-weight:300;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:.52em;letter-spacing:.06em;opacity:.22;text-transform:none}
   .hero-body{font-size:13px;line-height:1.85;color:var(--ice-dim);max-width:520px;margin-top:44px;border-left:2px solid var(--cryo-dim);padding-left:20px;opacity:0;animation:fadeUp 1s ease .8s forwards}
-  .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px;opacity:0;animation:fadeUp 1s ease 1s forwards}
+  .hero-body strong{color:var(--ice);font-weight:700}
+  /* NEW: danger callout */
+  .hero-danger{margin-top:28px;padding:16px 20px;background:rgba(255,68,68,.05);border:1px solid rgba(255,68,68,.2);border-left:3px solid var(--warning);font-size:11px;line-height:1.7;color:var(--ice-dim);opacity:0;animation:fadeUp 1s ease 1s forwards}
+  .hero-danger .warn{color:var(--warning);font-weight:700}
+  .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px;opacity:0;animation:fadeUp 1s ease 1.1s forwards}
   .meta-cell{background:var(--deep);padding:24px 20px;transition:background .2s}
   .meta-cell:hover{background:var(--ice-surface)}
   .meta-cell .lbl{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ice-dim);opacity:.5;margin-bottom:10px}
@@ -74,6 +86,10 @@
   .sec-tag.amber{color:var(--amber);border-color:rgba(200,134,26,.3);background:rgba(200,134,26,.05)}
   .sec-tag.light{color:var(--ice-dim);border-color:var(--line)}
 
+  /* NEW: doctrine pull-quote */
+  .doctrine-quote{margin:48px 0 0;padding:28px 32px;border-left:3px solid var(--cryo);background:rgba(74,179,232,.04);font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;line-height:1.5;color:var(--ice);max-width:680px}
+  .doctrine-quote .attr{display:block;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-style:normal;letter-spacing:.2em;text-transform:uppercase;color:var(--cryo);opacity:.6}
+
   .strata-section{background:var(--deep);padding:88px 48px;position:relative;overflow:hidden}
   .strata-section::before{content:'';position:absolute;inset:0;background:linear-gradient(175deg,rgba(74,179,232,.02) 0%,transparent 40%),linear-gradient(5deg,rgba(200,134,26,.015) 0%,transparent 50%);pointer-events:none}
   .strata-inner{max-width:1400px;margin:0 auto;position:relative;z-index:2}
@@ -85,6 +101,9 @@
   .strata-body h2 .c{color:var(--cryo)}.strata-body h2 .a{color:var(--amber)}
   .strata-body p{font-size:13px;line-height:1.85;color:var(--ice-dim);margin-bottom:20px;max-width:640px;opacity:.85}
   .strata-body p strong{color:var(--ice);font-weight:700}
+  /* new: warning paragraph */
+  .strata-body p.p-warn{border-left:2px solid var(--warning);padding-left:16px;opacity:1;color:rgba(216,232,244,.7)}
+  .strata-body p.p-warn strong{color:#FF8080}
 
   .layers{padding:80px 48px;max-width:1400px;margin:0 auto}
   .layers-header{margin-bottom:52px}
@@ -129,12 +148,17 @@
   .proof-text .title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ice);margin-bottom:6px}
   .proof-text p{font-size:12px;line-height:1.65;color:var(--ice-dim);opacity:.55}
 
-  /* CTA — institutional block */
-  .cta{text-align:center;padding:100px 48px;position:relative;overflow:hidden}
-  .cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(74,179,232,.04) 0%,transparent 65%);pointer-events:none}
-  .cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,7vw,108px);font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.01em;margin-bottom:52px;color:var(--ice);position:relative}
-  .cta h2 .c{color:var(--cryo)}.cta h2 .a{color:var(--amber)}
-  .cta h2 .dim{opacity:.2;font-weight:300;font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;font-size:.72em;display:block;letter-spacing:.04em}
+  /* DECLARATION BLOCK — replaces generic CTA */
+  .declaration{padding:100px 48px;position:relative;overflow:hidden}
+  .declaration::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(74,179,232,.05) 0%,transparent 65%);pointer-events:none}
+  .declaration-inner{max-width:900px;margin:0 auto;text-align:center;position:relative}
+  .declaration h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,7vw,108px);font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.01em;margin-bottom:40px;color:var(--ice)}
+  .declaration h2 .c{color:var(--cryo)}.declaration h2 .a{color:var(--amber)}
+  .declaration h2 .dim{opacity:.2;font-weight:300;font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;font-size:.72em;display:block;letter-spacing:.04em}
+  /* new: the doctrine statement */
+  .doctrine-stmt{font-size:15px;line-height:1.8;color:var(--ice-dim);margin-bottom:52px;max-width:660px;margin-left:auto;margin-right:auto}
+  .doctrine-stmt strong{color:var(--ice)}
+  .doctrine-stmt .red{color:var(--warning)}
 
   .inst-block{max-width:820px;margin:0 auto 52px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
   .inst-cell{background:var(--void);padding:32px 24px;text-align:center;transition:background .25s}
@@ -150,6 +174,9 @@
   .btn-cryo:hover{background:var(--ice);transform:translateY(-2px);box-shadow:0 16px 40px rgba(74,179,232,.2)}
   .btn-ghost{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ice);background:transparent;padding:18px 52px;border:1px solid rgba(216,232,244,.2);text-decoration:none;transition:all .2s}
   .btn-ghost:hover{border-color:var(--cryo);color:var(--cryo)}
+
+  /* closing doctrine line */
+  .closing-doctrine{margin-top:48px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-dim);opacity:.35}
 
   footer{border-top:1px solid var(--line);padding:44px 48px}
   .footer-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
@@ -168,7 +195,7 @@
     .hero-meta{grid-template-columns:1fr}
     .strata-grid{grid-template-columns:1fr}
     .strata-index{display:none}
-    .layers,.market,.proof,.cta,footer{padding-left:24px;padding-right:24px}
+    .layers,.market,.proof,.declaration,footer{padding-left:24px;padding-right:24px}
     .depth-column{grid-template-columns:80px 1fr}
     .layer-card{grid-template-columns:1fr;gap:20px}
     .layer-stat{text-align:left}
@@ -178,13 +205,20 @@
     .nav-inner{grid-template-columns:1fr auto;padding:0 20px}
     .footer-inner{flex-direction:column;gap:20px;text-align:center}
     .footer-right{text-align:center}
-    .sys-bar{padding:7px 20px;font-size:8px}
+    .sys-bar,.alert-bar{padding:7px 20px;font-size:8px}
     .strata-section{padding:60px 24px}
     .inst-block{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
+
+<!-- URGENT ALERT — NEW -->
+<div class="alert-bar">
+  <span class="warn">⚠ CRITICAL WINDOW</span>
+  <span class="msg">Every year without a sovereign bio-capital registry is a year the standard gets written elsewhere.</span>
+  <span class="date">IV Forum of Future Technologies · Moscow · 2026</span>
+</div>
 
 <div class="sys-bar">
   <span>PERMAFROST FUTURES // <span class="c">SOVEREIGN BIO-CLEARING PROTOCOL</span> // <span class="blink">■</span> DOCTRINE ACTIVE</span>
@@ -209,12 +243,15 @@
     <div>
       <div class="hero-eyebrow"><div class="dot"></div>Deep Strata Analysis · Siberia Bio-Territory · Live Protocol</div>
       <h1 class="hero-headline">
-        <span class="cryo">The world's</span>
-        <span class="shift">largest archive</span>
-        <span class="shift">has no ledger</span>
-        <span class="ghost">until now</span>
+        <span class="cryo">Capital that is</span>
+        <span class="shift">not registered</span>
+        <span class="shift">is surrendered</span>
+        <span class="ghost">Russia's permafrost holds 1–10 trillion BCU. None of it is on a ledger.</span>
       </h1>
-      <p class="hero-body">Russia's cryosphere spans 65% of national territory — containing 1–10 trillion base units of latent bio-capital frozen across geological epochs. Ancient microbial ecosystems. Preserved genetic archives. Irreplaceable thermodynamic states. Unregistered. Unprotected. Until now.</p>
+      <p class="hero-body">Russia's cryosphere spans 65% of national territory — containing up to <strong>10 trillion base units of latent bio-capital</strong> frozen across geological epochs. Ancient microbial ecosystems. Preserved genetic archives. Irreplaceable thermodynamic states. For 1.8 million years, no standard existed to register any of it. <strong>That ends now.</strong></p>
+      <div class="hero-danger">
+        <span class="warn">THE RISK:</span> While Russia holds the world's largest sovereign cryospheric endowment, other jurisdictions are building the vocabulary, the verification protocols, and the accounting standards that will define what this asset class is worth — and who controls the narrative around it. The window to author the doctrine is closing.
+      </div>
       <div class="hero-meta">
         <div class="meta-cell">
           <div class="lbl">Estimated Bio-Capital Reserve</div>
@@ -263,9 +300,13 @@
       </div>
       <div class="strata-body">
         <h2>Permafrost is not a problem<br>It is <span class="c">archived capital</span><br>It belongs to <span class="a">Russia</span></h2>
-        <p>Every financial system ever built extracted value from the present. The Sovereign Bio-Clearing Protocol operates on a different premise: the most concentrated repository of biological intelligence on Earth has been preserved in Siberian permafrost for up to 1.8 million years — and Russia has never registered, measured, or governed it.</p>
-        <p>This is not oil. This is not gas. This is <strong>thermodynamic sovereignty</strong> — compressed, preserved, and now subject to Russian sovereign accounting through the Bio-Clearing Unit framework.</p>
-        <p>Capital that is not recognised is capital that is surrendered. While Russia holds the world's largest sovereign cryospheric endowment, no standard exists for its classification, verification, or deployment. PERMAFROST FUTURES is the doctrine that changes this.</p>
+        <p class="p-warn"><strong>Capital that is not recognised is capital that is surrendered.</strong> Russia holds the world's largest sovereign cryospheric endowment — and no standard exists for its classification, verification, or deployment. This is not a regulatory gap. It is a strategic vulnerability.</p>
+        <p>Every financial system ever built extracted value from the present. The Sovereign Bio-Clearing Protocol operates on a different premise: the most concentrated repository of biological intelligence on Earth has been preserved in Siberian permafrost for up to 1.8 million years. It is not oil. It is not gas. It is <strong>thermodynamic sovereignty</strong> — compressed, preserved, and now subject to Russian sovereign accounting through the Bio-Clearing Unit framework.</p>
+        <p>The doctrine that names this asset owns it. The protocol that registers it controls it. The institution that verifies it becomes the global standard authority. Russia has two to five years before others step into this space. PERMAFROST FUTURES is the instrument through which Russia acts first.</p>
+        <div class="doctrine-quote">
+          "The question is not whether this infrastructure will be built. The question is: who defines the standards?"
+          <span class="attr">SBCP v1.0 · Founding Doctrine · Moscow 2026</span>
+        </div>
       </div>
     </div>
   </div>
@@ -291,7 +332,7 @@
         <div>
           <div class="age">Sovereign Function · Territorial Survey</div>
           <h3>Inventory</h3>
-          <p>Standardised bio-thermodynamic survey protocols for priority permafrost zones. ОБР's 59 regional departments deploy across Western Siberia and the Lena River basin. Phase I: five priority zones, 2026–2030.</p>
+          <p>Standardised bio-thermodynamic survey protocols for priority permafrost zones. ОБР's 59 regional departments deploy across Western Siberia and the Lena River basin. Phase I: five priority zones, 2026–2030. The survey is the act of sovereign claim.</p>
         </div>
         <div class="layer-stat"><div class="n">59</div><div class="u">ОБР regional depts</div></div>
       </div>
@@ -299,7 +340,7 @@
         <div>
           <div class="age">Sovereign Function · Scientific Authority</div>
           <h3>Verification</h3>
-          <p>All bio-capital assessments submitted for independent verification by the Kurchatov Institute — Russia's premier state scientific authority. Kurchatov seal transforms assessments into formally recognised sovereign bio-capital claims.</p>
+          <p>All bio-capital assessments submitted for independent verification by the Kurchatov Institute — Russia's premier state scientific authority. The Kurchatov seal is not a formality. It is the instrument that transforms a field assessment into a sovereign bio-capital claim.</p>
         </div>
         <div class="layer-stat"><div class="n">KI</div><div class="u">Kurchatov Institute</div></div>
       </div>
@@ -307,7 +348,7 @@
         <div>
           <div class="age">Sovereign Function · Asset Classification</div>
           <h3>Classification</h3>
-          <p>Verified assets classified into five sovereign bio-capital asset classes with applicable Bio-Clearing Unit valuation. BCU is the sovereign accounting unit — not denominated in any external currency. The standard, not the market, determines value.</p>
+          <p>Verified assets classified into five sovereign bio-capital asset classes with applicable Bio-Clearing Unit valuation. BCU is the sovereign accounting unit — denominated in Russian standard, not external currency. The standard defines value. The market does not.</p>
         </div>
         <div class="layer-stat"><div class="n">5</div><div class="u">BCU asset classes</div></div>
       </div>
@@ -315,7 +356,7 @@
         <div>
           <div class="age">Sovereign Function · Reserve Ledger</div>
           <h3>Clearing</h3>
-          <p>Cleared assets enter the PERMAFROST FUTURES sovereign reserve ledger. Deployable through sovereign-to-sovereign agreements, strategic research licences, or held as long-term state reserve. Phase III: ЦФА (Federal Law No. 259-FZ) multilateral framework.</p>
+          <p>Cleared assets enter the PERMAFROST FUTURES sovereign reserve ledger — the first sovereign bio-capital registry in the world operating under Russian legal jurisdiction. Deployable through sovereign-to-sovereign agreements or held as long-term state reserve. Phase III: ЦФА (Federal Law No. 259-FZ) multilateral framework.</p>
         </div>
         <div class="layer-stat"><div class="n">ЦФА</div><div class="u">Russian legal framework</div></div>
       </div>
@@ -323,7 +364,7 @@
         <div>
           <div class="age">Legal Anchor · International Precedent</div>
           <h3>Nagoya Protocol</h3>
-          <p>Russia is a signatory to the Convention on Biological Diversity. The Nagoya Protocol grants sovereign Prior Informed Consent, Mutually Agreed Terms, and Benefit-Sharing rights over all biological genetic resources within national territory. The SBCP operationalises rights Russia already holds.</p>
+          <p>Russia is a signatory to the Convention on Biological Diversity. The Nagoya Protocol grants sovereign Prior Informed Consent, Mutually Agreed Terms, and Benefit-Sharing rights over all biological genetic resources within national territory. The SBCP does not invent new rights. It operationalises rights Russia already holds — but has never exercised at scale.</p>
         </div>
         <div class="layer-stat"><div class="n">CBD</div><div class="u">International legal anchor</div></div>
       </div>
@@ -336,7 +377,7 @@
     <span class="sec-tag light sr">03 / Sovereign Architecture</span>
     <h2 class="sr">KRYONIS is the standard<br><span class="c">PERMAFROST FUTURES</span><br>is the ledger<br><span class="dim">The Russian state is the sovereign</span></h2>
     <div class="stats-row sr">
-      <div class="stat-box blue"><div class="n">BCU</div><div class="l">Bio-Clearing Units<br>not euros, not dollars</div></div>
+      <div class="stat-box blue"><div class="n">BCU</div><div class="l">Bio-Clearing Units<br>not euros · not dollars</div></div>
       <div class="stat-box amber"><div class="n">1–10T</div><div class="l">Base units of latent<br>cryospheric bio-capital</div></div>
       <div class="stat-box blue"><div class="n">65%</div><div class="l">Russian territory<br>covered by permafrost</div></div>
       <div class="stat-box amber"><div class="n">100yr</div><div class="l">Civilisational horizon<br>Phase I–III roadmap</div></div>
@@ -348,64 +389,72 @@
   <div class="proof-left sr">
     <span class="sec-tag cryo">04 / Roadmap</span>
     <h2>Three phases<br><span class="c">One century</span></h2>
-    <p>The first sovereign act is already in motion. Everything that follows — Pan-Arctic framework, ЦФА instruments, civilisational bio-reserve — rests on the protocol now being declared. The standard precedes the instrument. The registry precedes the asset.</p>
+    <p>The first sovereign act is already in motion. The standard precedes the instrument. The registry precedes the asset. The doctrine precedes the market. Everything that follows — Pan-Arctic framework, ЦФА instruments, civilisational bio-reserve — rests on the protocol declared here.</p>
   </div>
   <div class="proof-right sr d2">
     <div class="proof-item">
       <div class="proof-num">I</div>
       <div class="proof-text">
         <div class="title">Siberian Sovereign Inventory · 2026–2030</div>
-        <p>KRYONIS/ОБР survey protocols. Kurchatov-verified baseline inventories for five priority zones in Western Siberia and the Lena basin. Russia–China 90-day sovereign pilot. Phase I activation: 2026.</p>
+        <p>KRYONIS/ОБР survey protocols. Kurchatov-verified baseline inventories for five priority zones in Western Siberia and the Lena basin. Russia–China 90-day sovereign pilot. Phase I activation: 2026. This is the founding act. Everything else is built on this.</p>
       </div>
     </div>
     <div class="proof-item">
       <div class="proof-num">II</div>
       <div class="proof-text">
         <div class="title">Pan-Arctic Sovereign Framework · 2030–2040</div>
-        <p>Pan-Arctic Bio-Capital Registry under Russian-defined standards. Bilateral sovereign bio-capital agreements with Arctic states. SBCP submitted to CBD/Nagoya bodies as model implementation. Russia becomes architect of global cryospheric bio-capital doctrine.</p>
+        <p>Pan-Arctic Bio-Capital Registry under Russian-defined standards. Bilateral sovereign bio-capital agreements with Arctic states. SBCP submitted to CBD/Nagoya bodies as model implementation. Russia becomes the architect of global cryospheric bio-capital doctrine — not its adopter.</p>
       </div>
     </div>
     <div class="proof-item">
       <div class="proof-num">III</div>
       <div class="proof-text">
         <div class="title">Sovereign ЦФА Instruments · 2040–2055</div>
-        <p>BCU-denominated multilateral bio-capital arrangements under Federal Law No. 259-FZ. Full Russian federal jurisdiction. Central Bank oversight. No dependence on Western financial infrastructure. Tokenisation is a late-stage function — not a foundational mechanism.</p>
+        <p>BCU-denominated multilateral bio-capital arrangements under Federal Law No. 259-FZ. Full Russian federal jurisdiction. Central Bank oversight. No dependence on Western financial infrastructure. Tokenisation is a late-stage function — it serves the standard, not the reverse.</p>
       </div>
     </div>
     <div class="proof-item">
       <div class="proof-num">∞</div>
       <div class="proof-text">
         <div class="title">The Doctrine · 100–300 Year Horizon</div>
-        <p>Russia does not need to monetise its permafrost bio-capital immediately. It needs to register it before others define what it is worth. The SBCP is the instrument through which that fact becomes sovereign strategic reality.</p>
+        <p>Russia does not need to liquidate its permafrost bio-capital. It needs to register it before others define what it is worth. Every year of inaction is a year the vocabulary, the metrics, and the valuation methodology are authored by someone else. The SBCP closes that window permanently.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta" id="contact">
-  <h2 class="sr">Russia's new<br><span class="c">bioeconomy</span><br>direction<br><span class="dim">A world-scale sovereign doctrine for the 21st century</span></h2>
+<!-- DECLARATION BLOCK — replaces generic CTA -->
+<section class="declaration" id="contact">
+  <div class="declaration-inner">
+    <h2 class="sr">This is not<br><span class="c">a proposal</span><br><span class="a">It is a declaration</span><br><span class="dim">The standard that does not exist yet — will exist. The only question is who authors it.</span></h2>
 
-  <div class="inst-block sr d1">
-    <div class="inst-cell">
-      <div class="inst-label">Standard Authority</div>
-      <div class="inst-name cryo">KRYONIS</div>
-      <div class="inst-detail">Sovereign Systems Limited<br>kryonis.global</div>
-    </div>
-    <div class="inst-cell">
-      <div class="inst-label">Scientific Network</div>
-      <div class="inst-name">ОБР</div>
-      <div class="inst-detail">Russian Society of Biotechnologists<br>3,025 Members · 59 Departments</div>
-    </div>
-    <div class="inst-cell">
-      <div class="inst-label">Verification Authority</div>
-      <div class="inst-name amber">KURCHATOV</div>
-      <div class="inst-detail">Kurchatov Institute<br>State Scientific Authority</div>
-    </div>
-  </div>
+    <p class="doctrine-stmt sr d1">
+      Russia holds the largest sovereign biological reserve on Earth. It has the scientific infrastructure to verify it. It has the legal framework to govern it. It has the geopolitical interest to control the standard. <strong>What it has not yet done is act.</strong> The Sovereign Bio-Clearing Protocol is the instrument of that action. <span class="red">The window is open now.</span>
+    </p>
 
-  <div class="cta-btns sr d2">
-    <a href="mailto:info@kryonis.global" class="btn-cryo">Request Sovereign Briefing</a>
-    <a href="#protocol" class="btn-ghost">Read the Protocol</a>
+    <div class="inst-block sr d1">
+      <div class="inst-cell">
+        <div class="inst-label">Standard Authority</div>
+        <div class="inst-name cryo">KRYONIS</div>
+        <div class="inst-detail">Sovereign Systems Limited<br>kryonis.global</div>
+      </div>
+      <div class="inst-cell">
+        <div class="inst-label">Scientific Network</div>
+        <div class="inst-name">ОБР</div>
+        <div class="inst-detail">Russian Society of Biotechnologists<br>3,025 Members · 59 Departments</div>
+      </div>
+      <div class="inst-cell">
+        <div class="inst-label">Verification Authority</div>
+        <div class="inst-name amber">KURCHATOV</div>
+        <div class="inst-detail">Kurchatov Institute<br>State Scientific Authority</div>
+      </div>
+    </div>
+
+    <div class="cta-btns sr d2">
+      <a href="mailto:info@kryonis.global" class="btn-cryo">Request Sovereign Briefing</a>
+      <a href="#protocol" class="btn-ghost">Read the Protocol</a>
+    </div>
+    <div class="closing-doctrine sr d3">The standard that registers first — defines the asset class.</div>
   </div>
 </section>
 
