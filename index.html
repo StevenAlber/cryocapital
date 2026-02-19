@@ -25,10 +25,11 @@
   @keyframes urgentpulse{0%,100%{opacity:1;color:var(--warning)}50%{opacity:.5;color:var(--amber)}}
 
   /* URGENT ALERT BAR — new */
-  .alert-bar{background:rgba(255,68,68,.08);border-bottom:1px solid rgba(255,68,68,.25);padding:8px 48px;display:flex;justify-content:center;align-items:center;gap:20px;font-size:9px;letter-spacing:.22em;text-transform:uppercase}
-  .alert-bar .warn{color:var(--warning);font-weight:700;animation:urgentpulse 2s ease-in-out infinite}
+  .alert-bar{background:rgba(255,68,68,.08);border-bottom:1px solid rgba(255,68,68,.25);padding:9px 48px;display:flex;justify-content:center;align-items:center;gap:16px;font-size:9px;letter-spacing:.22em;text-transform:uppercase}
+  .alert-bar .warn{color:var(--warning);font-weight:700;animation:urgentpulse 2s ease-in-out infinite;white-space:nowrap}
   .alert-bar .msg{color:var(--ice-dim)}
-  .alert-bar .date{color:var(--amber);font-weight:700}
+  .alert-bar .sep{color:var(--cryo-dim);opacity:.4}
+  .alert-bar .date{color:var(--amber);font-weight:700;white-space:nowrap}
 
   .sys-bar{background:var(--deep);border-bottom:2px solid var(--cryo-dim);padding:7px 48px;display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ice-dim);overflow:hidden;position:relative}
   .sys-bar::after{content:'';position:absolute;top:0;left:-200px;width:80px;height:100%;background:linear-gradient(90deg,transparent,rgba(74,179,232,.08),transparent);animation:sysscan 8s linear infinite}
@@ -205,7 +206,12 @@
     .nav-inner{grid-template-columns:1fr auto;padding:0 20px}
     .footer-inner{flex-direction:column;gap:20px;text-align:center}
     .footer-right{text-align:center}
-    .sys-bar,.alert-bar{padding:7px 20px;font-size:8px}
+    .sys-bar,.alert-bar{padding:7px 16px;font-size:8px}
+    .alert-bar{gap:8px;flex-wrap:wrap;justify-content:center}
+    .alert-bar .sep{display:none}
+    .alert-bar .msg{width:100%;text-align:center;order:2}
+    .alert-bar .warn{order:1}
+    .alert-bar .date{order:3}
     .strata-section{padding:60px 24px}
     .inst-block{grid-template-columns:1fr}
   }
@@ -216,8 +222,10 @@
 <!-- URGENT ALERT — NEW -->
 <div class="alert-bar">
   <span class="warn">⚠ CRITICAL WINDOW</span>
-  <span class="msg">Every year without a sovereign bio-capital registry is a year the standard gets written elsewhere.</span>
-  <span class="date">IV Forum of Future Technologies · Moscow · 2026</span>
+  <span class="sep">//</span>
+  <span class="msg">Every year without a sovereign bio-capital registry, the standard gets written elsewhere.</span>
+  <span class="sep">//</span>
+  <span class="date">Moscow · Feb 26, 2026</span>
 </div>
 
 <div class="sys-bar">
