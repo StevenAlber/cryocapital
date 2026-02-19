@@ -1,653 +1,688 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PERMAFROST FUTURES // СУВЕРЕННЫЙ БИОКЛИРИНГОВЫЙ ПРОТОКОЛ // 2026</title>
+<title>CRYOCAPITAL EXCHANGE // Infrastructure for Cryo-Backed Capital Formation</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap');
-  :root{
-    --void:#06090F;--deep:#080D18;--ice-surface:#0C1625;
-    --cryo:#4AB3E8;--cryo-dim:#1A5070;
-    --ice:#D8E8F4;--ice-dim:rgba(216,232,244,.55);--ice-ghost:rgba(216,232,244,.12);
-    --amber:#C8861A;--sonar:#00C8FF;--line:rgba(74,179,232,.1);
-    --warning:#FF4444;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;background:#06090F}
-  body{background:#06090F;color:var(--ice);font-family:'IBM Plex Mono',monospace;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
-  body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(74,179,232,.05) 0%,transparent 60%),radial-gradient(ellipse 60% 30% at 20% 100%,rgba(200,134,26,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
-  section,nav,header,footer,.sys-bar,.alert-bar,.lang-bar{position:relative;z-index:10}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap');
 
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes sysscan{to{left:110%}}
-  @keyframes urgentpulse{0%,100%{opacity:1;color:var(--warning)}50%{opacity:.5;color:var(--amber)}}
-  @keyframes langswitch{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+:root {
+  --void:#04080F;--deep:#060C18;--surface:#0A1020;--card:#0D1428;
+  --cryo:#3DB8F0;--cryo2:#1A9BD4;--cryo-dim:#0E4A6A;
+  --ice:#C8DCF0;--ice2:rgba(200,220,240,.6);--ice3:rgba(200,220,240,.15);
+  --amber:#D4921E;--amber2:rgba(212,146,30,.15);
+  --green:#2ECC7A;--green2:rgba(46,204,122,.12);
+  --red:#E84040;
+  --line:rgba(61,184,240,.08);--line2:rgba(61,184,240,.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--void)}
+body{background:var(--void);color:var(--ice);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-  /* ── LANGUAGE TOGGLE BAR ── */
-  .lang-bar{
-    background:rgba(8,13,24,.98);
-    border-bottom:1px solid rgba(74,179,232,.12);
-    padding:0 48px;
-    display:flex;
-    justify-content:flex-end;
-    align-items:stretch;
-    height:36px;
-  }
-  .lang-group{display:flex;align-items:center;gap:0}
-  .lang-label{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--cryo-dim);opacity:.5;margin-right:12px;align-self:center}
-  .lang-btn{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:9.5px;
-    font-weight:600;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-    padding:0 20px;
-    height:100%;
-    border:none;
-    border-left:1px solid rgba(74,179,232,.1);
-    background:transparent;
-    color:var(--ice-dim);
-    cursor:pointer;
-    transition:all .18s ease;
-    position:relative;
-    display:flex;
-    align-items:center;
-    gap:7px;
-  }
-  .lang-btn:first-of-type{border-left:1px solid rgba(74,179,232,.1)}
-  .lang-btn .flag{font-size:13px;line-height:1}
-  .lang-btn.active{
-    background:rgba(74,179,232,.08);
-    color:var(--cryo);
-    border-bottom:2px solid var(--cryo);
-  }
-  .lang-btn:not(.active):hover{color:var(--ice);background:rgba(74,179,232,.04)}
-  .lang-btn.active::after{
-    content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:var(--cryo);opacity:.6;
-  }
+/* NOISE + GLOW LAYERS */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 50% -10%,rgba(61,184,240,.06) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 80% 80%,rgba(212,146,30,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+section,nav,header,footer,.topbar{position:relative;z-index:10}
 
-  /* ── ALERT BAR ── */
-  .alert-bar{background:rgba(255,68,68,.08);border-bottom:1px solid rgba(255,68,68,.25);padding:9px 48px;display:flex;justify-content:center;align-items:center;gap:16px;font-size:9px;letter-spacing:.22em;text-transform:uppercase}
-  .alert-bar .warn{color:var(--warning);font-weight:700;animation:urgentpulse 2s ease-in-out infinite;white-space:nowrap}
-  .alert-bar .msg{color:var(--ice-dim)}
-  .alert-bar .sep{color:var(--cryo-dim);opacity:.4}
-  .alert-bar .date{color:var(--amber);font-weight:700;white-space:nowrap}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes scan{to{left:110%}}
+@keyframes pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(46,204,122,.4)}50%{box-shadow:0 0 0 6px rgba(46,204,122,0)}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes row-in{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
 
-  .sys-bar{background:var(--deep);border-bottom:2px solid var(--cryo-dim);padding:7px 48px;display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ice-dim);overflow:hidden;position:relative}
-  .sys-bar::after{content:'';position:absolute;top:0;left:-200px;width:80px;height:100%;background:linear-gradient(90deg,transparent,rgba(74,179,232,.08),transparent);animation:sysscan 8s linear infinite}
-  .sys-bar .c{color:var(--cryo);font-weight:700}.sys-bar .a{color:var(--amber);font-weight:700}.sys-bar .blink{animation:blink 1.2s step-end infinite}
+/* ── LANG BAR ── */
+.topbar{background:rgba(4,8,15,.98);border-bottom:1px solid var(--line);padding:0 56px;display:flex;justify-content:space-between;align-items:stretch;height:32px}
+.tb-left{display:flex;align-items:center;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ice2);opacity:.6}
+.tb-status{display:flex;align-items:center;gap:6px;color:var(--green);opacity:1}
+.tb-status .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse-green 2s ease-in-out infinite}
+.lang-group{display:flex;align-items:stretch}
+.lang-btn{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:0 16px;border:none;border-left:1px solid var(--line);background:transparent;color:var(--ice2);cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:6px}
+.lang-btn .flag{font-size:11px}
+.lang-btn.active{background:rgba(61,184,240,.08);color:var(--cryo);border-bottom:2px solid var(--cryo)}
+.lang-btn:not(.active):hover{color:var(--ice);background:rgba(61,184,240,.04)}
 
-  nav{background:rgba(6,9,15,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
-  .nav-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 48px}
-  .nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:.1em;color:var(--ice);text-decoration:none;text-transform:uppercase;padding:20px 40px 20px 0;border-right:1px solid var(--line);line-height:1}
-  .nav-logo .sub{display:block;font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:400;color:var(--cryo);letter-spacing:.22em;margin-top:4px;opacity:.8}
-  .nav-links{display:flex;list-style:none;padding-left:0;height:100%;margin-left:32px}
-  .nav-links a{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-dim);text-decoration:none;padding:0 20px;height:100%;display:flex;align-items:center;border-right:1px solid var(--line);transition:all .2s}
-  .nav-links a:hover{color:var(--cryo);background:rgba(74,179,232,.04)}
-  .nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--void);background:var(--cryo);padding:12px 28px;text-decoration:none;margin-left:28px;transition:all .2s}
-  .nav-cta:hover{background:var(--ice);transform:translateY(-1px)}
+/* ── TICKER ── */
+.ticker-wrap{background:rgba(6,12,24,.9);border-bottom:1px solid var(--line);overflow:hidden;height:28px;display:flex;align-items:center}
+.ticker-track{display:flex;white-space:nowrap;animation:ticker 40s linear infinite}
+.ticker-item{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;padding:0 32px;color:var(--ice2);opacity:.5;display:flex;align-items:center;gap:12px}
+.ticker-item .ti-name{color:var(--cryo);opacity:.8;font-weight:600}
+.ticker-item .ti-val.up{color:var(--green)}
+.ticker-item .ti-val.pend{color:var(--amber)}
+.ticker-item .sep{opacity:.3}
 
-  /* ── HERO ── */
-  .hero{max-width:1400px;margin:0 auto;padding:72px 48px 80px;display:grid;grid-template-columns:1fr 500px;gap:72px;align-items:start}
-  .hero-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--cryo);margin-bottom:36px;display:flex;align-items:center;gap:14px;opacity:0;animation:fadeUp .8s ease .3s forwards}
-  .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--cryo);opacity:.6}
-  .hero-eyebrow .dot{width:6px;height:6px;background:var(--cryo);border-radius:50%;animation:blink 1.4s step-end infinite;flex-shrink:0}
-  .hero-headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(58px,8vw,118px);font-weight:900;line-height:.88;letter-spacing:-.01em;text-transform:uppercase;color:var(--ice);opacity:0;animation:fadeUp 1s ease .5s forwards}
-  .hero-headline .cryo{display:block;color:var(--cryo);text-shadow:0 0 60px rgba(74,179,232,.3)}
-  .hero-headline .shift{display:block;margin-left:60px}
-  .hero-headline .ghost{display:block;margin-left:120px;font-weight:300;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:.52em;letter-spacing:.06em;opacity:.22;text-transform:none}
-  .hero-body{font-size:13px;line-height:1.85;color:var(--ice-dim);max-width:520px;margin-top:44px;border-left:2px solid var(--cryo-dim);padding-left:20px;opacity:0;animation:fadeUp 1s ease .8s forwards}
-  .hero-body strong{color:var(--ice);font-weight:700}
-  .hero-danger{margin-top:28px;padding:16px 20px;background:rgba(255,68,68,.05);border:1px solid rgba(255,68,68,.2);border-left:3px solid var(--warning);font-size:11px;line-height:1.7;color:var(--ice-dim);opacity:0;animation:fadeUp 1s ease 1s forwards}
-  .hero-danger .warn{color:var(--warning);font-weight:700}
-  .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px;opacity:0;animation:fadeUp 1s ease 1.1s forwards}
-  .meta-cell{background:var(--deep);padding:24px 20px;transition:background .2s}
-  .meta-cell:hover{background:var(--ice-surface)}
-  .meta-cell .lbl{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ice-dim);opacity:.5;margin-bottom:10px}
-  .meta-cell .val{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;color:var(--cryo);line-height:1;letter-spacing:-.02em}
-  .meta-cell .val.amber{color:var(--amber)}
-  .meta-cell .unit{font-size:9.5px;color:var(--ice-dim);opacity:.45;margin-top:7px;line-height:1.4}
+/* ── NAV ── */
+nav{background:rgba(4,8,15,.96);border-bottom:1px solid var(--line2);backdrop-filter:blur(16px);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;padding:0 56px;height:60px;gap:0}
+.nav-logo{display:flex;flex-direction:column;padding-right:36px;border-right:1px solid var(--line2);margin-right:32px;text-decoration:none}
+.nav-logo .l1{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:.1em;color:var(--ice);text-transform:uppercase;line-height:1}
+.nav-logo .l2{font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:.24em;color:var(--cryo);opacity:.7;margin-top:3px;text-transform:uppercase}
+.nav-links{display:flex;list-style:none;height:60px;gap:0}
+.nav-links a{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--ice2);text-decoration:none;padding:0 18px;height:100%;display:flex;align-items:center;border-right:1px solid var(--line);transition:all .2s;opacity:.7}
+.nav-links a:hover{color:var(--cryo);opacity:1;background:rgba(61,184,240,.03)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.btn-nav-ghost{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ice);background:transparent;padding:9px 22px;border:1px solid rgba(200,220,240,.15);text-decoration:none;transition:all .2s;cursor:pointer}
+.btn-nav-ghost:hover{border-color:var(--cryo);color:var(--cryo)}
+.btn-nav-primary{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--void);background:var(--cryo);padding:10px 24px;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.btn-nav-primary:hover{background:var(--ice);transform:translateY(-1px)}
 
-  /* ── DRILL FRAME ── */
-  .drill-frame{background:var(--void);border:1px solid rgba(74,179,232,.2);box-shadow:0 0 0 1px rgba(74,179,232,.05),inset 0 0 60px rgba(0,0,0,.5);position:relative;overflow:hidden}
-  .drill-titlebar{background:var(--deep);border-bottom:1px solid rgba(74,179,232,.15);padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
-  .drill-title{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--cryo);opacity:.8}
-  .drill-controls{display:flex;gap:6px}
-  .d-dot{width:9px;height:9px;border-radius:50%;background:var(--ice-ghost);border:1px solid rgba(74,179,232,.3)}
-  .d-dot.live{background:var(--cryo);animation:blink 2s step-end infinite}
-  .drill-screen{position:relative;background:var(--void);overflow:hidden}
-  .drill-screen::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.12) 3px,rgba(0,0,0,.12) 4px);pointer-events:none;z-index:20}
-  #depthCanvas{display:block;width:100%}
-  .drill-readout{padding:12px 16px 14px;background:rgba(0,4,8,.9);border-top:1px solid rgba(74,179,232,.1)}
-  .dr-line{font-size:9.5px;color:var(--cryo-dim);letter-spacing:.06em;line-height:1.65}
-  .dr-line .b{color:var(--cryo)}.dr-line .a{color:var(--amber)}.dr-line .w{color:var(--ice);opacity:.6}
-  .dr-cursor{display:inline-block;width:6px;height:10px;background:var(--sonar);vertical-align:middle;margin-left:2px;animation:blink .9s step-end infinite}
+/* ── HERO ── */
+.hero{max-width:1320px;margin:0 auto;padding:64px 56px 72px;display:grid;grid-template-columns:1fr 440px;gap:64px;align-items:start}
+.hero-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--cryo);margin-bottom:28px;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp .7s ease .2s forwards}
+.hero-tag::before{content:'';width:28px;height:1px;background:var(--cryo);opacity:.5}
+.hero-tag .live{color:var(--green);display:flex;align-items:center;gap:5px}
+.hero-tag .live .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.4s step-end infinite}
+.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,7.5vw,110px);font-weight:900;line-height:.87;letter-spacing:-.01em;text-transform:uppercase;color:var(--ice);opacity:0;animation:fadeUp .9s ease .35s forwards}
+.hero-h1 .cryo{color:var(--cryo);display:block}
+.hero-h1 .dim{display:block;font-weight:300;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:.48em;letter-spacing:.05em;opacity:.18;text-transform:none;margin-top:8px}
+.hero-sub{font-size:14px;line-height:1.8;color:var(--ice2);margin-top:32px;border-left:2px solid var(--cryo-dim);padding-left:18px;max-width:520px;opacity:0;animation:fadeUp .9s ease .55s forwards}
+.hero-sub strong{color:var(--ice);font-weight:600}
 
-  .h-rule{border:none;border-top:1px solid var(--line);margin:0}
-  .sec-tag{display:inline-block;font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;padding:6px 14px;margin-bottom:48px;border:1px solid}
-  .sec-tag.cryo{color:var(--cryo);border-color:rgba(74,179,232,.3);background:rgba(74,179,232,.05)}
-  .sec-tag.amber{color:var(--amber);border-color:rgba(200,134,26,.3);background:rgba(200,134,26,.05)}
-  .sec-tag.light{color:var(--ice-dim);border-color:var(--line)}
+.hero-ctas{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap;opacity:0;animation:fadeUp .9s ease .7s forwards}
+.btn-primary{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--void);background:var(--cryo);padding:15px 40px;text-decoration:none;transition:all .2s;display:inline-block;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--ice);transform:translateY(-2px);box-shadow:0 12px 32px rgba(61,184,240,.2)}
+.btn-secondary{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ice);background:transparent;padding:15px 40px;border:1px solid rgba(200,220,240,.18);text-decoration:none;transition:all .2s;display:inline-block}
+.btn-secondary:hover{border-color:var(--cryo);color:var(--cryo)}
 
-  .doctrine-quote{margin:48px 0 0;padding:28px 32px;border-left:3px solid var(--cryo);background:rgba(74,179,232,.04);font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;line-height:1.5;color:var(--ice);max-width:680px}
-  .doctrine-quote .attr{display:block;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-style:normal;letter-spacing:.2em;text-transform:uppercase;color:var(--cryo);opacity:.6}
+/* HERO STATUS PANEL */
+.hero-status{background:var(--card);border:1px solid var(--line2);overflow:hidden}
+.hs-bar{background:var(--deep);border-bottom:1px solid var(--line);padding:9px 16px;display:flex;align-items:center;justify-content:space-between}
+.hs-bar-title{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--cryo);opacity:.7}
+.hs-bar-dots{display:flex;gap:5px}
+.hs-dot{width:8px;height:8px;border-radius:50%;background:var(--ice3);border:1px solid var(--line2)}
+.hs-dot.live{background:var(--green)}
+.hs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+.hs-cell{background:var(--card);padding:20px 18px}
+.hs-cell .lbl{font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ice2);opacity:.4;margin-bottom:8px}
+.hs-cell .val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;line-height:1;letter-spacing:.02em}
+.hs-cell .val.green{color:var(--green)}
+.hs-cell .val.cryo{color:var(--cryo)}
+.hs-cell .val.amber{color:var(--amber)}
+.hs-cell .sub{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--ice2);opacity:.35;margin-top:6px;line-height:1.4}
 
-  .strata-section{background:var(--deep);padding:88px 48px;position:relative;overflow:hidden}
-  .strata-section::before{content:'';position:absolute;inset:0;background:linear-gradient(175deg,rgba(74,179,232,.02) 0%,transparent 40%);pointer-events:none}
-  .strata-inner{max-width:1400px;margin:0 auto;position:relative;z-index:2}
-  .strata-grid{display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start}
-  .strata-left{position:sticky;top:100px}
-  .strata-index{font-family:'Barlow Condensed',sans-serif;font-size:160px;font-weight:900;line-height:.8;color:var(--cryo);opacity:.08;letter-spacing:-.06em;user-select:none;margin-bottom:24px}
-  .strata-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--cryo);opacity:.6}
-  .strata-body h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,4vw,60px);font-weight:800;line-height:1;text-transform:uppercase;margin-bottom:36px;max-width:720px}
-  .strata-body h2 .c{color:var(--cryo)}.strata-body h2 .a{color:var(--amber)}
-  .strata-body p{font-size:13px;line-height:1.85;color:var(--ice-dim);margin-bottom:20px;max-width:640px;opacity:.85}
-  .strata-body p strong{color:var(--ice);font-weight:700}
-  .strata-body p.p-warn{border-left:2px solid var(--warning);padding-left:16px;opacity:1;color:rgba(216,232,244,.7)}
-  .strata-body p.p-warn strong{color:#FF8080}
+.hs-asset-list{border-top:1px solid var(--line)}
+.hs-asset{padding:11px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;animation:row-in .5s ease forwards;opacity:0}
+.hs-asset:nth-child(1){animation-delay:.8s}
+.hs-asset:nth-child(2){animation-delay:.95s}
+.hs-asset:nth-child(3){animation-delay:1.1s}
+.hs-asset-name{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--ice);opacity:.8}
+.hs-asset-region{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--ice2);opacity:.35;margin-top:2px}
+.hs-asset-status{font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border:1px solid}
+.status-verified{color:var(--green);border-color:rgba(46,204,122,.3);background:rgba(46,204,122,.06)}
+.status-inventory{color:var(--cryo);border-color:rgba(61,184,240,.25);background:rgba(61,184,240,.05)}
+.status-pending{color:var(--amber);border-color:rgba(212,146,30,.3);background:rgba(212,146,30,.06)}
 
-  .layers{padding:80px 48px;max-width:1400px;margin:0 auto}
-  .layers-header{margin-bottom:52px}
-  .layers-header h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,5vw,72px);font-weight:900;text-transform:uppercase;line-height:.92;margin-top:18px}
-  .layers-header h2 .c{color:var(--cryo)}.layers-header h2 .a{color:var(--amber)}
-  .depth-column{display:grid;grid-template-columns:120px 1fr;gap:0;border:1px solid var(--line);overflow:hidden}
-  .depth-axis{background:var(--deep);border-right:1px solid var(--line);display:flex;flex-direction:column}
-  .depth-marker{padding:0 16px;font-size:8.5px;letter-spacing:.12em;color:var(--cryo-dim);display:flex;align-items:center;border-bottom:1px solid var(--line)}
-  .layer-cards{display:flex;flex-direction:column}
-  .layer-card{padding:36px 40px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;transition:background .3s;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
-  .layer-card:hover{background:rgba(74,179,232,.02)}
-  .layer-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%}
-  .l1::before{background:var(--cryo)}.l2::before{background:rgba(74,179,232,.55)}.l3::before{background:rgba(74,179,232,.3)}.l4::before{background:var(--amber)}.l5::before{background:rgba(200,134,26,.45)}
-  .layer-card .age{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
-  .l1 .age,.l2 .age,.l3 .age{color:var(--cryo);opacity:.8}.l4 .age,.l5 .age{color:var(--amber);opacity:.8}
-  .layer-card h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;color:var(--ice)}
-  .layer-card p{font-size:12px;line-height:1.7;color:var(--ice-dim);opacity:.65;max-width:560px}
-  .layer-stat{text-align:right;flex-shrink:0}
-  .layer-stat .n{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;line-height:1}
-  .l1 .n,.l2 .n,.l3 .n{color:var(--cryo)}.l4 .n,.l5 .n{color:var(--amber)}
-  .layer-stat .u{font-size:9px;color:var(--ice-dim);opacity:.4;margin-top:5px;letter-spacing:.08em}
+hr.rule{border:none;border-top:1px solid var(--line);margin:0}
 
-  .market{background:linear-gradient(180deg,var(--void) 0%,var(--deep) 100%);padding:80px 48px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .market-inner{max-width:1400px;margin:0 auto}
-  .market-inner h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(44px,6vw,90px);font-weight:900;text-transform:uppercase;line-height:.92;margin-bottom:64px;max-width:900px}
-  .market-inner h2 .c{color:var(--cryo)}.market-inner h2 .dim{opacity:.25;font-weight:300}
-  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-  .stat-box{background:var(--void);padding:44px 32px;text-align:center;transition:background .25s}
-  .stat-box:hover{background:var(--ice-surface)}
-  .stat-box .n{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;line-height:1}
-  .stat-box.blue .n{color:var(--cryo)}.stat-box.amber .n{color:var(--amber)}
-  .stat-box .l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice-dim);opacity:.45;margin-top:14px;line-height:1.5}
+/* ── ASSET BOARD ── */
+.board-section{padding:72px 56px;max-width:1320px;margin:0 auto}
+.sec-label{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;padding:5px 12px;border:1px solid;display:inline-block;margin-bottom:40px}
+.sec-label.cryo{color:var(--cryo);border-color:rgba(61,184,240,.25);background:rgba(61,184,240,.04)}
+.sec-label.amber{color:var(--amber);border-color:rgba(212,146,30,.25);background:rgba(212,146,30,.04)}
+.sec-label.ice{color:var(--ice2);border-color:rgba(200,220,240,.1)}
+.sec-h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,4vw,58px);font-weight:800;text-transform:uppercase;line-height:.92;margin-bottom:40px}
+.sec-h2 .c{color:var(--cryo)}.sec-h2 .a{color:var(--amber)}
 
-  .proof{padding:80px 48px;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-  .proof-left h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,4vw,64px);font-weight:800;text-transform:uppercase;line-height:1;margin-top:18px}
-  .proof-left h2 .c{color:var(--cryo)}
-  .proof-left p{font-size:13px;line-height:1.8;color:var(--ice-dim);opacity:.7;margin-top:24px;max-width:440px}
-  .proof-item{padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
-  .proof-item:last-child{border-bottom:none}
-  .proof-num{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;line-height:1;color:var(--cryo);opacity:.35;min-width:40px}
-  .proof-text .title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ice);margin-bottom:6px}
-  .proof-text p{font-size:12px;line-height:1.65;color:var(--ice-dim);opacity:.55}
+.board-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.board-title{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--cryo);opacity:.8}
+.board-live{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--green)}
+.board-live .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.8s step-end infinite}
+.board-table{width:100%;border-collapse:collapse;border:1px solid var(--line2)}
+.board-table thead th{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--ice2);opacity:.4;padding:12px 20px;text-align:left;background:var(--deep);border-bottom:1px solid var(--line2)}
+.board-table tbody tr{border-bottom:1px solid var(--line);transition:background .2s;cursor:default}
+.board-table tbody tr:hover{background:rgba(61,184,240,.025)}
+.board-table tbody tr:last-child{border-bottom:none}
+.board-table td{padding:16px 20px;font-size:12px}
+.td-class{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ice)}
+.td-id{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--cryo);opacity:.6;margin-top:3px}
+.td-region{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ice2);opacity:.6}
+.td-bcu{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--cryo)}
+.td-bcu .unit{font-size:10px;opacity:.5;margin-left:2px}
+.td-status{padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;border:1px solid;display:inline-block}
+.td-actions a{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cryo);text-decoration:none;opacity:.7;transition:opacity .2s}
+.td-actions a:hover{opacity:1}
 
-  .declaration{padding:100px 48px;position:relative;overflow:hidden}
-  .declaration::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(74,179,232,.05) 0%,transparent 65%);pointer-events:none}
-  .declaration-inner{max-width:900px;margin:0 auto;text-align:center;position:relative}
-  .declaration h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,7vw,108px);font-weight:900;text-transform:uppercase;line-height:.92;margin-bottom:40px;color:var(--ice)}
-  .declaration h2 .c{color:var(--cryo)}.declaration h2 .a{color:var(--amber)}
-  .declaration h2 .dim{opacity:.2;font-weight:300;font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;font-size:.72em;display:block;letter-spacing:.04em}
-  .doctrine-stmt{font-size:15px;line-height:1.8;color:var(--ice-dim);margin-bottom:52px;max-width:660px;margin-left:auto;margin-right:auto}
-  .doctrine-stmt strong{color:var(--ice)}
-  .doctrine-stmt .red{color:var(--warning)}
-  .inst-block{max-width:820px;margin:0 auto 52px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-  .inst-cell{background:var(--void);padding:32px 24px;text-align:center;transition:background .25s}
-  .inst-cell:hover{background:var(--ice-surface)}
-  .inst-cell .inst-label{font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--ice-dim);opacity:.45;margin-bottom:10px}
-  .inst-cell .inst-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ice);margin-bottom:6px;line-height:1.1}
-  .inst-cell .inst-detail{font-size:9.5px;color:var(--ice-dim);opacity:.4;letter-spacing:.08em;line-height:1.5}
-  .inst-cell .inst-name.cryo{color:var(--cryo)}.inst-cell .inst-name.amber{color:var(--amber)}
-  .cta-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
-  .btn-cryo{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--void);background:var(--cryo);padding:18px 52px;border:none;text-decoration:none;transition:all .2s;cursor:pointer}
-  .btn-cryo:hover{background:var(--ice);transform:translateY(-2px)}
-  .btn-ghost{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ice);background:transparent;padding:18px 52px;border:1px solid rgba(216,232,244,.2);text-decoration:none;transition:all .2s}
-  .btn-ghost:hover{border-color:var(--cryo);color:var(--cryo)}
-  .closing-doctrine{margin-top:48px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-dim);opacity:.35}
+/* ── WORKFLOW ── */
+.workflow-section{background:var(--deep);padding:80px 56px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.workflow-inner{max-width:1320px;margin:0 auto}
+.workflow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);margin-top:48px;border:1px solid var(--line2)}
+.wf-step{background:var(--card);padding:32px 24px;position:relative;overflow:hidden;transition:background .25s}
+.wf-step:hover{background:rgba(61,184,240,.03)}
+.wf-step::before{content:'';position:absolute;left:0;top:0;width:2px;height:100%}
+.wf-step:nth-child(1)::before{background:var(--cryo)}
+.wf-step:nth-child(2)::before{background:rgba(61,184,240,.7)}
+.wf-step:nth-child(3)::before{background:rgba(61,184,240,.45)}
+.wf-step:nth-child(4)::before{background:var(--amber)}
+.wf-step:nth-child(5)::before{background:rgba(212,146,30,.5)}
+.wf-num{font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;line-height:1;opacity:.06;margin-bottom:16px;letter-spacing:-.04em}
+.wf-step:nth-child(1) .wf-num,.wf-step:nth-child(2) .wf-num,.wf-step:nth-child(3) .wf-num{color:var(--cryo)}
+.wf-step:nth-child(4) .wf-num,.wf-step:nth-child(5) .wf-num{color:var(--amber)}
+.wf-fn{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--cryo);opacity:.6;margin-bottom:10px}
+.wf-step:nth-child(4) .wf-fn,.wf-step:nth-child(5) .wf-fn{color:var(--amber)}
+.wf-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ice);margin-bottom:12px}
+.wf-desc{font-size:11px;line-height:1.7;color:var(--ice2);opacity:.55;margin-bottom:16px}
+.wf-output{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--ice2);opacity:.35;border-top:1px solid var(--line);padding-top:12px;line-height:1.6}
+.wf-output strong{color:var(--cryo);opacity:1}
+.wf-step:nth-child(4) .wf-output strong,.wf-step:nth-child(5) .wf-output strong{color:var(--amber)}
 
-  footer{border-top:1px solid var(--line);padding:44px 48px}
-  .footer-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-  .footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--ice)}
-  .footer-logo .sub{display:block;font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--cryo);letter-spacing:.18em;margin-top:4px;opacity:.6}
-  .footer-right{text-align:right;font-size:9.5px;line-height:1.7;color:var(--ice-dim);opacity:.4}
-  .footer-right strong{color:var(--cryo);opacity:1}
+/* ── PARTICIPATION ── */
+.participation{padding:80px 56px;max-width:1320px;margin:0 auto}
+.part-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line2);margin-top:48px}
+.part-card{background:var(--card);padding:36px 28px;transition:background .25s;position:relative;overflow:hidden}
+.part-card:hover{background:rgba(61,184,240,.025)}
+.part-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px}
+.part-card:nth-child(1)::after{background:linear-gradient(90deg,var(--cryo),transparent)}
+.part-card:nth-child(2)::after{background:linear-gradient(90deg,rgba(61,184,240,.6),transparent)}
+.part-card:nth-child(3)::after{background:linear-gradient(90deg,var(--amber),transparent)}
+.part-card:nth-child(4)::after{background:linear-gradient(90deg,rgba(212,146,30,.6),transparent)}
+.part-card:nth-child(5)::after{background:linear-gradient(90deg,rgba(61,184,240,.4),transparent)}
+.part-tier{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--ice2);opacity:.35;margin-bottom:12px}
+.part-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ice);margin-bottom:14px;line-height:1}
+.part-desc{font-size:11px;line-height:1.7;color:var(--ice2);opacity:.5;margin-bottom:24px}
+.part-items{list-style:none;margin-bottom:24px}
+.part-items li{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ice2);opacity:.45;padding:4px 0;border-bottom:1px solid rgba(200,220,240,.04);display:flex;align-items:center;gap:8px}
+.part-items li::before{content:'·';color:var(--cryo);opacity:.6}
+.part-cta{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--cryo);text-decoration:none;opacity:.7;transition:opacity .2s;display:flex;align-items:center;gap:8px}
+.part-cta:hover{opacity:1}
+.part-cta::after{content:'→';transition:transform .2s}
+.part-cta:hover::after{transform:translateX(4px)}
 
-  .sr{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
-  .sr.in{opacity:1;transform:translateY(0)}
-  .sr.d1{transition-delay:.1s}.sr.d2{transition-delay:.2s}.sr.d3{transition-delay:.3s}
+/* ── REGISTRY PROOF ── */
+.registry-proof{background:linear-gradient(180deg,var(--void) 0%,var(--deep) 100%);padding:80px 56px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.rp-inner{max-width:1320px;margin:0 auto}
+.rp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line2);margin-bottom:48px}
+.rp-stat{background:var(--void);padding:40px 28px;text-align:center;transition:background .25s}
+.rp-stat:hover{background:var(--surface)}
+.rp-stat .n{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;line-height:1;letter-spacing:-.02em}
+.rp-stat.c .n{color:var(--cryo)}.rp-stat.a .n{color:var(--amber)}.rp-stat.g .n{color:var(--green)}
+.rp-stat .l{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ice2);opacity:.35;margin-top:12px;line-height:1.6}
 
-  /* ── LANGUAGE TRANSITION ── */
-  .lang-fade{animation:langswitch .25s ease forwards}
+.rp-proof-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line2)}
+.rp-proof-cell{background:var(--card);padding:28px 24px}
+.rp-proof-cell .icon{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--cryo);opacity:.5;margin-bottom:10px}
+.rp-proof-cell h4{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ice);margin-bottom:8px}
+.rp-proof-cell p{font-size:11px;line-height:1.7;color:var(--ice2);opacity:.45}
 
-  @media(max-width:960px){
-    .lang-bar{padding:0 16px}
-    .hero{grid-template-columns:1fr;padding:48px 24px}
-    .drill-frame{display:none}
-    .hero-meta{grid-template-columns:1fr}
-    .strata-grid{grid-template-columns:1fr}
-    .strata-index{display:none}
-    .layers,.market,.proof,.declaration,footer{padding-left:24px;padding-right:24px}
-    .depth-column{grid-template-columns:80px 1fr}
-    .layer-card{grid-template-columns:1fr;gap:20px}
-    .layer-stat{text-align:left}
-    .stats-row{grid-template-columns:repeat(2,1fr)}
-    .proof{grid-template-columns:1fr;gap:40px}
-    .nav-links{display:none}
-    .nav-inner{grid-template-columns:1fr auto;padding:0 20px}
-    .footer-inner{flex-direction:column;gap:20px;text-align:center}
-    .footer-right{text-align:center}
-    .sys-bar,.alert-bar{padding:7px 16px;font-size:8px}
-    .alert-bar{gap:8px;flex-wrap:wrap;justify-content:center}
-    .alert-bar .sep{display:none}
-    .alert-bar .msg{width:100%;text-align:center;order:2}
-    .alert-bar .warn{order:1}
-    .alert-bar .date{order:3}
-    .strata-section{padding:60px 24px}
-    .inst-block{grid-template-columns:1fr}
-  }
+/* ── FINAL CTA ── */
+.final-cta{padding:100px 56px;position:relative;overflow:hidden;text-align:center}
+.final-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(ellipse,rgba(61,184,240,.05) 0%,transparent 65%);pointer-events:none}
+.fc-inner{max-width:820px;margin:0 auto;position:relative}
+.fc-h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(48px,7vw,100px);font-weight:900;text-transform:uppercase;line-height:.9;margin-bottom:32px;color:var(--ice)}
+.fc-h2 .c{color:var(--cryo)}.fc-h2 .a{color:var(--amber)}
+.fc-sub{font-size:14px;line-height:1.8;color:var(--ice2);opacity:.6;margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto}
+.fc-status{display:flex;justify-content:center;gap:0;border:1px solid var(--line2);max-width:480px;margin:0 auto 48px}
+.fc-s-item{flex:1;padding:14px 12px;text-align:center;border-right:1px solid var(--line)}
+.fc-s-item:last-child{border-right:none}
+.fc-s-item .fc-dot{width:6px;height:6px;border-radius:50%;margin:0 auto 6px;background:var(--cryo)}
+.fc-s-item .fc-dot.green{background:var(--green);animation:pulse-green 2s ease-in-out infinite}
+.fc-s-item .fc-dot.amber{background:var(--amber)}
+.fc-s-item .fc-lbl{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--ice2);opacity:.4}
+.fc-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.fc-note{margin-top:32px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ice2);opacity:.25}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--line);padding:40px 56px}
+.foot-inner{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.foot-logo{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--ice)}
+.foot-logo .sub{display:block;font-family:'IBM Plex Mono',monospace;font-size:7.5px;color:var(--cryo);letter-spacing:.18em;margin-top:4px;opacity:.55}
+.foot-r{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:8.5px;line-height:1.8;color:var(--ice2);opacity:.3}
+.foot-r strong{color:var(--cryo);opacity:1}
+
+.sr{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.sr.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;padding:48px 24px}
+  .hero-status{display:none}
+  .workflow-steps{grid-template-columns:1fr 1fr}
+  .part-grid{grid-template-columns:1fr 1fr}
+  .rp-stats{grid-template-columns:repeat(2,1fr)}
+  .rp-proof-grid{grid-template-columns:1fr}
+  .board-section,.workflow-section,.participation,.registry-proof,.final-cta,footer{padding-left:24px;padding-right:24px}
+  .nav-links{display:none}
+  .nav-inner{padding:0 20px}
+  .topbar{padding:0 20px}
+  .board-table{font-size:11px}
+  .board-table td{padding:12px 14px}
+  .foot-inner{flex-direction:column;gap:16px;text-align:center}
+  .foot-r{text-align:center}
+}
+@media(max-width:640px){
+  .part-grid{grid-template-columns:1fr}
+  .rp-stats{grid-template-columns:1fr 1fr}
+  .workflow-steps{grid-template-columns:1fr}
+  .hero-h1{font-size:clamp(44px,12vw,80px) !important}
+  .board-table .td-bcu,.board-table .td-actions{display:none}
+}
 </style>
 </head>
 <body>
 
-<!-- ── LANGUAGE BAR ── -->
-<div class="lang-bar">
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-status"><span class="dot"></span><span class="t" data-en="REGISTRY ACTIVE" data-ru="РЕЕСТР АКТИВЕН">REGISTRY ACTIVE</span></span>
+    <span class="t" data-en="SBCP v1.0 · SIBERIA I PILOT" data-ru="СБП v1.0 · ПИЛОТ СИБИРЬ I">SBCP v1.0 · SIBERIA I PILOT</span>
+    <span class="t" data-en="INSTITUTIONAL ACCESS OPEN" data-ru="ИНСТИТУЦ. ДОСТУП ОТКРЫТ">INSTITUTIONAL ACCESS OPEN</span>
+  </div>
   <div class="lang-group">
-    <span class="lang-label">lang</span>
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')">
-      <span class="flag">🇬🇧</span> EN
-    </button>
-    <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">
-      <span class="flag">🇷🇺</span> РУ
-    </button>
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')"><span class="flag">🇬🇧</span> EN</button>
+    <button class="lang-btn" id="btn-ru" onclick="setLang('ru')"><span class="flag">🇷🇺</span> РУ</button>
   </div>
 </div>
 
-<!-- ── ALERT BAR ── -->
-<div class="alert-bar">
-  <span class="warn t" data-ru="⚠ КРИТИЧЕСКОЕ ОКНО" data-en="⚠ CRITICAL WINDOW">⚠ КРИТИЧЕСКОЕ ОКНО</span>
-  <span class="sep">//</span>
-  <span class="msg t" data-ru="Каждый год без суверенного реестра биокапитала — стандарт пишется в другом месте." data-en="Every year without a sovereign bio-capital registry, the standard gets written elsewhere.">Каждый год без суверенного реестра биокапитала — стандарт пишется в другом месте.</span>
-  <span class="sep">//</span>
-  <span class="date t" data-ru="Москва · 26 февраля 2026" data-en="Moscow · Feb 26, 2026">Москва · 26 февраля 2026</span>
-</div>
-
-<div class="sys-bar">
-  <span class="t" data-ru="PERMAFROST FUTURES // <span class='c'>СУВЕРЕННЫЙ БИОКЛИРИНГОВЫЙ ПРОТОКОЛ</span> // <span class='blink'>■</span> ДОКТРИНА АКТИВНА" data-en="PERMAFROST FUTURES // <span class='c'>SOVEREIGN BIO-CLEARING PROTOCOL</span> // <span class='blink'>■</span> DOCTRINE ACTIVE">PERMAFROST FUTURES // <span class="c">СУВЕРЕННЫЙ БИОКЛИРИНГОВЫЙ ПРОТОКОЛ</span> // <span class="blink">■</span> ДОКТРИНА АКТИВНА</span>
-  <span class="t" data-ru="KRYONIS · ОБР · Курчатов · <span class='a'>СБП v1.0 · 2026</span>" data-en="KRYONIS · ОБР · KURCHATOV · <span class='a'>SBCP v1.0 · 2026</span>">KRYONIS · ОБР · Курчатов · <span class="a">СБП v1.0 · 2026</span></span>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item"><span class="ti-name">CRYO-BIOME-SIB01</span><span class="sep">//</span><span>W.Siberia</span><span class="sep">·</span><span class="ti-val up">0.8–1.6T BCU</span><span class="sep">·</span><span class="ti-val pend">INVENTORY</span></span>
+    <span class="ticker-item"><span class="ti-name">CARBON-LENA-02</span><span class="sep">//</span><span>Lena Basin</span><span class="sep">·</span><span class="ti-val up">2.4T BCU</span><span class="sep">·</span><span class="ti-val up">PRE-CLEARED</span></span>
+    <span class="ticker-item"><span class="ti-name">THERMO-ARCTIC-03</span><span class="sep">//</span><span>Arctic Corridor</span><span class="sep">·</span><span class="ti-val pend">TBD</span><span class="sep">·</span><span class="ti-val pend">SURVEY OPEN</span></span>
+    <span class="ticker-item"><span class="ti-name">BIOHERT-YAK-04</span><span class="sep">//</span><span>Yakutia</span><span class="sep">·</span><span class="ti-val pend">UNDER ASSESSMENT</span><span class="sep">·</span><span class="ti-val pend">PENDING</span></span>
+    <span class="ticker-item"><span class="ti-name">CRYO-BIOME-SIB01</span><span class="sep">//</span><span>W.Siberia</span><span class="sep">·</span><span class="ti-val up">0.8–1.6T BCU</span><span class="sep">·</span><span class="ti-val up">INVENTORY</span></span>
+    <span class="ticker-item"><span class="ti-name">CARBON-LENA-02</span><span class="sep">//</span><span>Lena Basin</span><span class="sep">·</span><span class="ti-val up">2.4T BCU</span><span class="sep">·</span><span class="ti-val up">PRE-CLEARED</span></span>
+    <span class="ticker-item"><span class="ti-name">THERMO-ARCTIC-03</span><span class="sep">//</span><span>Arctic Corridor</span><span class="sep">·</span><span class="ti-val pend">TBD</span><span class="sep">·</span><span class="ti-val pend">SURVEY OPEN</span></span>
+    <span class="ticker-item"><span class="ti-name">BIOHERT-YAK-04</span><span class="sep">//</span><span>Yakutia</span><span class="sep">·</span><span class="ti-val pend">UNDER ASSESSMENT</span><span class="sep">·</span><span class="ti-val pend">PENDING</span></span>
+  </div>
 </div>
 
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">PERMAFROST FUTURES
-      <span class="sub t" data-ru="kryonis.global · суверенный биоклиринговый протокол" data-en="kryonis.global · sovereign bio-clearing protocol">kryonis.global · суверенный биоклиринговый протокол</span>
+    <a href="#" class="nav-logo">
+      <span class="l1">CryoCapital</span>
+      <span class="l2 t" data-en="Exchange · Sovereign Bio-Capital Infrastructure" data-ru="Exchange · Суверенная биокапитальная инфраструктура">Exchange · Sovereign Bio-Capital Infrastructure</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#thesis" class="t" data-ru="Тезис" data-en="Thesis">Тезис</a></li>
-      <li><a href="#protocol" class="t" data-ru="Протокол" data-en="Protocol">Протокол</a></li>
-      <li><a href="#architecture" class="t" data-ru="Архитектура" data-en="Architecture">Архитектура</a></li>
-      <li><a href="#roadmap" class="t" data-ru="Дорожная карта" data-en="Roadmap">Дорожная карта</a></li>
+      <li><a href="#market" class="t" data-en="Market" data-ru="Рынок">Market</a></li>
+      <li><a href="#workflow" class="t" data-en="List Asset" data-ru="Листинг актива">List Asset</a></li>
+      <li><a href="#participate" class="t" data-en="Access" data-ru="Доступ">Access</a></li>
+      <li><a href="#registry" class="t" data-en="Registry" data-ru="Реестр">Registry</a></li>
     </ul>
-    <a href="#contact" class="nav-cta t" data-ru="Суверенный брифинг" data-en="Sovereign Briefing">Суверенный брифинг</a>
+    <div class="nav-right">
+      <a href="#participate" class="btn-nav-ghost t" data-en="Documentation" data-ru="Документация">Documentation</a>
+      <a href="mailto:access@cryocapital.exchange?subject=Institutional Access Request" class="btn-nav-primary t" data-en="Request Access" data-ru="Запросить доступ">Request Access</a>
+    </div>
   </div>
 </nav>
 
+<!-- HERO -->
 <section>
   <div class="hero">
     <div>
-      <div class="hero-eyebrow"><div class="dot"></div><span class="t" data-ru="Анализ глубоких пластов · Сибирь · Живой протокол" data-en="Deep Strata Analysis · Siberia Bio-Territory · Live Protocol">Анализ глубоких пластов · Сибирь · Живой протокол</span></div>
-      <h1 class="hero-headline">
-        <span class="cryo t" data-ru="Капитал, который" data-en="Capital that is">Капитал, который</span>
-        <span class="shift t" data-ru="не зарегистрирован" data-en="not registered">не зарегистрирован</span>
-        <span class="shift t" style="color:var(--amber)" data-ru="— утрачен" data-en="is surrendered">— утрачен</span>
-        <span class="ghost t" data-ru="Вечная мерзлота России хранит 1–10 трлн БКЕ. Ничего — в реестре." data-en="Russia's permafrost holds 1–10 trillion BCU. None of it is on a ledger.">Вечная мерзлота России хранит 1–10 трлн БКЕ. Ничего — в реестре.</span>
+      <div class="hero-tag">
+        <span>cryocapital.exchange</span>
+        <span class="live"><span class="dot"></span><span class="t" data-en="Registry v1.0 Live" data-ru="Реестр v1.0 активен">Registry v1.0 Live</span></span>
+      </div>
+      <h1 class="hero-h1">
+        <span class="cryo t" data-en="CRYOCAPITAL" data-ru="CRYOCAPITAL">CRYOCAPITAL</span>
+        <span class="t" data-en="EXCHANGE" data-ru="EXCHANGE">EXCHANGE</span>
+        <span class="dim t" data-en="Infrastructure for Cryo-Backed Capital Formation" data-ru="Инфраструктура формирования криообеспеченного капитала">Infrastructure for Cryo-Backed Capital Formation</span>
       </h1>
-      <p class="hero-body t" 
-        data-ru="Криосфера России охватывает 65% национальной территории — содержит до <strong>10 триллионов базовых единиц латентного биокапитала</strong>, законсервированного на протяжении геологических эпох. Древние микробные экосистемы. Генетические архивы. Необратимые термодинамические состояния. 1,8 миллиона лет — без реестра. <strong>Это заканчивается сейчас.</strong>"
-        data-en="Russia's cryosphere spans 65% of national territory — containing up to <strong>10 trillion base units of latent bio-capital</strong> frozen across geological epochs. Ancient microbial ecosystems. Preserved genetic archives. Irreplaceable thermodynamic states. For 1.8 million years, no standard existed to register any of it. <strong>That ends now.</strong>">Криосфера России охватывает 65% национальной территории — содержит до <strong>10 триллионов базовых единиц латентного биокапитала</strong>, законсервированного на протяжении геологических эпох. Древние микробные экосистемы. Генетические архивы. Необратимые термодинамические состояния. 1,8 миллиона лет — без реестра. <strong>Это заканчивается сейчас.</strong></p>
-      <div class="hero-danger">
-        <span class="warn t" data-ru="РИСК:" data-en="THE RISK:">РИСК:</span><span class="t"
-          data-ru=" Пока Россия владеет крупнейшим криосферным резервом, другие юрисдикции формируют словарь, протоколы верификации и стандарты учёта, которые определят ценность этого класса активов — и кто контролирует нарратив. Окно возможностей закрывается."
-          data-en=" While Russia holds the world's largest sovereign cryospheric endowment, other jurisdictions are building the vocabulary, the verification protocols, and the accounting standards that will define what this asset class is worth — and who controls the narrative. The window to author the doctrine is closing."> Пока Россия владеет крупнейшим криосферным резервом, другие юрисдикции формируют словарь, протоколы верификации и стандарты учёта, которые определят ценность этого класса активов — и кто контролирует нарратив. Окно возможностей закрывается.</span>
-      </div>
-      <div class="hero-meta">
-        <div class="meta-cell">
-          <div class="lbl t" data-ru="Оценка резерва биокапитала" data-en="Estimated Bio-Capital Reserve">Оценка резерва биокапитала</div>
-          <div class="val" data-count="10" data-suffix=" T" data-int="0">—</div>
-          <div class="unit t" data-ru="Базовых единиц, суверенная шкала" data-en="Base units, sovereign accounting scale">Базовых единиц, суверенная шкала</div>
-        </div>
-        <div class="meta-cell">
-          <div class="lbl t" data-ru="Глубина биологической летописи" data-en="Biological Record Depth">Глубина биологической летописи</div>
-          <div class="val amber" data-count="1.8" data-suffix=" млн лет">—</div>
-          <div class="unit t" data-ru="Непрерывный криоархив, Сибирь" data-en="Continuous cryo-archive, Siberia">Непрерывный криоархив, Сибирь</div>
-        </div>
-        <div class="meta-cell">
-          <div class="lbl t" data-ru="Научная сеть ОБР" data-en="ОБР Scientific Network">Научная сеть ОБР</div>
-          <div class="val" data-count="3025" data-int="1">—</div>
-          <div class="unit t" data-ru="Членов · 59 региональных отделений" data-en="Members · 59 regional departments">Членов · 59 региональных отделений</div>
-        </div>
+      <p class="hero-sub t"
+        data-en="Russia's cryosphere holds an estimated <strong>1–10 trillion BCU</strong> in latent bio-capital. CryoCapital Exchange provides the listing, verification, classification and clearing infrastructure to register this capital under sovereign jurisdiction — for the first time."
+        data-ru="Криосфера России содержит оценочно <strong>1–10 триллионов БКЕ</strong> скрытого биокапитала. CryoCapital Exchange обеспечивает инфраструктуру листинга, верификации, классификации и клиринга для регистрации этого капитала в суверенной юрисдикции — впервые.">Russia's cryosphere holds an estimated <strong>1–10 trillion BCU</strong> in latent bio-capital. CryoCapital Exchange provides the listing, verification, classification and clearing infrastructure to register this capital under sovereign jurisdiction — for the first time.</p>
+      <div class="hero-ctas">
+        <a href="mailto:access@cryocapital.exchange?subject=Asset Listing Request" class="btn-primary t" data-en="List a Cryo Asset" data-ru="Подать актив на листинг">List a Cryo Asset</a>
+        <a href="mailto:access@cryocapital.exchange?subject=Institutional Access Request" class="btn-secondary t" data-en="Institutional Access" data-ru="Институциональный доступ">Institutional Access</a>
       </div>
     </div>
 
-    <div class="drill-frame">
-      <div class="drill-titlebar">
-        <span class="drill-title t" data-ru="СКАНЕР БИОКАПИТАЛА // ВЕРИФИКАЦИЯ СБП // СИБИРЬ ЗОНА I" data-en="BIO-CAPITAL SCANNER // SBCP VERIFICATION // SIBERIA ZONE I">СКАНЕР БИОКАПИТАЛА // ВЕРИФИКАЦИЯ СБП // СИБИРЬ ЗОНА I</span>
-        <div class="drill-controls"><div class="d-dot"></div><div class="d-dot"></div><div class="d-dot live"></div></div>
+    <div class="hero-status">
+      <div class="hs-bar">
+        <span class="hs-bar-title t" data-en="EXCHANGE STATUS // LIVE" data-ru="СТАТУС БИРЖИ // АКТИВНО">EXCHANGE STATUS // LIVE</span>
+        <div class="hs-bar-dots"><div class="hs-dot"></div><div class="hs-dot"></div><div class="hs-dot live"></div></div>
       </div>
-      <div class="drill-screen"><canvas id="depthCanvas" width="480" height="400"></canvas></div>
-      <div class="drill-readout">
-        <div class="dr-line"><span class="b">SYS</span> >> sbcp_scanner v1.0 ACTIVE</div>
-        <div class="dr-line"><span class="b">DEPTH</span> >> <span class="t" data-ru="пласт:" data-en="stratum:">пласт:</span> <span class="b" id="dd">847.3m</span></div>
-        <div class="dr-line"><span class="a">AGE</span>  >> <span class="t" data-ru="возраст:" data-en="age:">возраст:</span> <span class="a" id="da">11,400 yr BP</span></div>
-        <div class="dr-line"><span class="b">BIO</span>  >> <span class="t" data-ru="органика:" data-en="organic:">органика:</span> <span class="b" id="db">34.7%</span></div>
-        <div class="dr-line"><span class="w">▸</span> kurchatov_verify next_layer <span class="dr-cursor"></span></div>
+      <div class="hs-grid">
+        <div class="hs-cell">
+          <div class="lbl t" data-en="Registry Status" data-ru="Статус реестра">Registry Status</div>
+          <div class="val green t" data-en="OPEN" data-ru="ОТКРЫТ">OPEN</div>
+          <div class="sub t" data-en="Accepting submissions" data-ru="Приём заявок активен">Accepting submissions</div>
+        </div>
+        <div class="hs-cell">
+          <div class="lbl t" data-en="Listing Window" data-ru="Окно листинга">Listing Window</div>
+          <div class="val amber t" data-en="PHASE I" data-ru="ФАЗА I">PHASE I</div>
+          <div class="sub t" data-en="Institutional · Priority access" data-ru="Институц. · Приоритетный доступ">Institutional · Priority access</div>
+        </div>
+        <div class="hs-cell">
+          <div class="lbl t" data-en="Active Territories" data-ru="Активные территории">Active Territories</div>
+          <div class="val cryo">4</div>
+          <div class="sub t" data-en="Siberia I · Arctic · Lena · Yakutia" data-ru="Сибирь I · Арктика · Лена · Якутия">Siberia I · Arctic · Lena · Yakutia</div>
+        </div>
+        <div class="hs-cell">
+          <div class="lbl t" data-en="Verification Route" data-ru="Маршрут верификации">Verification Route</div>
+          <div class="val green t" data-en="ACTIVE" data-ru="АКТИВЕН">ACTIVE</div>
+          <div class="sub t" data-en="Kurchatov Institute pipeline" data-ru="Контур Курчатовского ин-та">Kurchatov Institute pipeline</div>
+        </div>
+      </div>
+      <div class="hs-asset-list">
+        <div class="hs-asset">
+          <div><div class="hs-asset-name">CARBON-LENA-02</div><div class="hs-asset-region t" data-en="Lena Basin · 2.4T BCU" data-ru="Бассейн Лены · 2,4Т БКЕ">Lena Basin · 2.4T BCU</div></div>
+          <div class="hs-asset-status status-verified t" data-en="PRE-CLEARED" data-ru="PRE-CLEARED">PRE-CLEARED</div>
+        </div>
+        <div class="hs-asset">
+          <div><div class="hs-asset-name">CRYO-BIOME-SIB01</div><div class="hs-asset-region t" data-en="W. Siberia · 0.8–1.6T BCU" data-ru="Зап. Сибирь · 0,8–1,6Т БКЕ">W. Siberia · 0.8–1.6T BCU</div></div>
+          <div class="hs-asset-status status-inventory t" data-en="INVENTORY" data-ru="ИНВЕНТАРИЗАЦИЯ">INVENTORY</div>
+        </div>
+        <div class="hs-asset">
+          <div><div class="hs-asset-name">THERMO-ARCTIC-03</div><div class="hs-asset-region t" data-en="Arctic Corridor · TBD" data-ru="Арктический коридор · ОС">Arctic Corridor · TBD</div></div>
+          <div class="hs-asset-status status-pending t" data-en="SURVEY OPEN" data-ru="СЪЁМКА ОТКРЫТА">SURVEY OPEN</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="h-rule">
+<hr class="rule">
 
-<section class="strata-section" id="thesis">
-  <div class="strata-inner">
-    <span class="sec-tag cryo t" data-ru="01 / Основополагающая доктрина" data-en="01 / Founding Doctrine">01 / Основополагающая доктрина</span>
-    <div class="strata-grid sr">
-      <div class="strata-left">
-        <div class="strata-index">01</div>
-        <div class="strata-label t" data-ru="Тезис" data-en="The Thesis">Тезис</div>
+<!-- ASSET BOARD -->
+<section class="board-section" id="market">
+  <span class="sec-label cryo sr t" data-en="Active Market // Phase I" data-ru="Активный рынок // Фаза I">Active Market // Phase I</span>
+  <div class="board-header sr">
+    <span class="board-title t" data-en="CRYOCAPITAL ASSET BOARD // REGISTERED CLASSES" data-ru="ДОСКА АКТИВОВ CRYOCAPITAL // ЗАРЕГИСТРИРОВАННЫЕ КЛАССЫ">CRYOCAPITAL ASSET BOARD // REGISTERED CLASSES</span>
+    <span class="board-live"><span class="dot"></span><span class="t" data-en="LIVE" data-ru="LIVE">LIVE</span></span>
+  </div>
+  <table class="board-table sr d1">
+    <thead>
+      <tr>
+        <th class="t" data-en="Asset Class" data-ru="Класс актива">Asset Class</th>
+        <th class="t" data-en="Region" data-ru="Регион">Region</th>
+        <th class="t" data-en="BCU Range" data-ru="Диапазон БКЕ">BCU Range</th>
+        <th class="t" data-en="Status" data-ru="Статус">Status</th>
+        <th class="t" data-en="Action" data-ru="Действие">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="td-class t" data-en="Cryogenic Biome Reserve" data-ru="Криогенный биомный резерв">Cryogenic Biome Reserve</div><div class="td-id">CRYO-BIOME-SIB01 · BAIN-7741-SIB</div></td>
+        <td><div class="td-region t" data-en="Western Siberia" data-ru="Западная Сибирь">Western Siberia</div></td>
+        <td><div class="td-bcu">0.8–1.6<span class="unit">T BCU</span></div></td>
+        <td><span class="td-status status-inventory t" data-en="INVENTORY" data-ru="ИНВЕНТАРИЗАЦИЯ">INVENTORY</span></td>
+        <td class="td-actions"><a href="mailto:access@cryocapital.exchange?subject=Inquiry: CRYO-BIOME-SIB01" class="t" data-en="Enquire →" data-ru="Запрос →">Enquire →</a></td>
+      </tr>
+      <tr>
+        <td><div class="td-class t" data-en="Carbon Stability Stratum" data-ru="Слой углеродной стабильности">Carbon Stability Stratum</div><div class="td-id">CARBON-LENA-02 · BAIN-8823-LEN</div></td>
+        <td><div class="td-region t" data-en="Lena Basin" data-ru="Бассейн реки Лены">Lena Basin</div></td>
+        <td><div class="td-bcu">2.4<span class="unit">T BCU</span></div></td>
+        <td><span class="td-status status-verified t" data-en="PRE-CLEARED" data-ru="ПРЕКЛ.">PRE-CLEARED</span></td>
+        <td class="td-actions"><a href="mailto:access@cryocapital.exchange?subject=Inquiry: CARBON-LENA-02" class="t" data-en="Enquire →" data-ru="Запрос →">Enquire →</a></td>
+      </tr>
+      <tr>
+        <td><div class="td-class t" data-en="Thermodynamic Gradient Zone" data-ru="Термодинамическая градиентная зона">Thermodynamic Gradient Zone</div><div class="td-id">THERMO-ARCTIC-03 · BAIN-0019-ARC</div></td>
+        <td><div class="td-region t" data-en="Arctic Corridor" data-ru="Арктический коридор">Arctic Corridor</div></td>
+        <td><div class="td-bcu" style="color:var(--amber);opacity:.6">TBD</div></td>
+        <td><span class="td-status status-pending t" data-en="SURVEY OPEN" data-ru="СЪЁМКА">SURVEY OPEN</span></td>
+        <td class="td-actions"><a href="mailto:access@cryocapital.exchange?subject=Inquiry: THERMO-ARCTIC-03" class="t" data-en="Enquire →" data-ru="Запрос →">Enquire →</a></td>
+      </tr>
+      <tr>
+        <td><div class="td-class t" data-en="Preserved Genetic Archive" data-ru="Законсервированный генетический архив">Preserved Genetic Archive</div><div class="td-id">BIOHERT-YAK-04 · BAIN-3301-YAK</div></td>
+        <td><div class="td-region t" data-en="Yakutia" data-ru="Якутия">Yakutia</div></td>
+        <td><div class="td-bcu" style="color:var(--amber);opacity:.6" class="t" data-en="Assessment" data-ru="Оценка">Assessment</div></td>
+        <td><span class="td-status status-pending t" data-en="PENDING" data-ru="ОЖИДАНИЕ">PENDING</span></td>
+        <td class="td-actions"><a href="mailto:access@cryocapital.exchange?subject=Inquiry: BIOHERT-YAK-04" class="t" data-en="Enquire →" data-ru="Запрос →">Enquire →</a></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="rule">
+
+<!-- WORKFLOW -->
+<section class="workflow-section" id="workflow">
+  <div class="workflow-inner">
+    <span class="sec-label amber sr t" data-en="Market Functions // List to Clear" data-ru="Функции рынка // От листинга до клиринга">Market Functions // List to Clear</span>
+    <h2 class="sec-h2 sr t"
+      data-en="Five operations.<br><span class='c'>One clearing architecture.</span>"
+      data-ru="Пять операций.<br><span class='c'>Одна клиринговая архитектура.</span>">Five operations.<br><span class="c">One clearing architecture.</span></h2>
+    <div class="workflow-steps">
+      <div class="wf-step">
+        <div class="wf-num">01</div>
+        <div class="wf-fn t" data-en="SOVEREIGN FUNCTION" data-ru="СУВЕРЕННАЯ ФУНКЦИЯ">SOVEREIGN FUNCTION</div>
+        <div class="wf-title t" data-en="LIST" data-ru="ЛИСТИНГ">LIST</div>
+        <div class="wf-desc t"
+          data-en="Register cryo-territory or asset zone. Geospatial and thermodynamic parameters submitted via institutional access portal."
+          data-ru="Регистрация криотерритории или зоны актива. Геопространственные и термодинамические параметры подаются через институциональный портал доступа.">Register cryo-territory or asset zone. Geospatial and thermodynamic parameters submitted via institutional access portal.</div>
+        <div class="wf-output"><strong class="t" data-en="OUTPUT:" data-ru="ВЫХОД:">OUTPUT:</strong><br><span class="t" data-en="Asset ID · BAIN-format compliant" data-ru="Идентификатор актива · формат BAIN">Asset ID · BAIN-format compliant</span></div>
       </div>
-      <div class="strata-body">
-        <h2 class="t"
-          data-ru="Мерзлота — не проблема<br>Это <span class='c'>архивированный капитал</span><br>Он принадлежит <span class='a'>России</span>"
-          data-en="Permafrost is not a problem<br>It is <span class='c'>archived capital</span><br>It belongs to <span class='a'>Russia</span>">Мерзлота — не проблема<br>Это <span class="c">архивированный капитал</span><br>Он принадлежит <span class="a">России</span></h2>
-        <p class="p-warn t"
-          data-ru="<strong>Капитал, который не признан, — это капитал, которым пожертвовали.</strong> Россия владеет крупнейшим в мире суверенным криосферным резервом — и не существует стандарта для его классификации, верификации или применения. Это не регуляторный пробел. Это стратегическая уязвимость."
-          data-en="<strong>Capital that is not recognised is capital that is surrendered.</strong> Russia holds the world's largest sovereign cryospheric endowment — and no standard exists for its classification, verification, or deployment. This is not a regulatory gap. It is a strategic vulnerability."><strong>Капитал, который не признан, — это капитал, которым пожертвовали.</strong> Россия владеет крупнейшим в мире суверенным криосферным резервом — и не существует стандарта для его классификации, верификации или применения. Это не регуляторный пробел. Это стратегическая уязвимость.</p>
+      <div class="wf-step">
+        <div class="wf-num">02</div>
+        <div class="wf-fn t" data-en="SOVEREIGN FUNCTION" data-ru="СУВЕРЕННАЯ ФУНКЦИЯ">SOVEREIGN FUNCTION</div>
+        <div class="wf-title t" data-en="VERIFY" data-ru="ВЕРИФИКАЦИЯ">VERIFY</div>
+        <div class="wf-desc t"
+          data-en="Scientific routing via Kurchatov Institute verification pipeline. Independent bio-thermodynamic state assessment against SBCP classification criteria."
+          data-ru="Научный маршрут через верификационный контур Курчатовского института. Независимая оценка биотермодинамического состояния по критериям СБП.">Scientific routing via Kurchatov Institute verification pipeline. Independent bio-thermodynamic state assessment against SBCP classification criteria.</div>
+        <div class="wf-output"><strong class="t" data-en="OUTPUT:" data-ru="ВЫХОД:">OUTPUT:</strong><br><span class="t" data-en="Verified Cryo-State Profile" data-ru="Верифицированный профиль криосостояния">Verified Cryo-State Profile</span></div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">03</div>
+        <div class="wf-fn t" data-en="SOVEREIGN FUNCTION" data-ru="СУВЕРЕННАЯ ФУНКЦИЯ">SOVEREIGN FUNCTION</div>
+        <div class="wf-title t" data-en="CLASSIFY" data-ru="КЛАССИФИКАЦИЯ">CLASSIFY</div>
+        <div class="wf-desc t"
+          data-en="Assignment into one of five CryoCapital asset classes. BCU reference band established. Classification denominated in BCU — not in external currency."
+          data-ru="Отнесение к одному из пяти классов активов CryoCapital. Установление референсного диапазона БКЕ. Классификация деноминирована в БКЕ, а не в иностранной валюте.">Assignment into one of five CryoCapital asset classes. BCU reference band established. Classification denominated in BCU — not in external currency.</div>
+        <div class="wf-output"><strong class="t" data-en="OUTPUT:" data-ru="ВЫХОД:">OUTPUT:</strong><br><span class="t" data-en="BCU Reference Band · Asset Class Passport v1" data-ru="Референсный диапазон БКЕ · Паспорт класса актива v1">BCU Reference Band · Asset Class Passport v1</span></div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">04</div>
+        <div class="wf-fn t" data-en="SOVEREIGN FUNCTION" data-ru="СУВЕРЕННАЯ ФУНКЦИЯ">SOVEREIGN FUNCTION</div>
+        <div class="wf-title t" data-en="CLEAR" data-ru="КЛИРИНГ">CLEAR</div>
+        <div class="wf-desc t"
+          data-en="Asset enters the CryoCapital Registry Ledger — the first sovereign bio-capital registry under Russian legal jurisdiction. Deployable via bilateral sovereign agreements."
+          data-ru="Актив вносится в реестровый регистр CryoCapital — первый суверенный реестр биокапитала под российской юрисдикцией. Применяется через двусторонние суверенные соглашения.">Asset enters the CryoCapital Registry Ledger — the first sovereign bio-capital registry under Russian legal jurisdiction. Deployable via bilateral sovereign agreements.</div>
+        <div class="wf-output"><strong class="t" data-en="OUTPUT:" data-ru="ВЫХОД:">OUTPUT:</strong><br><span class="t" data-en="Cleared Reserve Entry · BCU Ledger Record" data-ru="Запись в клирингованном резерве · Регистр БКЕ">Cleared Reserve Entry · BCU Ledger Record</span></div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">05</div>
+        <div class="wf-fn t" data-en="LEGAL ANCHOR" data-ru="ПРАВОВОЙ ЯКОРЬ">LEGAL ANCHOR</div>
+        <div class="wf-title t" data-en="SETTLE" data-ru="УРЕГУЛИРОВАНИЕ">SETTLE</div>
+        <div class="wf-desc t"
+          data-en="Cleared assets eligible for sovereign settlement. Future Phase III: BCU-denominated instruments under Federal Law 259-FZ. Standard precedes the instrument. Registry precedes the asset."
+          data-ru="Клирингованные активы допускаются к суверенному урегулированию. Будущая Фаза III: инструменты в БКЕ по ФЗ № 259-ФЗ. Стандарт предшествует инструменту. Реестр предшествует активу.">Cleared assets eligible for sovereign settlement. Future Phase III: BCU-denominated instruments under Federal Law 259-FZ. Standard precedes the instrument. Registry precedes the asset.</div>
+        <div class="wf-output"><strong class="t" data-en="OUTPUT:" data-ru="ВЫХОД:">OUTPUT:</strong><br><span class="t" data-en="Settlement Record · Sovereign Licence Status" data-ru="Запись об урегулировании · Статус суверенной лицензии">Settlement Record · Sovereign Licence Status</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- PARTICIPATION -->
+<section class="participation" id="participate">
+  <span class="sec-label cryo sr t" data-en="Market Participants // Access Tiers" data-ru="Участники рынка // Уровни доступа">Market Participants // Access Tiers</span>
+  <h2 class="sec-h2 sr t"
+    data-en="Who can list,<br><span class='c'>verify, and clear</span>"
+    data-ru="Кто может подавать,<br><span class='c'>верифицировать и клирить</span>">Who can list,<br><span class="c">verify, and clear</span></h2>
+  <div class="part-grid">
+    <div class="part-card sr">
+      <div class="part-tier t" data-en="Tier 1 · Primary" data-ru="Уровень 1 · Основной">Tier 1 · Primary</div>
+      <div class="part-title t" data-en="Sovereign Node" data-ru="Суверенный узел">Sovereign Node</div>
+      <div class="part-desc t"
+        data-en="Federal and regional government bodies with territorial jurisdiction over cryospheric zones."
+        data-ru="Федеральные и региональные органы власти с территориальной юрисдикцией над криосферными зонами.">Federal and regional government bodies with territorial jurisdiction over cryospheric zones.</div>
+      <ul class="part-items">
+        <li class="t" data-en="Direct listing rights" data-ru="Прямые права листинга">Direct listing rights</li>
+        <li class="t" data-en="Reserve lock authority" data-ru="Полномочия резервирования">Reserve lock authority</li>
+        <li class="t" data-en="Sovereign settlement access" data-ru="Доступ к суверенному урегулированию">Sovereign settlement access</li>
+      </ul>
+      <a href="mailto:access@cryocapital.exchange?subject=Sovereign Node Access Request" class="part-cta t" data-en="Request sovereign access" data-ru="Запросить суверенный доступ">Request sovereign access</a>
+    </div>
+    <div class="part-card sr d1">
+      <div class="part-tier t" data-en="Tier 2 · Operational" data-ru="Уровень 2 · Операционный">Tier 2 · Operational</div>
+      <div class="part-title t" data-en="Scientific Operator" data-ru="Научный оператор">Scientific Operator</div>
+      <div class="part-desc t"
+        data-en="Authorised scientific institutions conducting bio-thermodynamic surveys and Kurchatov-routed verification."
+        data-ru="Уполномоченные научные учреждения, проводящие биотермодинамические съёмки и верификацию через контур Курчатова.">Authorised scientific institutions conducting bio-thermodynamic surveys and Kurchatov-routed verification.</div>
+      <ul class="part-items">
+        <li class="t" data-en="Survey submission rights" data-ru="Права подачи результатов съёмки">Survey submission rights</li>
+        <li class="t" data-en="Verification pipeline access" data-ru="Доступ к верификационному контуру">Verification pipeline access</li>
+        <li class="t" data-en="ОБР network integration" data-ru="Интеграция в сеть ОБР">ОБР network integration</li>
+      </ul>
+      <a href="mailto:access@cryocapital.exchange?subject=Scientific Operator Access" class="part-cta t" data-en="Request operator access" data-ru="Запросить операторский доступ">Request operator access</a>
+    </div>
+    <div class="part-card sr d2">
+      <div class="part-tier t" data-en="Tier 3 · Strategic" data-ru="Уровень 3 · Стратегический">Tier 3 · Strategic</div>
+      <div class="part-title t" data-en="Sovereign Partner" data-ru="Суверенный партнёр">Sovereign Partner</div>
+      <div class="part-desc t"
+        data-en="State parties and sovereign wealth structures seeking bilateral bio-capital arrangements through the SBCP framework."
+        data-ru="Государственные субъекты и суверенные фонды, стремящиеся к двусторонним биокапитальным соглашениям через рамку СБП.">State parties and sovereign wealth structures seeking bilateral bio-capital arrangements through the SBCP framework.</div>
+      <ul class="part-items">
+        <li class="t" data-en="Bilateral arrangement access" data-ru="Доступ к двусторонним соглашениям">Bilateral arrangement access</li>
+        <li class="t" data-en="Phase I pilot participation" data-ru="Участие в пилоте Фазы I">Phase I pilot participation</li>
+        <li class="t" data-en="RU–CN pilot eligible" data-ru="Допуск к пилоту Россия–Китай">RU–CN pilot eligible</li>
+      </ul>
+      <a href="mailto:access@cryocapital.exchange?subject=Sovereign Partnership Enquiry" class="part-cta t" data-en="Request partnership access" data-ru="Запросить партнёрский доступ">Request partnership access</a>
+    </div>
+    <div class="part-card sr">
+      <div class="part-tier t" data-en="Tier 4 · Institutional" data-ru="Уровень 4 · Институциональный">Tier 4 · Institutional</div>
+      <div class="part-title t" data-en="Capital Partner" data-ru="Капитальный партнёр">Capital Partner</div>
+      <div class="part-desc t"
+        data-en="Institutional funds and mandated capital structures with long-horizon interest in sovereign-grade cryo-backed asset classes."
+        data-ru="Институциональные фонды и мандатные капитальные структуры с долгосрочным интересом к активам суверенного класса с криообеспечением.">Institutional funds and mandated capital structures with long-horizon interest in sovereign-grade cryo-backed asset classes.</div>
+      <ul class="part-items">
+        <li class="t" data-en="Asset class access briefing" data-ru="Брифинг по доступу к классам активов">Asset class access briefing</li>
+        <li class="t" data-en="Phase III instrument pipeline" data-ru="Контур инструментов Фазы III">Phase III instrument pipeline</li>
+        <li class="t" data-en="BCU framework orientation" data-ru="Ориентация в рамке БКЕ">BCU framework orientation</li>
+      </ul>
+      <a href="mailto:access@cryocapital.exchange?subject=Institutional Capital Access" class="part-cta t" data-en="Request institutional briefing" data-ru="Запросить институциональный брифинг">Request institutional briefing</a>
+    </div>
+    <div class="part-card sr d1">
+      <div class="part-tier t" data-en="Tier 5 · Technical" data-ru="Уровень 5 · Технический">Tier 5 · Technical</div>
+      <div class="part-title t" data-en="Technical Counterparty" data-ru="Технический контрагент">Technical Counterparty</div>
+      <div class="part-desc t"
+        data-en="Specialised technical entities contributing to SBCP infrastructure: ledger operations, BAIN ID systems, classification methodology."
+        data-ru="Специализированные технические структуры, участвующие в инфраструктуре СБП: операции реестра, системы BAIN ID, методология классификации.">Specialised technical entities contributing to SBCP infrastructure: ledger operations, BAIN ID systems, classification methodology.</div>
+      <ul class="part-items">
+        <li class="t" data-en="Infrastructure integration" data-ru="Интеграция в инфраструктуру">Infrastructure integration</li>
+        <li class="t" data-en="BAIN ID system access" data-ru="Доступ к системе BAIN ID">BAIN ID system access</li>
+        <li class="t" data-en="BCCS state engine access" data-ru="Доступ к движку состояний BCCS">BCCS state engine access</li>
+      </ul>
+      <a href="mailto:access@cryocapital.exchange?subject=Technical Integration Enquiry" class="part-cta t" data-en="Request technical access" data-ru="Запросить технический доступ">Request technical access</a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- REGISTRY PROOF -->
+<section class="registry-proof" id="registry">
+  <div class="rp-inner">
+    <span class="sec-label ice sr t" data-en="Registry Foundation // Why CryoCapital" data-ru="Основа реестра // Почему CryoCapital">Registry Foundation // Why CryoCapital</span>
+    <div class="rp-stats sr">
+      <div class="rp-stat c">
+        <div class="n">1–10T</div>
+        <div class="l t" data-en="BCU · Estimated latent<br>bio-capital reserve" data-ru="БКЕ · Оценочный скрытый<br>резерв биокапитала">BCU · Estimated latent<br>bio-capital reserve</div>
+      </div>
+      <div class="rp-stat a">
+        <div class="n">65%</div>
+        <div class="l t" data-en="Russian territory<br>covered by permafrost" data-ru="Территории России<br>покрыто мерзлотой">Russian territory<br>covered by permafrost</div>
+      </div>
+      <div class="rp-stat c">
+        <div class="n">3025</div>
+        <div class="l t" data-en="ОБР scientific network<br>59 regional departments" data-ru="Научная сеть ОБР<br>59 региональных отделений">ОБР scientific network<br>59 regional departments</div>
+      </div>
+      <div class="rp-stat g">
+        <div class="n">v1.0</div>
+        <div class="l t" data-en="Registry live now<br>Phase I listing open" data-ru="Реестр активен сейчас<br>Листинг Фазы I открыт">Registry live now<br>Phase I listing open</div>
+      </div>
+    </div>
+    <div class="rp-proof-grid sr d1">
+      <div class="rp-proof-cell">
+        <div class="icon t" data-en="STANDARD AUTHORITY" data-ru="АВТОРИТЕТ СТАНДАРТА">STANDARD AUTHORITY</div>
+        <h4>KRYONIS · SBCP</h4>
         <p class="t"
-          data-ru="Каждая финансовая система извлекала ценность из настоящего. Суверенный Биоклиринговый Протокол действует на иной основе: крупнейший репозиторий биологического интеллекта Земли сохранялся в сибирской мерзлоте до 1,8 миллиона лет. Это не нефть. Не газ. Это <strong>термодинамический суверенитет</strong> — сжатый, сохранённый, и теперь подлежащий российскому суверенному учёту."
-          data-en="Every financial system ever built extracted value from the present. The Sovereign Bio-Clearing Protocol operates on a different premise: the most concentrated repository of biological intelligence on Earth has been preserved in Siberian permafrost for up to 1.8 million years. It is not oil. It is not gas. It is <strong>thermodynamic sovereignty</strong> — compressed, preserved, and now subject to Russian sovereign accounting.">Каждая финансовая система извлекала ценность из настоящего. Суверенный Биоклиринговый Протокол действует на иной основе: крупнейший репозиторий биологического интеллекта Земли сохранялся в сибирской мерзлоте до 1,8 миллиона лет. Это не нефть. Не газ. Это <strong>термодинамический суверенитет</strong> — сжатый, сохранённый, и теперь подлежащий российскому суверенному учёту.</p>
+          data-en="The Sovereign Bio-Clearing Protocol (SBCP) is the classification and accounting standard underlying CryoCapital Exchange. KRYONIS Sovereign Systems is the standard authority. kryonis.global"
+          data-ru="Суверенный Биоклиринговый Протокол (СБП) — стандарт классификации и учёта, лежащий в основе CryoCapital Exchange. KRYONIS Sovereign Systems — авторитет стандарта. kryonis.global">The Sovereign Bio-Clearing Protocol (SBCP) is the classification and accounting standard underlying CryoCapital Exchange. KRYONIS Sovereign Systems is the standard authority. kryonis.global</p>
+      </div>
+      <div class="rp-proof-cell">
+        <div class="icon t" data-en="SCIENTIFIC NETWORK" data-ru="НАУЧНАЯ СЕТЬ">SCIENTIFIC NETWORK</div>
+        <h4>ОБР · KURCHATOV</h4>
         <p class="t"
-          data-ru="Доктрина, которая называет актив, им владеет. Протокол, который его регистрирует, им управляет. У России есть два-пять лет. PERMAFROST FUTURES — инструмент, с помощью которого Россия действует первой."
-          data-en="The doctrine that names this asset owns it. The protocol that registers it controls it. Russia has two to five years before others step into this space. PERMAFROST FUTURES is the instrument through which Russia acts first.">Доктрина, которая называет актив, им владеет. Протокол, который его регистрирует, им управляет. У России есть два-пять лет. PERMAFROST FUTURES — инструмент, с помощью которого Россия действует первой.</p>
-        <div class="doctrine-quote">
-          <span class="t"
-            data-ru="«Вопрос не в том, будет ли построена эта инфраструктура. Вопрос: кто определяет стандарты?»"
-            data-en='"The question is not whether this infrastructure will be built. The question is: who defines the standards?"'>«Вопрос не в том, будет ли построена эта инфраструктура. Вопрос: кто определяет стандарты?»</span>
-          <span class="attr t" data-ru="СБП v1.0 · Основополагающая доктрина · Москва 2026" data-en="SBCP v1.0 · Founding Doctrine · Moscow 2026">СБП v1.0 · Основополагающая доктрина · Москва 2026</span>
-        </div>
+          data-en="The Russian Society of Biotechnologists (ОБР) provides the 59-department survey network. The Kurchatov Institute provides sovereign-grade scientific verification. Both are live on Phase I."
+          data-ru="Общество биотехнологов России (ОБР) обеспечивает сеть из 59 отделений для съёмки. Курчатовский институт осуществляет научную верификацию суверенного класса. Оба работают в Фазе I.">The Russian Society of Biotechnologists (ОБР) provides the 59-department survey network. The Kurchatov Institute provides sovereign-grade scientific verification. Both are live on Phase I.</p>
+      </div>
+      <div class="rp-proof-cell">
+        <div class="icon t" data-en="LEGAL FRAMEWORK" data-ru="ПРАВОВАЯ БАЗА">LEGAL FRAMEWORK</div>
+        <h4>CBD ART.15 · ЦФА 259-FZ</h4>
+        <p class="t"
+          data-en="Sovereign rights grounded in CBD Article 15 (since 1995). Phase III instruments structured under Russian Federal Law No. 259-FZ (ЦФА). No dependence on external ratification frameworks."
+          data-ru="Суверенные права основаны на Статье 15 КБР (с 1995 года). Инструменты Фазы III структурированы по ФЗ № 259-ФЗ (ЦФА). Без зависимости от внешних ратификационных рамок.">Sovereign rights grounded in CBD Article 15 (since 1995). Phase III instruments structured under Russian Federal Law No. 259-FZ (ЦФА). No dependence on external ratification frameworks.</p>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="h-rule">
-
-<section class="layers" id="protocol">
-  <div class="layers-header sr">
-    <span class="sec-tag amber t" data-ru="02 / Архитектура протокола" data-en="02 / Protocol Architecture">02 / Архитектура протокола</span>
-    <h2 class="t"
-      data-ru="Четыре суверенные <span class='c'>функции</span><br><span class='a'>Одна клиринговая архитектура</span>"
-      data-en="Four sovereign <span class='c'>functions</span><br><span class='a'>One clearing architecture</span>">Четыре суверенные <span class="c">функции</span><br><span class="a">Одна клиринговая архитектура</span></h2>
-  </div>
-  <div class="depth-column sr">
-    <div class="depth-axis">
-      <div class="depth-marker" style="height:130px;padding-top:50px;">I</div>
-      <div class="depth-marker" style="height:130px;padding-top:50px;">II</div>
-      <div class="depth-marker" style="height:130px;padding-top:50px;">III</div>
-      <div class="depth-marker" style="height:130px;padding-top:50px;">IV</div>
-      <div class="depth-marker" style="height:130px;padding-top:50px;">V</div>
-    </div>
-    <div class="layer-cards">
-      <div class="layer-card l1">
-        <div>
-          <div class="age t" data-ru="Суверенная функция · Территориальная съёмка" data-en="Sovereign Function · Territorial Survey">Суверенная функция · Территориальная съёмка</div>
-          <h3 class="t" data-ru="Инвентаризация" data-en="Inventory">Инвентаризация</h3>
-          <p class="t" data-ru="Стандартизированные биотермодинамические протоколы для приоритетных зон мерзлоты. 59 региональных отделений ОБР охватывают Западную Сибирь и бассейн Лены. Съёмка — это акт суверенного притязания." data-en="Standardised bio-thermodynamic survey protocols for priority permafrost zones. ОБР's 59 regional departments deploy across Western Siberia and the Lena River basin. The survey is the act of sovereign claim.">Стандартизированные биотермодинамические протоколы для приоритетных зон мерзлоты. 59 региональных отделений ОБР охватывают Западную Сибирь и бассейн Лены. Съёмка — это акт суверенного притязания.</p>
-        </div>
-        <div class="layer-stat"><div class="n">59</div><div class="u t" data-ru="Региональных отд. ОБР" data-en="ОБР regional depts">Региональных отд. ОБР</div></div>
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="fc-inner">
+    <h2 class="fc-h2 sr t"
+      data-en="Registry is <span class='c'>live.</span><br>Listing is <span class='a'>open.</span>"
+      data-ru="Реестр <span class='c'>активен.</span><br>Листинг <span class='a'>открыт.</span>">Registry is <span class="c">live.</span><br>Listing is <span class="a">open.</span></h2>
+    <p class="fc-sub sr d1 t"
+      data-en="Phase I institutional access is available now. Sovereign, scientific and capital partners are onboarding. The standard that registers first — defines the asset class."
+      data-ru="Институциональный доступ Фазы I доступен сейчас. Суверенные, научные и капитальные партнёры подключаются. Стандарт, который регистрирует первым — определяет класс активов.">Phase I institutional access is available now. Sovereign, scientific and capital partners are onboarding. The standard that registers first — defines the asset class.</p>
+    <div class="fc-status sr d1">
+      <div class="fc-s-item">
+        <div class="fc-dot green"></div>
+        <div class="fc-lbl t" data-en="Registry v1.0" data-ru="Реестр v1.0">Registry v1.0</div>
       </div>
-      <div class="layer-card l2">
-        <div>
-          <div class="age t" data-ru="Суверенная функция · Научный авторитет" data-en="Sovereign Function · Scientific Authority">Суверенная функция · Научный авторитет</div>
-          <h3 class="t" data-ru="Верификация" data-en="Verification">Верификация</h3>
-          <p class="t" data-ru="Все оценки биокапитала передаются на независимую верификацию в Курчатовский институт. Печать Курчатова — не формальность. Это инструмент, превращающий полевую оценку в суверенное притязание на биокапитал." data-en="All bio-capital assessments submitted for independent verification by the Kurchatov Institute. The Kurchatov seal is not a formality. It is the instrument that transforms a field assessment into a sovereign bio-capital claim.">Все оценки биокапитала передаются на независимую верификацию в Курчатовский институт. Печать Курчатова — не формальность. Это инструмент, превращающий полевую оценку в суверенное притязание на биокапитал.</p>
-        </div>
-        <div class="layer-stat"><div class="n">KI</div><div class="u t" data-ru="Курчатовский институт" data-en="Kurchatov Institute">Курчатовский институт</div></div>
+      <div class="fc-s-item">
+        <div class="fc-dot" style="background:var(--amber)"></div>
+        <div class="fc-lbl t" data-en="Phase I · Siberia" data-ru="Фаза I · Сибирь">Phase I · Siberia</div>
       </div>
-      <div class="layer-card l3">
-        <div>
-          <div class="age t" data-ru="Суверенная функция · Классификация активов" data-en="Sovereign Function · Asset Classification">Суверенная функция · Классификация активов</div>
-          <h3 class="t" data-ru="Классификация" data-en="Classification">Классификация</h3>
-          <p class="t" data-ru="Верифицированные активы классифицируются по пяти суверенным классам биокапитала с оценкой в БКЕ. БКЕ — суверенная расчётная единица, деноминированная в российском стандарте. Стандарт определяет стоимость. Рынок — нет." data-en="Verified assets classified into five sovereign bio-capital asset classes with BCU valuation. BCU is the sovereign accounting unit — denominated in Russian standard, not external currency. The standard defines value. The market does not.">Верифицированные активы классифицируются по пяти суверенным классам биокапитала с оценкой в БКЕ. БКЕ — суверенная расчётная единица, деноминированная в российском стандарте. Стандарт определяет стоимость. Рынок — нет.</p>
-        </div>
-        <div class="layer-stat"><div class="n">5</div><div class="u t" data-ru="Классов активов БКЕ" data-en="BCU asset classes">Классов активов БКЕ</div></div>
-      </div>
-      <div class="layer-card l4">
-        <div>
-          <div class="age t" data-ru="Суверенная функция · Реестр резерва" data-en="Sovereign Function · Reserve Ledger">Суверенная функция · Реестр резерва</div>
-          <h3 class="t" data-ru="Клиринг" data-en="Clearing">Клиринг</h3>
-          <p class="t" data-ru="Клирингованные активы вносятся в суверенный реестр PERMAFROST FUTURES — первый в мире реестр биокапитала под российской юрисдикцией. Применяются через суверенные соглашения или хранятся как государственный резерв." data-en="Cleared assets enter the PERMAFROST FUTURES sovereign reserve ledger — the first sovereign bio-capital registry in the world under Russian legal jurisdiction. Deployable through sovereign-to-sovereign agreements or held as long-term state reserve.">Клирингованные активы вносятся в суверенный реестр PERMAFROST FUTURES — первый в мире реестр биокапитала под российской юрисдикцией. Применяются через суверенные соглашения или хранятся как государственный резерв.</p>
-        </div>
-        <div class="layer-stat"><div class="n">ЦФА</div><div class="u t" data-ru="Российская правовая база" data-en="Russian legal framework">Российская правовая база</div></div>
-      </div>
-      <div class="layer-card l5">
-        <div>
-          <div class="age t" data-ru="Правовой якорь · Международный прецедент" data-en="Legal Anchor · International Precedent">Правовой якорь · Международный прецедент</div>
-          <h3 class="t" data-ru="Нагойский протокол" data-en="Nagoya Protocol">Нагойский протокол</h3>
-          <p class="t" data-ru="Россия является подписантом Конвенции о биологическом разнообразии. Нагойский протокол закрепляет суверенное предварительное согласие и права на совместное использование выгод по всем биогенетическим ресурсам национальной территории. СБП реализует права, которые Россия уже имеет." data-en="Russia is a signatory to the Convention on Biological Diversity. The Nagoya Protocol grants sovereign Prior Informed Consent and Benefit-Sharing rights over all biological genetic resources within national territory. The SBCP operationalises rights Russia already holds — at scale.">Россия является подписантом Конвенции о биологическом разнообразии. Нагойский протокол закрепляет суверенное предварительное согласие и права на совместное использование выгод по всем биогенетическим ресурсам национальной территории. СБП реализует права, которые Россия уже имеет.</p>
-        </div>
-        <div class="layer-stat"><div class="n">CBD</div><div class="u t" data-ru="Международный правовой якорь" data-en="International legal anchor">Международный правовой якорь</div></div>
+      <div class="fc-s-item">
+        <div class="fc-dot green"></div>
+        <div class="fc-lbl t" data-en="KI Verification" data-ru="Верификация КИ">KI Verification</div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="market" id="architecture">
-  <div class="market-inner">
-    <span class="sec-tag light sr t" data-ru="03 / Суверенная архитектура" data-en="03 / Sovereign Architecture">03 / Суверенная архитектура</span>
-    <h2 class="sr t"
-      data-ru="KRYONIS — стандарт<br><span class='c'>PERMAFROST FUTURES</span><br>— реестр<br><span class='dim'>Российское государство — суверен</span>"
-      data-en="KRYONIS is the standard<br><span class='c'>PERMAFROST FUTURES</span><br>is the ledger<br><span class='dim'>The Russian state is the sovereign</span>">KRYONIS — стандарт<br><span class="c">PERMAFROST FUTURES</span><br>— реестр<br><span class="dim">Российское государство — суверен</span></h2>
-    <div class="stats-row sr">
-      <div class="stat-box blue"><div class="n">БКЕ</div><div class="l t" data-ru="Биоклиринговые единицы<br>не евро · не доллары" data-en="Bio-Clearing Units<br>not euros · not dollars">Биоклиринговые единицы<br>не евро · не доллары</div></div>
-      <div class="stat-box amber"><div class="n">1–10T</div><div class="l t" data-ru="Базовых единиц латентного<br>криосферного биокапитала" data-en="Base units of latent<br>cryospheric bio-capital">Базовых единиц латентного<br>криосферного биокапитала</div></div>
-      <div class="stat-box blue"><div class="n">65%</div><div class="l t" data-ru="Территории России<br>покрыто вечной мерзлотой" data-en="Russian territory<br>covered by permafrost">Территории России<br>покрыто вечной мерзлотой</div></div>
-      <div class="stat-box amber"><div class="n">100yr</div><div class="l t" data-ru="Цивилизационный горизонт<br>Дорожная карта I–III фаз" data-en="Civilisational horizon<br>Phase I–III roadmap">Цивилизационный горизонт<br>Дорожная карта I–III фаз</div></div>
+    <div class="fc-btns sr d2">
+      <a href="mailto:access@cryocapital.exchange?subject=Asset Listing Request — Phase I" class="btn-primary t" data-en="List a Cryo Asset" data-ru="Подать актив на листинг">List a Cryo Asset</a>
+      <a href="mailto:access@cryocapital.exchange?subject=Institutional Access Request" class="btn-secondary t" data-en="Request Institutional Access" data-ru="Запросить институциональный доступ">Request Institutional Access</a>
     </div>
-  </div>
-</section>
-
-<section class="proof" id="roadmap">
-  <div class="proof-left sr">
-    <span class="sec-tag cryo t" data-ru="04 / Дорожная карта" data-en="04 / Roadmap">04 / Дорожная карта</span>
-    <h2 class="t" data-ru="Три фазы<br><span class='c'>Одно столетие</span>" data-en="Three phases<br><span class='c'>One century</span>">Три фазы<br><span class="c">Одно столетие</span></h2>
-    <p class="t" data-ru="Стандарт предшествует инструменту. Реестр предшествует активу. Доктрина предшествует рынку. Всё последующее — панарктическая рамка, ЦФА-инструменты, цивилизационный биорезерв — основано на протоколе, объявленном здесь." data-en="The standard precedes the instrument. The registry precedes the asset. The doctrine precedes the market. Everything that follows — Pan-Arctic framework, ЦФА instruments, civilisational bio-reserve — rests on the protocol declared here.">Стандарт предшествует инструменту. Реестр предшествует активу. Доктрина предшествует рынку. Всё последующее — панарктическая рамка, ЦФА-инструменты, цивилизационный биорезерв — основано на протоколе, объявленном здесь.</p>
-  </div>
-  <div class="proof-right sr d2">
-    <div class="proof-item">
-      <div class="proof-num">I</div>
-      <div class="proof-text">
-        <div class="title t" data-ru="Сибирская суверенная инвентаризация · 2026–2030" data-en="Siberian Sovereign Inventory · 2026–2030">Сибирская суверенная инвентаризация · 2026–2030</div>
-        <p class="t" data-ru="Протоколы съёмки KRYONIS/ОБР. Базовые инвентаризации для пяти приоритетных зон Западной Сибири и бассейна Лены, верифицированные Курчатовским институтом. Пилот Россия–Китай на 90 дней. Активация в 2026 году. Это основополагающий акт." data-en="KRYONIS/ОБР survey protocols. Kurchatov-verified baseline inventories for five priority zones in Western Siberia and the Lena basin. Russia–China 90-day sovereign pilot. Phase I activation: 2026. This is the founding act.">Протоколы съёмки KRYONIS/ОБР. Базовые инвентаризации для пяти приоритетных зон Западной Сибири и бассейна Лены, верифицированные Курчатовским институтом. Пилот Россия–Китай на 90 дней. Активация в 2026 году. Это основополагающий акт.</p>
-      </div>
-    </div>
-    <div class="proof-item">
-      <div class="proof-num">II</div>
-      <div class="proof-text">
-        <div class="title t" data-ru="Панарктическая суверенная рамка · 2030–2040" data-en="Pan-Arctic Sovereign Framework · 2030–2040">Панарктическая суверенная рамка · 2030–2040</div>
-        <p class="t" data-ru="Панарктический реестр биокапитала по российским стандартам. Двусторонние суверенные соглашения с арктическими государствами. Россия становится архитектором глобальной криосферной биокапитальной доктрины — а не её последователем." data-en="Pan-Arctic Bio-Capital Registry under Russian-defined standards. Bilateral sovereign bio-capital agreements with Arctic states. Russia becomes the architect of global cryospheric bio-capital doctrine — not its adopter.">Панарктический реестр биокапитала по российским стандартам. Двусторонние суверенные соглашения с арктическими государствами. Россия становится архитектором глобальной криосферной биокапитальной доктрины — а не её последователем.</p>
-      </div>
-    </div>
-    <div class="proof-item">
-      <div class="proof-num">III</div>
-      <div class="proof-text">
-        <div class="title t" data-ru="Суверенные ЦФА-инструменты · 2040–2055" data-en="Sovereign ЦФА Instruments · 2040–2055">Суверенные ЦФА-инструменты · 2040–2055</div>
-        <p class="t" data-ru="Многосторонние биокапитальные соглашения в БКЕ по Федеральному закону № 259-ФЗ. Полная российская юрисдикция. Без зависимости от западной финансовой инфраструктуры. Токенизация служит стандарту, а не наоборот." data-en="BCU-denominated multilateral bio-capital arrangements under Federal Law No. 259-FZ. Full Russian federal jurisdiction. No dependence on Western financial infrastructure. Tokenisation is a late-stage function — it serves the standard, not the reverse.">Многосторонние биокапитальные соглашения в БКЕ по Федеральному закону № 259-ФЗ. Полная российская юрисдикция. Без зависимости от западной финансовой инфраструктуры. Токенизация служит стандарту, а не наоборот.</p>
-      </div>
-    </div>
-    <div class="proof-item">
-      <div class="proof-num">∞</div>
-      <div class="proof-text">
-        <div class="title t" data-ru="Доктрина · Горизонт 100–300 лет" data-en="The Doctrine · 100–300 Year Horizon">Доктрина · Горизонт 100–300 лет</div>
-        <p class="t" data-ru="России не нужно ликвидировать биокапитал мерзлоты. Нужно зарегистрировать его прежде, чем другие определят его стоимость. Каждый год бездействия — год, когда словарь и методология оценки создаются кем-то другим. СБП закрывает это окно навсегда." data-en="Russia does not need to liquidate its permafrost bio-capital. It needs to register it before others define what it is worth. Every year of inaction is a year the vocabulary and the valuation methodology are authored by someone else. The SBCP closes that window permanently.">России не нужно ликвидировать биокапитал мерзлоты. Нужно зарегистрировать его прежде, чем другие определят его стоимость. Каждый год бездействия — год, когда словарь и методология оценки создаются кем-то другим. СБП закрывает это окно навсегда.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="declaration" id="contact">
-  <div class="declaration-inner">
-    <h2 class="sr t"
-      data-ru="Это не<br><span class='c'>предложение</span><br><span class='a'>Это декларация</span><br><span class='dim'>Стандарт, которого ещё нет — появится. Единственный вопрос: кто его авторизует.</span>"
-      data-en="This is not<br><span class='c'>a proposal</span><br><span class='a'>It is a declaration</span><br><span class='dim'>The standard that does not exist yet — will exist. The only question is who authors it.</span>">Это не<br><span class="c">предложение</span><br><span class="a">Это декларация</span><br><span class="dim">Стандарт, которого ещё нет — появится. Единственный вопрос: кто его авторизует.</span></h2>
-
-    <p class="doctrine-stmt sr d1 t"
-      data-ru="Россия владеет крупнейшим суверенным биологическим резервом на Земле. У неё есть научная инфраструктура для его верификации. Правовая база для управления им. Геополитический интерес к определению стандарта. Суверенный Биоклиринговый Протокол — инструмент, посредством которого эти существующие преимущества становятся зарегистрированным суверенным капиталом. <span class='red'>Окно открыто сейчас.</span>"
-      data-en="Russia holds the largest sovereign biological reserve on Earth. It has the scientific infrastructure to verify it. The legal framework to govern it. The geopolitical interest to define the standard. The Sovereign Bio-Clearing Protocol is the instrument through which these existing strengths become registered sovereign capital. <span class='red'>The window is open now.</span>">Россия владеет крупнейшим суверенным биологическим резервом на Земле. У неё есть научная инфраструктура для его верификации. Правовая база для управления им. Геополитический интерес к определению стандарта. Суверенный Биоклиринговый Протокол — инструмент, посредством которого эти существующие преимущества становятся зарегистрированным суверенным капиталом. <span class="red">Окно открыто сейчас.</span></p>
-
-    <div class="inst-block sr d1">
-      <div class="inst-cell">
-        <div class="inst-label t" data-ru="Авторитет стандарта" data-en="Standard Authority">Авторитет стандарта</div>
-        <div class="inst-name cryo">KRYONIS</div>
-        <div class="inst-detail">Sovereign Systems Limited<br>kryonis.global</div>
-      </div>
-      <div class="inst-cell">
-        <div class="inst-label t" data-ru="Научная сеть" data-en="Scientific Network">Научная сеть</div>
-        <div class="inst-name">ОБР</div>
-        <div class="inst-detail t" data-ru="Общество биотехнологов России<br>3 025 членов · 59 отделений" data-en="Russian Society of Biotechnologists<br>3,025 Members · 59 Departments">Общество биотехнологов России<br>3 025 членов · 59 отделений</div>
-      </div>
-      <div class="inst-cell">
-        <div class="inst-label t" data-ru="Орган верификации" data-en="Verification Authority">Орган верификации</div>
-        <div class="inst-name amber">KURCHATOV</div>
-        <div class="inst-detail t" data-ru="Курчатовский институт<br>Государственный научный центр" data-en="Kurchatov Institute<br>State Scientific Authority">Курчатовский институт<br>Государственный научный центр</div>
-      </div>
-    </div>
-
-    <div class="cta-btns sr d2">
-      <a href="mailto:info@kryonis.global" class="btn-cryo t" data-ru="Запросить суверенный брифинг" data-en="Request Sovereign Briefing">Запросить суверенный брифинг</a>
-      <a href="#protocol" class="btn-ghost t" data-ru="Читать протокол" data-en="Read the Protocol">Читать протокол</a>
-    </div>
-    <div class="closing-doctrine sr d3 t" data-ru="Стандарт, который регистрирует первым — определяет класс активов." data-en="The standard that registers first — defines the asset class.">Стандарт, который регистрирует первым — определяет класс активов.</div>
+    <div class="fc-note sr d3 t" data-en="SBCP v1.0 · Siberia I Pilot · Kurchatov Verified · CBD Art.15 · ЦФА 259-FZ" data-ru="СБП v1.0 · Пилот Сибирь I · Верификация КИ · КБР Ст.15 · ЦФА 259-ФЗ">SBCP v1.0 · Siberia I Pilot · Kurchatov Verified · CBD Art.15 · ЦФА 259-FZ</div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">PERMAFROST FUTURES
-      <span class="sub t" data-ru="СУВЕРЕННЫЙ БИОКЛИРИНГОВЫЙ ПРОТОКОЛ · СБП v1.0 · 2026" data-en="SOVEREIGN BIO-CLEARING PROTOCOL · SBCP v1.0 · 2026">СУВЕРЕННЫЙ БИОКЛИРИНГОВЫЙ ПРОТОКОЛ · СБП v1.0 · 2026</span>
+  <div class="foot-inner">
+    <div class="foot-logo">CRYOCAPITAL EXCHANGE
+      <span class="sub t" data-en="SOVEREIGN BIO-CAPITAL INFRASTRUCTURE · SBCP v1.0 · 2026" data-ru="СУВЕРЕННАЯ БИОКАПИТАЛЬНАЯ ИНФРАСТРУКТУРА · СБП v1.0 · 2026">SOVEREIGN BIO-CAPITAL INFRASTRUCTURE · SBCP v1.0 · 2026</span>
     </div>
-    <div class="footer-right"><strong>kryonis.global</strong><br>
-      <span class="t" data-ru="KRYONIS Sovereign Systems · ОБР · Курчатовский институт<br>Нагойский протокол · ЦФА ФЗ № 259-ФЗ · Москва 2026" data-en="KRYONIS Sovereign Systems · ОБР · Kurchatov Institute<br>Nagoya Protocol Anchor · ЦФА Federal Law 259-FZ · Moscow 2026">KRYONIS Sovereign Systems · ОБР · Курчатовский институт<br>Нагойский протокол · ЦФА ФЗ № 259-ФЗ · Москва 2026</span>
+    <div class="foot-r"><strong>cryocapital.exchange</strong><br>
+      <span class="t"
+        data-en="KRYONIS Sovereign Systems · ОБР Scientific Network · Kurchatov Institute<br>CBD Article 15 · ЦФА Federal Law 259-FZ · Moscow 2026"
+        data-ru="KRYONIS Sovereign Systems · Сеть ОБР · Курчатовский институт<br>КБР Статья 15 · ЦФА ФЗ № 259-ФЗ · Москва 2026">KRYONIS Sovereign Systems · ОБР Scientific Network · Kurchatov Institute<br>CBD Article 15 · ЦФА Federal Law 259-FZ · Moscow 2026</span>
     </div>
   </div>
 </footer>
 
 <script>
-// ── LANGUAGE SYSTEM ──
-let lang = 'ru';
-
+// ── LANG ──
+let lang = 'en';
 function setLang(l) {
   lang = l;
   document.getElementById('btn-en').classList.toggle('active', l === 'en');
   document.getElementById('btn-ru').classList.toggle('active', l === 'ru');
   document.documentElement.lang = l;
   document.title = l === 'ru'
-    ? 'PERMAFROST FUTURES // СУВЕРЕННЫЙ БИОКЛИРИНГОВЫЙ ПРОТОКОЛ // 2026'
-    : 'PERMAFROST FUTURES // SOVEREIGN BIO-CLEARING PROTOCOL // 2026';
-
+    ? 'CRYOCAPITAL EXCHANGE // Инфраструктура формирования криообеспеченного капитала'
+    : 'CRYOCAPITAL EXCHANGE // Infrastructure for Cryo-Backed Capital Formation';
   document.querySelectorAll('.t[data-' + l + ']').forEach(el => {
     el.innerHTML = el.getAttribute('data-' + l);
   });
-
-  // Subtle fade animation on body
-  document.body.style.transition = 'opacity .15s';
-  document.body.style.opacity = '0.85';
-  setTimeout(() => { document.body.style.opacity = '1'; }, 150);
+  document.body.style.transition = 'opacity .12s';
+  document.body.style.opacity = '.88';
+  setTimeout(() => { document.body.style.opacity = '1'; }, 130);
 }
 
-// ── CANVAS ──
-const canvas = document.getElementById('depthCanvas'), ctx = canvas.getContext('2d'), W = canvas.width, H = canvas.height;
-const strata = [
-  {name:'BIOME RESERVE',start:0,end:.18,cA:'#4AB3E8',cB:'#1A5070'},
-  {name:'GENETIC ARCHIVE',start:.18,end:.36,cA:'#3A9FD4',cB:'#0D3A56'},
-  {name:'CARBON RESERVE',start:.36,end:.54,cA:'#2A8FC0',cB:'#092A40'},
-  {name:'THERMO ASSET',start:.54,end:.76,cA:'#C8861A',cB:'#6B4208'},
-  {name:'BIO-HERITAGE',start:.76,end:1,cA:'#A06814',cB:'#4A2C06'},
-];
-const particles = [];
-strata.forEach((s, si) => {
-  const c = si < 3 ? 16 : 10;
-  for (let i = 0; i < c; i++) particles.push({x:80+Math.random()*(W-100),y:(s.start+Math.random()*(s.end-s.start))*H,r:1+Math.random()*2.5,layer:si,phase:Math.random()*Math.PI*2,speed:.003+Math.random()*.008,bright:.2+Math.random()*.6});
-});
-const cracks = [];
-for (let i = 0; i < 8; i++) {
-  const x = 80+Math.random()*(W-100), y0 = Math.random()*H, segs = [];
-  let cx = x, cy = y0;
-  for (let j = 0; j < 6+Math.floor(Math.random()*6); j++) { cx+=(Math.random()-.5)*24; cy+=8+Math.random()*20; segs.push({x:cx,y:Math.min(cy,H)}); }
-  cracks.push({x0:x,y0,segs,alpha:.04+Math.random()*.08});
-}
-let scanY = 0, scanDir = 1;
-function draw() {
-  ctx.clearRect(0,0,W,H);
-  strata.forEach(s => {
-    const y0=s.start*H,y1=s.end*H,g=ctx.createLinearGradient(0,y0,0,y1);
-    g.addColorStop(0,s.cA+'22'); g.addColorStop(1,s.cB+'44');
-    ctx.fillStyle=g; ctx.fillRect(0,y0,W,y1-y0);
-    if(s.start>0){ctx.beginPath();ctx.moveTo(0,y0);ctx.lineTo(W,y0);ctx.strokeStyle=s.cA+'30';ctx.lineWidth=1;ctx.setLineDash([4,8]);ctx.stroke();ctx.setLineDash([]);}
-    ctx.font='8px "IBM Plex Mono"'; ctx.fillStyle=s.cA+'55'; ctx.fillText(s.name,W-108,y0+14);
-  });
-  cracks.forEach(c => {ctx.beginPath();ctx.moveTo(c.x0,c.y0);c.segs.forEach(s=>ctx.lineTo(s.x,s.y));ctx.strokeStyle=`rgba(74,179,232,${c.alpha})`;ctx.lineWidth=.5;ctx.stroke();});
-  ctx.strokeStyle='rgba(74,179,232,.2)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(40,0); ctx.lineTo(40,H); ctx.stroke();
-  for(let i=0;i<=10;i++){const y=(i/10)*H,l=i%5===0?10:5;ctx.beginPath();ctx.moveTo(40-l,y);ctx.lineTo(40,y);ctx.strokeStyle=`rgba(74,179,232,${i%5===0?.5:.2})`;ctx.stroke();if(i%5===0&&i>0){ctx.font='7px "IBM Plex Mono"';ctx.fillStyle='rgba(74,179,232,.4)';ctx.fillText(Math.round(i/10*2000)+'m',2,y+3);}}
-  particles.forEach(p => {
-    p.phase+=p.speed;
-    const pulse=.4+.6*Math.abs(Math.sin(p.phase)),c=p.layer<3?'74,179,232':'200,134,26',a=pulse*p.bright*.8;
-    const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-    g.addColorStop(0,`rgba(${c},${a*.6})`); g.addColorStop(1,`rgba(${c},0)`);
-    ctx.beginPath(); ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
-    ctx.beginPath(); ctx.arc(p.x,p.y,p.r*.5,0,Math.PI*2); ctx.fillStyle=`rgba(${c},${a})`; ctx.fill();
-  });
-  scanY+=.6*scanDir; if(scanY>H-2)scanDir=-1; if(scanY<2)scanDir=1;
-  const sg=ctx.createLinearGradient(0,scanY-20,0,scanY+20);
-  sg.addColorStop(0,'rgba(0,200,255,0)'); sg.addColorStop(.5,'rgba(0,200,255,.12)'); sg.addColorStop(1,'rgba(0,200,255,0)');
-  ctx.fillStyle=sg; ctx.fillRect(0,scanY-20,W,40);
-  ctx.beginPath(); ctx.moveTo(0,scanY); ctx.lineTo(W,scanY); ctx.strokeStyle='rgba(0,200,255,.7)'; ctx.lineWidth=1; ctx.shadowBlur=6; ctx.shadowColor='#00C8FF'; ctx.stroke(); ctx.shadowBlur=0;
-  ctx.beginPath(); ctx.moveTo(36,scanY-4); ctx.lineTo(44,scanY); ctx.lineTo(36,scanY+4); ctx.closePath(); ctx.fillStyle='#00C8FF'; ctx.fill();
-  requestAnimationFrame(draw);
-}
-draw();
-
-const ages=['9,200 yr BP','11,400 yr BP','18,000 yr BP','45,000 yr BP','120,000 yr BP','340,000 yr BP','680,000 yr BP','1,200,000 yr BP','1,800,000 yr BP'];
-let dv = 847.3;
-setInterval(() => {
-  dv+=.1+Math.random()*.4;
-  document.getElementById('dd').textContent=dv.toFixed(1)+'m';
-  document.getElementById('da').textContent=ages[Math.floor(Math.random()*ages.length)];
-  document.getElementById('db').textContent=(28+Math.random()*18).toFixed(1)+'%';
-}, 2400);
-
-function countUp(el, target, isInt, suffix, dur=1600) {
-  const s=performance.now(), u=n=>{const p=Math.min((n-s)/dur,1),e=1-Math.pow(1-p,3),v=e*target,d=isInt?Math.round(v).toLocaleString():v.toFixed(1);el.textContent=d+(suffix||'');if(p<1)requestAnimationFrame(u);};
-  requestAnimationFrame(u);
-}
-
+// ── SCROLL REVEAL ──
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    if (el.classList.contains('val') && el.dataset.count) { countUp(el, parseFloat(el.dataset.count), el.dataset.int==='1', el.dataset.suffix||''); obs.unobserve(el); }
-    if (el.classList.contains('sr')) { el.classList.add('in'); obs.unobserve(el); }
-  });
-}, {threshold:.12});
-document.querySelectorAll('.val,.sr').forEach(el => obs.observe(el));
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, {threshold: .1});
+document.querySelectorAll('.sr').forEach(el => obs.observe(el));
+
+// ── TICKER DUPE ──
+const track = document.getElementById('ticker');
+track.innerHTML += track.innerHTML;
 </script>
 </body>
 </html>
