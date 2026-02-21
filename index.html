@@ -3,390 +3,331 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CryoCapital Exchange — Market Infrastructure v1</title>
-  <meta name="description" content="CryoCapital Exchange — infrastructure for listing, verification, classification, clearing, and settlement of cryosphere-backed capital assets." />
+  <title>CryoCapital Exchange — Sovereign Biosphere Settlement Infrastructure</title>
+  <meta name="description" content="CryoCapital Exchange — sovereign infrastructure for listing, verification, classification, clearing, and settlement of cryosphere-backed capital assets through the BCCS protocol." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#070A10; --panel:#0B1220; --panel2:#0A0F1A;
-      --text:#E7EEF7; --muted:rgba(231,238,247,.68);
-      --line:rgba(138,180,248,.12);
-      --accent:#5CC8FF; --accent2:#D6A53A; --danger:#FF4D4D;
-      --ok:#2BE4A7;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --radius:16px;
-      --shadow: 0 12px 60px rgba(0,0,0,.45);
+      --bg:#060910; --panel:#0A1018; --panel2:#080D16;
+      --text:#E4ECF5; --muted:rgba(228,236,245,.62);
+      --line:rgba(138,180,248,.10);
+      --accent:#5CC8FF; --gold:#C9A84C; --emerald:#2E8B6E;
+      --ok:#2BE4A7; --danger:#FF4D4D;
+      --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --display:'Cormorant Garamond', Georgia, serif;
+      --body:'DM Sans', system-ui, -apple-system, sans-serif;
+      --radius:14px;
     }
+    *{box-sizing:border-box; margin:0; padding:0}
+    html{background:var(--bg); color:var(--text); scroll-behavior:smooth; -webkit-font-smoothing:antialiased}
+    body{font-family:var(--body); background:var(--bg); overflow-x:hidden}
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1280px; margin:0 auto; padding:0 28px}
 
-    *{box-sizing:border-box}
-    html{background:var(--bg); color:var(--text); scroll-behavior:smooth}
-    body{margin:0; font-family:var(--sans); background:radial-gradient(900px 600px at 60% -10%, rgba(92,200,255,.10), transparent 60%),
-         radial-gradient(700px 500px at 15% 110%, rgba(214,165,58,.07), transparent 55%), var(--bg);}
-    a{color:inherit}
-    .wrap{max-width:1240px; margin:0 auto; padding:0 22px}
+    /* ── AMBIENT ── */
+    body::before{
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 1100px 700px at 55% -5%, rgba(92,200,255,.07), transparent 60%),
+        radial-gradient(ellipse 800px 600px at 10% 100%, rgba(46,139,110,.05), transparent 50%),
+        radial-gradient(ellipse 600px 400px at 90% 80%, rgba(201,168,76,.04), transparent 50%);
+    }
+    main, footer, .topbar{position:relative; z-index:1}
 
+    /* ── TOPBAR ── */
     .topbar{
       position:sticky; top:0; z-index:1000;
-      background:rgba(7,10,16,.88);
-      backdrop-filter: blur(10px);
+      background:rgba(6,9,16,.92); backdrop-filter:blur(16px);
       border-bottom:1px solid var(--line);
     }
-    .topbar-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      height:56px;
+    .topbar-inner{display:flex; align-items:center; justify-content:space-between; height:60px}
+    .brand{display:flex; align-items:center; gap:14px; text-decoration:none}
+    .brand-mark{
+      width:30px; height:30px; border-radius:10px;
+      background:linear-gradient(135deg, rgba(92,200,255,.9), rgba(46,139,110,.5));
+      box-shadow:0 0 0 1px rgba(92,200,255,.2), 0 12px 32px rgba(92,200,255,.08);
     }
-    .brand{
-      display:flex; align-items:center; gap:14px; text-decoration:none;
-      font-weight:800; letter-spacing:.02em;
-    }
-    .brand-badge{
-      width:28px; height:28px; border-radius:10px;
-      background:linear-gradient(135deg, rgba(92,200,255,.95), rgba(92,200,255,.25));
-      box-shadow:0 0 0 1px rgba(92,200,255,.25), 0 18px 40px rgba(92,200,255,.06);
-    }
-    .brand span{display:block; line-height:1}
-    .brand small{display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; margin-top:3px}
+    .brand-text{font-family:var(--body); font-weight:800; font-size:15px; letter-spacing:.02em}
+    .brand-sub{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-top:2px}
 
-    .nav{
-      display:flex; gap:14px; align-items:center;
-      font-family:var(--mono);
-      font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-    }
-    .nav a{
-      opacity:.7; text-decoration:none;
-      padding:10px 10px;
-      border-radius:12px;
-    }
+    .nav{display:flex; gap:6px; align-items:center; font-family:var(--mono); font-size:11px; letter-spacing:.10em; text-transform:uppercase}
+    .nav a{opacity:.65; padding:10px 12px; border-radius:10px; transition:.15s}
     .nav a:hover{opacity:1; background:rgba(92,200,255,.06)}
-    .nav .cta{
-      opacity:1;
-      background:rgba(92,200,255,.14);
-      border:1px solid rgba(92,200,255,.22);
-    }
+    .nav .cta{opacity:1; background:rgba(92,200,255,.12); border:1px solid rgba(92,200,255,.22)}
 
-    .lang{
-      display:flex; gap:8px; align-items:center;
-      border-left:1px solid var(--line); padding-left:14px; margin-left:8px;
-    }
+    .lang{display:flex; gap:6px; border-left:1px solid var(--line); padding-left:12px; margin-left:6px}
     .lang button{
-      cursor:pointer; border:1px solid rgba(92,200,255,.18);
-      background:transparent; color:var(--muted);
-      font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-      padding:8px 10px; border-radius:12px;
-      transition:all .15s ease;
+      cursor:pointer; border:1px solid rgba(92,200,255,.15); background:transparent;
+      color:var(--muted); font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+      padding:7px 10px; border-radius:10px; transition:.15s;
     }
     .lang button:hover{color:var(--text); background:rgba(92,200,255,.06)}
-    .lang button.active{
-      color:var(--accent);
-      background:rgba(92,200,255,.12);
-      border-color:rgba(92,200,255,.34);
-    }
+    .lang button.active{color:var(--accent); background:rgba(92,200,255,.10); border-color:rgba(92,200,255,.32)}
 
-    .ribbon{
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(90deg, rgba(92,200,255,.08), rgba(214,165,58,.06));
-    }
-    .ribbon-inner{
-      display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;
-      padding:12px 0;
-      font-family:var(--mono);
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    .pill{display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:999px; border:1px solid var(--line); background:rgba(11,18,32,.7)}
-    .dot{width:8px; height:8px; border-radius:50%}
-    .dot.ok{background:var(--ok); box-shadow:0 0 0 4px rgba(43,228,167,.10)}
-    .dot.warn{background:var(--danger); box-shadow:0 0 0 4px rgba(255,77,77,.10)}
-    .dot.info{background:var(--accent); box-shadow:0 0 0 4px rgba(92,200,255,.10)}
+    /* ── RIBBON ── */
+    .ribbon{border-bottom:1px solid var(--line); background:linear-gradient(90deg, rgba(92,200,255,.06), rgba(201,168,76,.04))}
+    .ribbon-inner{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; padding:10px 0; font-family:var(--mono); font-size:11px; letter-spacing:.10em; text-transform:uppercase; color:var(--muted)}
+    .pill{display:inline-flex; gap:7px; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:rgba(10,16,24,.7)}
+    .dot{width:7px; height:7px; border-radius:50%}
+    .dot.ok{background:var(--ok); box-shadow:0 0 0 3px rgba(43,228,167,.10)}
+    .dot.warn{background:var(--danger); box-shadow:0 0 0 3px rgba(255,77,77,.10)}
+    .dot.info{background:var(--accent); box-shadow:0 0 0 3px rgba(92,200,255,.10)}
+    .dot.gold{background:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,.10)}
 
-    section{padding:70px 0}
-    .grid2{display:grid; grid-template-columns: 1.15fr .85fr; gap:28px; align-items:start}
-    .panel{
-      background:rgba(11,18,32,.82);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
+    /* ── HERO ── */
+    .hero{padding:80px 0 60px}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:start}
+    .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:rgba(92,200,255,.8); margin-bottom:20px}
+    .hero h1{
+      font-family:var(--display); font-weight:700;
+      font-size:clamp(42px, 5.5vw, 72px); line-height:.95;
+      letter-spacing:-.01em;
     }
-    .panel.pad{padding:22px}
-    .kicker{
-      font-family:var(--mono); font-size:12px; letter-spacing:.20em; text-transform:uppercase;
-      color:rgba(92,200,255,.85);
-      margin-bottom:18px;
-    }
-    h1{
-      margin:0;
-      font-size: clamp(38px, 5.8vw, 78px);
-      line-height: .95;
-      letter-spacing: -.02em;
-    }
-    .subhead{
-      margin-top:18px;
-      font-size:16px;
-      line-height:1.75;
-      color:var(--muted);
-      max-width:60ch;
-    }
+    .hero h1 em{font-style:italic; color:var(--gold)}
+    .subhead{margin-top:20px; font-size:15px; line-height:1.8; color:var(--muted); max-width:58ch}
 
-    .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:22px}
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:24px}
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
-      padding:12px 14px; border-radius:14px;
-      text-decoration:none;
-      border:1px solid rgba(231,238,247,.16);
-      background:transparent; color:var(--text);
-      transition:transform .15s ease, background .15s ease, border-color .15s ease;
-    }
-    .btn:hover{transform:translateY(-1px); border-color:rgba(92,200,255,.35); background:rgba(92,200,255,.06)}
-    .btn.primary{
-      background:rgba(92,200,255,.16);
-      border-color:rgba(92,200,255,.34);
-      color:var(--text);
-    }
-    .btn.primary:hover{background:rgba(92,200,255,.22)}
-    .btn.accent2{
-      background:rgba(214,165,58,.14);
-      border-color:rgba(214,165,58,.28);
-    }
-
-    .board-head{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
-      padding:18px 22px; border-bottom:1px solid var(--line);
-    }
-    .board-title{font-weight:800; letter-spacing:.02em}
-    .board-meta{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
-    table{width:100%; border-collapse:collapse}
-    th,td{padding:14px 22px; text-align:left; border-bottom:1px solid rgba(138,180,248,.10); vertical-align:top}
-    th{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(231,238,247,.62)}
-    td{font-size:14px; color:rgba(231,238,247,.85)}
-    .status{
       display:inline-flex; align-items:center; gap:8px;
       font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(231,238,247,.14);
-      background:rgba(10,15,26,.7);
-      color:rgba(231,238,247,.80);
-      white-space:nowrap;
+      padding:11px 16px; border-radius:12px;
+      border:1px solid rgba(228,236,245,.14); background:transparent; color:var(--text);
+      transition:.15s; cursor:pointer;
     }
-    .status .dot{width:7px; height:7px}
-    .status.inventory .dot{background:var(--accent)}
-    .status.verify .dot{background:var(--accent2)}
-    .status.cleared .dot{background:var(--ok)}
-    .status.pending .dot{background:rgba(231,238,247,.55)}
+    .btn:hover{transform:translateY(-1px); border-color:rgba(92,200,255,.3); background:rgba(92,200,255,.05)}
+    .btn.primary{background:rgba(92,200,255,.14); border-color:rgba(92,200,255,.30)}
+    .btn.primary:hover{background:rgba(92,200,255,.20)}
+    .btn.gold{background:rgba(201,168,76,.12); border-color:rgba(201,168,76,.25)}
+    .btn.emerald{background:rgba(46,139,110,.12); border-color:rgba(46,139,110,.25)}
 
-    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-    .card{
-      padding:18px;
-      border:1px solid rgba(138,180,248,.12);
-      border-radius:18px;
-      background:rgba(10,15,26,.55);
+    /* ── PANELS ── */
+    .panel{
+      background:rgba(10,16,24,.80); border:1px solid var(--line);
+      border-radius:var(--radius); overflow:hidden;
     }
-    .card h3{
-      margin:0 0 8px 0;
-      font-size:14px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      font-family:var(--mono);
-    }
-    .card p{margin:0; color:var(--muted); line-height:1.7; font-size:13px}
-    .card .mini{margin-top:10px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55)}
+    .panel.pad{padding:24px}
+    .panel-head{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; padding:18px 24px; border-bottom:1px solid var(--line)}
+    .panel-title{font-weight:800; font-size:15px; letter-spacing:.02em}
+    .panel-meta{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
 
-    .steps{display:grid; grid-template-columns:repeat(5,1fr); gap:10px}
-    .step{
-      padding:16px;
-      border-radius:18px;
-      background:rgba(11,18,32,.55);
-      border:1px solid rgba(138,180,248,.12);
-      min-height:160px;
-    }
-    .step .n{
-      font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
-      color:rgba(92,200,255,.85);
-      margin-bottom:10px;
-    }
-    .step .t{font-weight:800; margin-bottom:8px}
-    .step .d{color:var(--muted); line-height:1.65; font-size:13px}
-    .step .out{margin-top:10px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55)}
+    /* ── STATS ── */
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line)}
+    .stat{background:var(--panel); padding:20px 24px}
+    .stat-label{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+    .stat-value{font-family:var(--display); font-size:32px; font-weight:700}
+    .stat-note{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(228,236,245,.45); margin-top:4px}
 
-    .form{display:grid; gap:12px}
-    label{
-      display:block; font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
-      color:rgba(231,238,247,.62);
-      margin-bottom:6px;
+    /* ── SECTIONS ── */
+    section{padding:70px 0}
+    .section-head{margin-bottom:32px}
+    .section-head h2{font-family:var(--display); font-size:clamp(28px, 3.5vw, 44px); font-weight:700; line-height:1.05; margin-top:8px}
+    .section-head p{margin-top:12px; color:var(--muted); font-size:14px; line-height:1.7; max-width:60ch}
+    .divider{border:0; border-top:1px solid var(--line); margin:0}
+
+    /* ── BCCS STATES ── */
+    .states{display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-top:20px}
+    .state-box{
+      padding:16px 12px; background:rgba(10,16,24,.6); border:1px solid rgba(138,180,248,.08);
+      border-radius:10px; text-align:center; position:relative;
     }
+    .state-box .num{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:rgba(92,200,255,.7); margin-bottom:6px}
+    .state-box .name{font-weight:700; font-size:13px; letter-spacing:.04em}
+    .state-box .desc{font-size:11px; color:var(--muted); margin-top:6px; line-height:1.5}
+    .state-box.reversed{border-color:rgba(255,77,77,.25)}
+    .state-box.reversed .name{color:var(--danger)}
+    .state-arrow{display:flex; align-items:center; justify-content:center; color:rgba(92,200,255,.3); font-size:18px; align-self:center}
+
+    /* ── RESERVE MECHANICS ── */
+    .reserve-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:20px}
+    .reserve-card{padding:24px; border:1px solid var(--line); border-radius:14px; background:rgba(10,16,24,.5)}
+    .reserve-card h3{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:12px; color:var(--accent)}
+    .reserve-card .big{font-family:var(--display); font-size:48px; font-weight:700; line-height:1}
+    .reserve-card .unit{font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--muted); margin-top:4px}
+    .reserve-card p{font-size:13px; color:var(--muted); line-height:1.7; margin-top:12px}
+
+    /* ── TABLE ── */
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:14px 24px; text-align:left; border-bottom:1px solid rgba(138,180,248,.08); vertical-align:top}
+    th{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(228,236,245,.50)}
+    td{font-size:13px; color:rgba(228,236,245,.82)}
+    .status{
+      display:inline-flex; align-items:center; gap:7px;
+      font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+      padding:5px 10px; border-radius:999px;
+      border:1px solid rgba(228,236,245,.12); background:rgba(10,16,24,.7); white-space:nowrap;
+    }
+
+    /* ── CARDS ── */
+    .cards{display:grid; gap:14px}
+    .cards.c3{grid-template-columns:repeat(3,1fr)}
+    .cards.c2{grid-template-columns:repeat(2,1fr)}
+    .card{padding:20px; border:1px solid rgba(138,180,248,.10); border-radius:14px; background:rgba(10,16,24,.45)}
+    .card h3{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:8px}
+    .card p{color:var(--muted); font-size:13px; line-height:1.7}
+    .card .mini{margin-top:10px; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:rgba(228,236,245,.42)}
+
+    /* ── PIPELINE ── */
+    .pipeline{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:20px}
+    .pipe{padding:18px 14px; border-radius:14px; background:rgba(10,16,24,.5); border:1px solid rgba(138,180,248,.10); min-height:170px}
+    .pipe .n{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(92,200,255,.75); margin-bottom:10px}
+    .pipe .t{font-weight:800; font-size:14px; margin-bottom:8px}
+    .pipe .d{color:var(--muted); line-height:1.65; font-size:12px}
+    .pipe .out{margin-top:10px; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(228,236,245,.42)}
+
+    /* ── EAA ── */
+    .eaa-grid{display:grid; grid-template-columns:.55fr .45fr; gap:24px; margin-top:20px}
+    .eaa-table{width:100%}
+    .eaa-table td{padding:10px 0; border-bottom:1px solid rgba(138,180,248,.08); font-size:13px}
+    .eaa-table td:first-child{font-family:var(--mono); font-size:11px; letter-spacing:.10em; text-transform:uppercase; color:var(--accent); width:40%; padding-right:16px}
+
+    /* ── FORM ── */
+    .form{display:grid; gap:14px}
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+    label{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(228,236,245,.55); margin-bottom:6px}
     input,select,textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(138,180,248,.18);
-      background:rgba(10,15,26,.55);
-      color:var(--text);
-      outline:none;
-      font-size:14px;
-      font-family:var(--sans);
+      width:100%; padding:12px 14px; border-radius:12px;
+      border:1px solid rgba(138,180,248,.15); background:rgba(10,16,24,.5);
+      color:var(--text); outline:none; font-size:13px; font-family:var(--body);
     }
-    input:focus,select:focus,textarea:focus{border-color:rgba(92,200,255,.4)}
-    textarea{min-height:96px; resize:vertical}
-    .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    .hint{font-size:13px; color:var(--muted); line-height:1.6}
-    .fine{font-size:12px; color:rgba(231,238,247,.55); line-height:1.6}
+    input:focus,select:focus,textarea:focus{border-color:rgba(92,200,255,.35)}
+    textarea{min-height:88px; resize:vertical}
+    .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .hint{font-size:13px; color:var(--muted); line-height:1.65}
+    .fine{font-size:11px; color:rgba(228,236,245,.45); line-height:1.6}
 
-    footer{
-      padding:46px 0;
-      border-top:1px solid var(--line);
-      background:rgba(7,10,16,.55);
-    }
-    .foot{
-      display:flex; flex-wrap:wrap; gap:18px; align-items:flex-start; justify-content:space-between;
-      color:rgba(231,238,247,.62);
-      font-size:13px;
-    }
+    /* ── FOOTER ── */
+    footer{padding:48px 0; border-top:1px solid var(--line); background:rgba(6,9,16,.6)}
+    .foot{display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start; justify-content:space-between; font-size:13px; color:var(--muted)}
     .foot strong{color:var(--text)}
-    .foot a{opacity:.9; text-decoration:none}
-    .foot a:hover{opacity:1; text-decoration:underline}
-    .cols{display:grid; grid-template-columns:repeat(3, minmax(160px, 1fr)); gap:18px}
+    .foot a{opacity:.8; transition:.15s}
+    .foot a:hover{opacity:1}
+    .cols{display:grid; grid-template-columns:repeat(3, minmax(150px, 1fr)); gap:20px}
+    .col-head{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:rgba(228,236,245,.40); margin-bottom:10px}
+    .col-links{display:grid; gap:6px}
 
-    @media (max-width: 980px){
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .hero-grid,.grid2,.eaa-grid,.reserve-grid{grid-template-columns:1fr}
       .nav{display:none}
-      .grid2{grid-template-columns:1fr}
-      .cards{grid-template-columns:1fr}
-      .steps{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .states{grid-template-columns:repeat(4,1fr)}
+      .pipeline{grid-template-columns:repeat(2,1fr)}
+      .cards.c3{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .stats{grid-template-columns:1fr}
+      .states{grid-template-columns:1fr}
+      .pipeline{grid-template-columns:1fr}
       .row2{grid-template-columns:1fr}
-      th,td{padding:12px 14px}
-      section{padding:54px 0}
+      section{padding:48px 0}
+      .hero{padding:48px 0 36px}
     }
-    @media (max-width:640px){
-      .ribbon-inner{gap:8px}
-      .pill{font-size:10px; padding:6px 8px}
-    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp{from{opacity:0; transform:translateY(16px)}to{opacity:1; transform:translateY(0)}}
+    .hero h1,.hero .subhead,.hero .actions,.panel,.section-head{animation:fadeUp .6s ease both}
+    .hero .subhead{animation-delay:.1s}
+    .hero .actions{animation-delay:.2s}
   </style>
 </head>
 
 <body>
+  <!-- ═══════ TOPBAR ═══════ -->
   <div class="topbar">
     <div class="wrap">
       <div class="topbar-inner">
         <a class="brand" href="#top">
-          <div class="brand-badge" aria-hidden="true"></div>
+          <div class="brand-mark"></div>
           <div>
-            <span class="t" data-en="CryoCapital Exchange" data-ru="CryoCapital Exchange">CryoCapital Exchange</span>
-            <small class="t" data-en="Market Infrastructure v1" data-ru="Рыночная инфраструктура v1">Market Infrastructure v1</small>
+            <div class="brand-text">CryoCapital Exchange</div>
+            <div class="brand-sub t" data-en="Sovereign Biosphere Settlement" data-ru="Суверенная биосферная инфраструктура">Sovereign Biosphere Settlement</div>
           </div>
         </a>
-
-        <div style="display:flex; align-items:center; gap:10px;">
-          <nav class="nav" aria-label="Primary">
-            <a href="#market" class="t" data-en="Market" data-ru="Рынок">Market</a>
-            <a href="#how" class="t" data-en="How it works" data-ru="Как работает">How it works</a>
-            <a href="#list" class="t" data-en="List an asset" data-ru="Листинг">List an asset</a>
-            <a href="#access" class="t" data-en="Access" data-ru="Доступ">Access</a>
+        <div style="display:flex; align-items:center; gap:8px">
+          <nav class="nav">
+            <a href="#architecture" class="t" data-en="Architecture" data-ru="Архитектура">Architecture</a>
+            <a href="#market" class="t" data-en="Registry" data-ru="Реестр">Registry</a>
+            <a href="#eaa" class="t" data-en="EAA" data-ru="ЭАА">EAA</a>
+            <a href="#pipeline" class="t" data-en="Pipeline" data-ru="Конвейер">Pipeline</a>
+            <a href="#list" class="t" data-en="List Asset" data-ru="Листинг">List Asset</a>
             <a href="#docs" class="t" data-en="Docs" data-ru="Документы">Docs</a>
-            <a href="#list" class="cta t" data-en="Open Listing" data-ru="Открыть листинг">Open Listing</a>
+            <a href="#list" class="cta t" data-en="Open Listing" data-ru="Подать листинг">Open Listing</a>
           </nav>
-
-          <div class="lang" aria-label="Language toggle">
-            <button id="btn-en" class="active" type="button" onclick="setLang('en')">EN</button>
-            <button id="btn-ru" type="button" onclick="setLang('ru')">RU</button>
+          <div class="lang">
+            <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+            <button id="btn-ru" onclick="setLang('ru')">RU</button>
           </div>
         </div>
       </div>
     </div>
-
     <div class="ribbon">
       <div class="wrap">
         <div class="ribbon-inner">
-          <div class="pill">
-            <span class="dot ok" aria-hidden="true"></span>
-            <span class="t" data-en="Registry: Active" data-ru="Реестр: активен">Registry: Active</span>
-          </div>
-          <div class="pill">
-            <span class="dot info" aria-hidden="true"></span>
-            <span class="t" data-en="Listing window: Open" data-ru="Окно листинга: открыто">Listing window: Open</span>
-          </div>
-          <div class="pill">
-            <span class="dot info" aria-hidden="true"></span>
-            <span class="t" data-en="Clearing: v1.0" data-ru="Клиринг: v1.0">Clearing: v1.0</span>
-          </div>
-          <div class="pill">
-            <span class="dot warn" aria-hidden="true"></span>
-            <span class="t" data-en="Critical window: standards are being written now" data-ru="Критическое окно: стандарты пишутся сейчас">Critical window: standards are being written now</span>
-          </div>
+          <div class="pill"><span class="dot ok"></span><span class="t" data-en="BCCS Registry: Active" data-ru="Реестр BCCS: активен">BCCS Registry: Active</span></div>
+          <div class="pill"><span class="dot info"></span><span class="t" data-en="Listing window: Open" data-ru="Окно листинга: открыто">Listing window: Open</span></div>
+          <div class="pill"><span class="dot gold"></span><span class="t" data-en="EAA: Institutional design phase" data-ru="ЭАА: фаза институционального проектирования">EAA: Institutional design phase</span></div>
+          <div class="pill"><span class="dot warn"></span><span class="t" data-en="Critical window: standards are being written now" data-ru="Критическое окно: стандарты пишутся сейчас">Critical window: standards are being written now</span></div>
         </div>
       </div>
     </div>
   </div>
 
   <main id="top">
-    <section>
+    <!-- ═══════ HERO ═══════ -->
+    <section class="hero">
       <div class="wrap">
-        <div class="grid2">
+        <div class="hero-grid">
           <div>
-            <div class="kicker t" data-en="Exchange, not a manifesto" data-ru="Биржа, а не манифест">Exchange, not a manifesto</div>
+            <div class="kicker t" data-en="Sovereign settlement infrastructure — not a manifesto" data-ru="Суверенная расчётная инфраструктура — не манифест">Sovereign settlement infrastructure — not a manifesto</div>
             <h1>
               <span class="t"
-                data-en="Cryosphere-backed capital — listed, verified, cleared."
-                data-ru="Крио-обеспеченный капитал — листинг, верификация, клиринг.">Cryosphere-backed capital — listed, verified, cleared.</span>
+                data-en="Cryosphere-backed capital —&lt;br&gt;listed, verified, &lt;em&gt;cleared.&lt;/em&gt;"
+                data-ru="Крио-обеспеченный капитал —&lt;br&gt;листинг, верификация, &lt;em&gt;клиринг.&lt;/em&gt;">
+                Cryosphere-backed capital —<br>listed, verified, <em>cleared.</em>
+              </span>
             </h1>
-
             <p class="subhead t"
-               data-en="CryoCapital Exchange is market infrastructure for listing cryosphere-backed assets, routing them through verification, classifying them into capital classes, and registering cleared reserves for institutional settlement."
-               data-ru="CryoCapital Exchange — это рыночная инфраструктура: листинг крио-обеспеченных активов, маршрутизация верификации, классификация по классам капитала и регистрация клирингового резерва для институционального урегулирования.">
-              CryoCapital Exchange is market infrastructure for listing cryosphere-backed assets, routing them through verification, classifying them into capital classes, and registering cleared reserves for institutional settlement.
+               data-en="CryoCapital Exchange is the operational pilot platform for sovereign biosphere settlement. Assets are registered through the Biosphere Capital Clearing System (BCCS) with seven definitive ledger states, verified by the Independent Ecological Audit Authority (EAA), and backed by a thermodynamic reserve with α*=1/3 mathematical optimum."
+               data-ru="CryoCapital Exchange — операционная пилотная платформа суверенного биосферного расчёта. Активы регистрируются через Систему клиринга биосферного капитала (BCCS) с семью определёнными состояниями реестра, верифицируются Независимым Экологическим Аудиторским Органом (ЭАА) и обеспечиваются термодинамическим резервом с математическим оптимумом α*=1/3.">
+              CryoCapital Exchange is the operational pilot platform for sovereign biosphere settlement. Assets are registered through the Biosphere Capital Clearing System (BCCS) with seven definitive ledger states, verified by the Independent Ecological Audit Authority (EAA), and backed by a thermodynamic reserve with α*=1/3 mathematical optimum.
             </p>
-
             <div class="actions">
-              <a class="btn primary" href="#market">
-                <span class="t" data-en="Open Registry" data-ru="Открыть реестр">Open Registry</span>
-              </a>
-              <a class="btn accent2" href="#list">
-                <span class="t" data-en="Submit Cryo Asset" data-ru="Подать крио-актив">Submit Cryo Asset</span>
-              </a>
-              <a class="btn" href="#access">
-                <span class="t" data-en="Institutional Access" data-ru="Институциональный доступ">Institutional Access</span>
-              </a>
-              <a class="btn" href="#docs">
-                <span class="t" data-en="Read Docs" data-ru="Читать документы">Read Docs</span>
-              </a>
+              <a class="btn primary" href="#market"><span class="t" data-en="Open Registry" data-ru="Открыть реестр">Open Registry</span></a>
+              <a class="btn gold" href="#list"><span class="t" data-en="Submit Cryo Asset" data-ru="Подать крио-актив">Submit Cryo Asset</span></a>
+              <a class="btn emerald" href="#architecture"><span class="t" data-en="BCCS Architecture" data-ru="Архитектура BCCS">BCCS Architecture</span></a>
+              <a class="btn" href="#docs"><span class="t" data-en="Read Docs" data-ru="Читать документы">Read Docs</span></a>
             </div>
-
-            <p class="fine t" style="margin-top:14px"
-               data-en="Note: v1 focuses on registry + listing + verification routing + status tracking. Trading instruments and secondary liquidity are phased features."
-               data-ru="Примечание: v1 — это реестр + листинг + маршрутизация верификации + статусы. Торговые инструменты и вторичная ликвидность — функции по фазам.">
-              Note: v1 focuses on registry + listing + verification routing + status tracking. Trading instruments and secondary liquidity are phased features.
-            </p>
           </div>
-
           <aside class="panel">
-            <div class="board-head">
+            <div class="panel-head">
               <div>
-                <div class="board-title t" data-en="Live Market Snapshot" data-ru="Снимок рынка (Live)">Live Market Snapshot</div>
-                <div class="board-meta t" data-en="v1 status board" data-ru="панель статусов v1">v1 status board</div>
+                <div class="panel-title t" data-en="System Status" data-ru="Статус системы">System Status</div>
+                <div class="panel-meta t" data-en="BCCS live metrics" data-ru="Метрики BCCS">BCCS live metrics</div>
               </div>
-              <div class="board-meta">
-                <span class="t" data-en="Last update:" data-ru="Обновлено:">Last update:</span>
-                <span id="ts">—</span>
-              </div>
+              <div class="panel-meta"><span id="ts">—</span></div>
             </div>
-            <div class="pad" style="padding:18px 22px;">
-              <div class="cards">
-                <div class="card">
-                  <h3 class="t" data-en="Assets listed" data-ru="Активов в листинге">Assets listed</h3>
-                  <p style="font-size:28px; font-weight:900; margin:6px 0 0 0;">12</p>
-                  <div class="mini t" data-en="rolling v1 cohort" data-ru="текущая когорта v1">rolling v1 cohort</div>
-                </div>
-                <div class="card">
-                  <h3 class="t" data-en="Under verification" data-ru="На верификации">Under verification</h3>
-                  <p style="font-size:28px; font-weight:900; margin:6px 0 0 0;">5</p>
-                  <div class="mini t" data-en="routing active" data-ru="маршрутизация активна">routing active</div>
-                </div>
-                <div class="card">
-                  <h3 class="t" data-en="Cleared reserves" data-ru="Клиринг пройден">Cleared reserves</h3>
-                  <p style="font-size:28px; font-weight:900; margin:6px 0 0 0;">3</p>
-                  <div class="mini t" data-en="registry entries" data-ru="записи реестра">registry entries</div>
-                </div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-label t" data-en="BAIN IDs registered" data-ru="BAIN ID зарегистрировано">BAIN IDs registered</div>
+                <div class="stat-value">12</div>
+                <div class="stat-note t" data-en="v1 cohort" data-ru="когорта v1">v1 cohort</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label t" data-en="Under verification" data-ru="На верификации">Under verification</div>
+                <div class="stat-value">5</div>
+                <div class="stat-note t" data-en="EAA routing" data-ru="маршрутизация ЭАА">EAA routing</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label t" data-en="Cleared reserves" data-ru="Клиринг пройден">Cleared reserves</div>
+                <div class="stat-value">3</div>
+                <div class="stat-note t" data-en="settlement ready" data-ru="готовы к расчёту">settlement ready</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label t" data-en="Jurisdictions" data-ru="Юрисдикции">Jurisdictions</div>
+                <div class="stat-value">3</div>
+                <div class="stat-note t" data-en="Moscow · HK · UAE" data-ru="Москва · Гонконг · ОАЭ">Moscow · HK · UAE</div>
               </div>
             </div>
           </aside>
@@ -394,58 +335,164 @@
       </div>
     </section>
 
+    <hr class="divider">
+
+    <!-- ═══════ BCCS ARCHITECTURE ═══════ -->
+    <section id="architecture">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker t" data-en="BCCS Protocol" data-ru="Протокол BCCS">BCCS Protocol</div>
+          <h2><span class="t" data-en="Seven Definitive Ledger States" data-ru="Семь определённых состояний реестра">Seven Definitive Ledger States</span></h2>
+          <p class="t" data-en="The Biosphere Capital Clearing System (BCCS) is a clearing and settlement protocol for biological and ecological asset classes. Every bio-asset passes through seven definitive states. Each asset is identified by a unique BAIN ID. The system is explicitly not cryptocurrency." data-ru="Система клиринга биосферного капитала (BCCS) — протокол клиринга и расчёта для биологических и экологических классов активов. Каждый биоактив проходит через семь определённых состояний. Каждый актив идентифицируется уникальным BAIN ID. Система принципиально не является криптовалютой.">
+            The Biosphere Capital Clearing System (BCCS) is a clearing and settlement protocol for biological and ecological asset classes. Every bio-asset passes through seven definitive states. Each asset is identified by a unique BAIN ID. The system is explicitly not cryptocurrency.
+          </p>
+        </div>
+
+        <div class="panel pad">
+          <div class="states">
+            <div class="state-box"><div class="num">01</div><div class="name" style="color:var(--muted)">Observed</div><div class="desc t" data-en="Raw territorial data captured" data-ru="Первичные данные территории">Raw territorial data captured</div></div>
+            <div class="state-box"><div class="num">02</div><div class="name" style="color:var(--accent)">Verified</div><div class="desc t" data-en="Dual-track MRV confirmed" data-ru="Двухтрековая MRV подтверждена">Dual-track MRV confirmed</div></div>
+            <div class="state-box"><div class="num">03</div><div class="name" style="color:var(--gold)">Certified</div><div class="desc t" data-en="EAA cryptographic signature" data-ru="Криптографическая подпись ЭАА">EAA cryptographic signature</div></div>
+            <div class="state-box"><div class="num">04</div><div class="name" style="color:var(--emerald)">Issued</div><div class="desc t" data-en="Settlement capacity created" data-ru="Расчётная ёмкость создана">Settlement capacity created</div></div>
+            <div class="state-box"><div class="num">05</div><div class="name" style="color:var(--text)">Settled</div><div class="desc t" data-en="Bilateral transfer executed" data-ru="Двусторонний перевод исполнен">Bilateral transfer executed</div></div>
+            <div class="state-box"><div class="num">06</div><div class="name" style="color:var(--ok)">Final</div><div class="desc t" data-en="Irrevocable settlement" data-ru="Безотзывный расчёт">Irrevocable settlement</div></div>
+            <div class="state-box reversed"><div class="num">07</div><div class="name">Reversed</div><div class="desc t" data-en="Negative audit trigger — 72h" data-ru="Негативный триггер — 72ч">Negative audit trigger — 72h</div></div>
+          </div>
+        </div>
+
+        <!-- Reserve Mechanics -->
+        <div style="margin-top:36px">
+          <div class="kicker t" data-en="Reserve Architecture" data-ru="Архитектура резерва">Reserve Architecture</div>
+          <div class="reserve-grid">
+            <div class="reserve-card">
+              <h3 class="t" data-en="Issuance Ratio (α*)" data-ru="Коэффициент эмиссии (α*)">Issuance Ratio (α*)</h3>
+              <div class="big">1/3</div>
+              <div class="unit t" data-en="mathematical optimum · 33.3%" data-ru="математический оптимум · 33,3%">mathematical optimum · 33.3%</div>
+              <p class="t" data-en="R(α) = α · (1−α)² yields α* = 1/3. Overcollateralisation Γ = 1/α ≈ 2.85 (285%). The system absorbs up to 65% catastrophic physical degradation before any issued unit loses backing." data-ru="R(α) = α · (1−α)² даёт α* = 1/3. Избыточное обеспечение Γ = 1/α ≈ 2,85 (285%). Система абсорбирует до 65% катастрофической деградации до потери обеспечения.">
+                R(α) = α · (1−α)² yields α* = 1/3. Overcollateralisation Γ = 1/α ≈ 2.85 (285%). The system absorbs up to 65% catastrophic physical degradation before any issued unit loses backing.
+              </p>
+            </div>
+            <div class="reserve-card">
+              <h3 class="t" data-en="The Golden Path" data-ru="Золотой путь">The Golden Path</h3>
+              <div class="big" style="font-size:36px">g &gt; λ</div>
+              <div class="unit t" data-en="structural deflation by design" data-ru="структурная дефляция конструктивно">structural deflation by design</div>
+              <p class="t" data-en="Carbon price appreciation (g ≈ 7–12% annually) outpaces physical degradation (λ ≈ 1.2%). The issuer algorithmically tightens α over time (0.33 → 0.25 → 0.20). CryoCapital is the only monetary instrument that structurally strengthens over time." data-ru="Рост углеродных цен (g ≈ 7–12% в год) опережает физическую деградацию (λ ≈ 1,2%). Эмитент алгоритмически ужесточает α со временем (0,33 → 0,25 → 0,20). КриоКапитал — единственный инструмент, который структурно укрепляется со временем.">
+                Carbon price appreciation (g ≈ 7–12% annually) outpaces physical degradation (λ ≈ 1.2%). The issuer algorithmically tightens α over time (0.33 → 0.25 → 0.20). CryoCapital is the only monetary instrument that structurally strengthens over time.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tri-Jurisdictional -->
+        <div class="cards c3" style="margin-top:24px">
+          <div class="card" style="border-color:rgba(92,200,255,.18)">
+            <h3 style="color:var(--accent)" class="t" data-en="Node 1: Moscow" data-ru="Узел 1: Москва">Node 1: Moscow</h3>
+            <p class="t" data-en="Sovereign primary. CBR Biosphere Desk integration. Roshydromet Track 1 MRV." data-ru="Суверенный первичный. Интеграция Биосферного стола ЦБ. Track 1 MRV Росгидромета.">Sovereign primary. CBR Biosphere Desk integration. Roshydromet Track 1 MRV.</p>
+            <div class="mini">86-ФЗ · 340-ФЗ · 34-ФЗ</div>
+          </div>
+          <div class="card" style="border-color:rgba(201,168,76,.18)">
+            <h3 style="color:var(--gold)" class="t" data-en="Node 2: Hong Kong" data-ru="Узел 2: Гонконг">Node 2: Hong Kong</h3>
+            <p class="t" data-en="International clearing. KRYONIS Sovereign Systems Limited registered office. TCSP Chapter 615." data-ru="Международный клиринг. Зарег. офис KRYONIS Sovereign Systems Limited. TCSP Глава 615.">International clearing. KRYONIS Sovereign Systems Limited registered office. TCSP Chapter 615.</p>
+            <div class="mini">kryonis.global</div>
+          </div>
+          <div class="card" style="border-color:rgba(46,139,110,.18)">
+            <h3 style="color:var(--emerald)" class="t" data-en="Node 3: UAE" data-ru="Узел 3: ОАЭ">Node 3: UAE</h3>
+            <p class="t" data-en="Neutral jurisdiction. BRICS+ bridge. Merkle-tree tamper evidence across all three nodes." data-ru="Нейтральная юрисдикция. Мост БРИКС+. Защита Merkle-tree по всем трём узлам.">Neutral jurisdiction. BRICS+ bridge. Merkle-tree tamper evidence across all three nodes.</p>
+            <div class="mini t" data-en="Constitutional firewall" data-ru="Конституционный брандмауэр">Constitutional firewall</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ═══════ EAA ═══════ -->
+    <section id="eaa">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker t" data-en="Independent Verification" data-ru="Независимая верификация">Independent Verification</div>
+          <h2><span class="t" data-en="Ecological Audit Authority" data-ru="Экологический Аудиторский Орган">Ecological Audit Authority</span></h2>
+          <p class="t" data-en="The EAA is the supreme authority of external biophysical audit, modelled on the structural independence of Russia's Accounts Chamber (41-FZ). The CBR Biosphere Desk is prohibited from issuing settlement units without the EAA's active cryptographic signature." data-ru="ЭАА — высший орган внешнего биофизического аудита, спроектированный по модели Счётной палаты РФ (41-ФЗ). Биосферному столу ЦБ запрещено эмитировать без активной криптографической подписи ЭАА.">
+            The EAA is the supreme authority of external biophysical audit, modelled on the structural independence of Russia's Accounts Chamber (41-FZ). The CBR Biosphere Desk is prohibited from issuing settlement units without the EAA's active cryptographic signature.
+          </p>
+        </div>
+
+        <div class="eaa-grid">
+          <div class="panel pad">
+            <table class="eaa-table">
+              <tr><td class="t" data-en="Board composition" data-ru="Состав совета">Board composition</td><td class="t" data-en="12 members: 6 nominated by RAS (confirmed by Duma) + 6 by BRICS+ academies (confirmed by Federation Council)" data-ru="12 членов: 6 от РАН (утв. Думой) + 6 от БРИКС+ (утв. Совфедом)">12 members: 6 nominated by RAS (confirmed by Duma) + 6 by BRICS+ academies (confirmed by Federation Council)</td></tr>
+              <tr><td class="t" data-en="Term length" data-ru="Срок полномочий">Term length</td><td class="t" data-en="Fixed 8-year staggered terms" data-ru="Фиксированные 8-летние ступенчатые сроки">Fixed 8-year staggered terms</td></tr>
+              <tr><td class="t" data-en="Funding" data-ru="Финансирование">Funding</td><td class="t" data-en="Hardcoded protocol fee from every BAIN ID clearing event. Zero MinFin dependence." data-ru="Жёсткая протокольная комиссия от каждого клирингового события BAIN ID. Нулевая зависимость от Минфина.">Hardcoded protocol fee from every BAIN ID clearing event. Zero MinFin dependence.</td></tr>
+              <tr><td class="t" data-en="MRV standard" data-ru="Стандарт MRV">MRV standard</td><td class="t" data-en="IPCC Tier 3 · Dual-track: Track 1 (Roshydromet) + Track 2 (International satellite consortium)" data-ru="IPCC Tier 3 · Двухтрековая: Track 1 (Росгидромет) + Track 2 (Международный спутниковый консорциум)">IPCC Tier 3 · Dual-track: Track 1 (Roshydromet) + Track 2 (International satellite consortium)</td></tr>
+              <tr><td class="t" data-en="Negative audit" data-ru="Негативный аудит">Negative audit</td><td class="t" data-en="If Track 1/2 diverge beyond ±5–10%: unilateral, un-vetoable capacity reduction within 72 hours" data-ru="При расхождении Track 1/2 за пределы ±5–10%: одностороннее сокращение ёмкости в течение 72 часов">If Track 1/2 diverge beyond ±5–10%: unilateral, un-vetoable capacity reduction within 72 hours</td></tr>
+              <tr><td class="t" data-en="Dismissal" data-ru="Отстранение">Dismissal</td><td class="t" data-en="Only upon criminal conviction + supermajority (2/3) of both chambers" data-ru="Только по приговору суда + квалифицированное большинство (2/3) обеих палат">Only upon criminal conviction + supermajority (2/3) of both chambers</td></tr>
+            </table>
+          </div>
+          <div>
+            <div class="card" style="border-color:rgba(255,77,77,.18); margin-bottom:14px">
+              <h3 style="color:var(--danger)" class="t" data-en="Cryptographic Interlock" data-ru="Криптографический интерлок">Cryptographic Interlock</h3>
+              <p class="t" data-en="No settlement unit can be issued without the EAA's concurrent cryptographic certification. No single entity can force issuance. This is the architecture of institutional survival across political regime changes." data-ru="Ни одна расчётная единица не может быть выпущена без параллельной криптографической сертификации ЭАА. Ни одна структура не может принудить к эмиссии. Это архитектура институционального выживания через смену режимов.">
+                No settlement unit can be issued without the EAA's concurrent cryptographic certification. No single entity can force issuance. This is the architecture of institutional survival across political regime changes.
+              </p>
+            </div>
+            <div class="card" style="border-color:rgba(46,139,110,.18)">
+              <h3 style="color:var(--emerald)" class="t" data-en="Three-in-One Settlement" data-ru="Тройной расчёт">Three-in-One Settlement</h3>
+              <p class="t" data-en="Each CryoCapital unit simultaneously settles: (1) a financial obligation, (2) a commodity delivery claim, (3) a verified carbon offset. No existing instrument — dollar, euro, yuan, or stablecoin — performs all three." data-ru="Каждая единица КриоКапитала одновременно рассчитывает: (1) финансовое обязательство, (2) товарное требование на поставку, (3) верифицированный углеродный зачёт. Ни один инструмент — доллар, евро, юань или стейблкоин — не выполняет все три.">
+                Each CryoCapital unit simultaneously settles: (1) a financial obligation, (2) a commodity delivery claim, (3) a verified carbon offset. No existing instrument — dollar, euro, yuan, or stablecoin — performs all three.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ═══════ REGISTRY ═══════ -->
     <section id="market">
       <div class="wrap">
-        <div class="kicker t" data-en="Registry v1" data-ru="Реестр v1">Registry v1</div>
-
+        <div class="section-head">
+          <div class="kicker t" data-en="BCCS Registry" data-ru="Реестр BCCS">BCCS Registry</div>
+          <h2><span class="t" data-en="Active Listings" data-ru="Активные листинги">Active Listings</span></h2>
+        </div>
         <div class="panel">
-          <div class="board-head">
-            <div>
-              <div class="board-title t" data-en="Active Listings" data-ru="Активные листинги">Active Listings</div>
-              <div class="board-meta t" data-en="asset classes • regions • status" data-ru="классы • регионы • статус">asset classes • regions • status</div>
-            </div>
-            <div class="board-meta t" data-en="Filter: All" data-ru="Фильтр: все">Filter: All</div>
-          </div>
-
           <div style="overflow:auto">
             <table>
-              <thead>
-                <tr>
-                  <th class="t" data-en="Asset class" data-ru="Класс актива">Asset class</th>
-                  <th class="t" data-en="Region" data-ru="Регион">Region</th>
-                  <th class="t" data-en="Reference band" data-ru="Диапазон">Reference band</th>
-                  <th class="t" data-en="Status" data-ru="Статус">Status</th>
-                  <th class="t" data-en="Action" data-ru="Действие">Action</th>
-                </tr>
-              </thead>
+              <thead><tr>
+                <th class="t" data-en="Asset / BAIN ID" data-ru="Актив / BAIN ID">Asset / BAIN ID</th>
+                <th class="t" data-en="Region" data-ru="Регион">Region</th>
+                <th class="t" data-en="Reference band" data-ru="Диапазон">Reference band</th>
+                <th class="t" data-en="BCCS State" data-ru="Состояние BCCS">BCCS State</th>
+                <th class="t" data-en="Action" data-ru="Действие">Action</th>
+              </tr></thead>
               <tbody>
                 <tr>
                   <td><strong class="t" data-en="Cryo Biome Reserve" data-ru="Криогенный биомный резерв">Cryo Biome Reserve</strong><div class="fine">BAIN-CCX-0007</div></td>
                   <td class="t" data-en="Western Siberia" data-ru="Западная Сибирь">Western Siberia</td>
-                  <td>0.8–1.6T (ref)</td>
-                  <td><span class="status inventory"><span class="dot"></span><span class="t" data-en="Inventory" data-ru="Инвентаризация">Inventory</span></span></td>
-                  <td><a class="btn" style="padding:8px 10px;border-radius:12px" href="#list"><span class="t" data-en="Submit update" data-ru="Обновить">Submit update</span></a></td>
+                  <td>0.8–1.6T</td>
+                  <td><span class="status"><span class="dot info"></span><span class="t" data-en="Observed" data-ru="Observed">Observed</span></span></td>
+                  <td><a class="btn" style="padding:7px 10px; border-radius:10px" href="#list"><span class="t" data-en="Update" data-ru="Обновить">Update</span></a></td>
                 </tr>
                 <tr>
                   <td><strong class="t" data-en="Carbon Stability Stratum" data-ru="Слой углеродной стабильности">Carbon Stability Stratum</strong><div class="fine">BAIN-CCX-0011</div></td>
                   <td class="t" data-en="Lena Basin" data-ru="Бассейн Лены">Lena Basin</td>
-                  <td>2.4T (ref)</td>
-                  <td><span class="status verify"><span class="dot"></span><span class="t" data-en="Under verification" data-ru="На верификации">Under verification</span></span></td>
-                  <td><a class="btn" style="padding:8px 10px;border-radius:12px" href="#access"><span class="t" data-en="Request access" data-ru="Запросить доступ">Request access</span></a></td>
+                  <td>2.4T</td>
+                  <td><span class="status"><span class="dot" style="background:var(--gold)"></span><span class="t" data-en="Verified" data-ru="Verified">Verified</span></span></td>
+                  <td><a class="btn" style="padding:7px 10px; border-radius:10px" href="#eaa"><span class="t" data-en="EAA status" data-ru="Статус ЭАА">EAA status</span></a></td>
                 </tr>
                 <tr>
                   <td><strong class="t" data-en="Thermodynamic Gradient Zone" data-ru="Термодинамическая зона градиента">Thermodynamic Gradient Zone</strong><div class="fine">BAIN-CCX-0014</div></td>
                   <td class="t" data-en="Arctic Corridor" data-ru="Арктический коридор">Arctic Corridor</td>
                   <td>TBD</td>
-                  <td><span class="status pending"><span class="dot"></span><span class="t" data-en="Survey open" data-ru="Съёмка открыта">Survey open</span></span></td>
-                  <td><a class="btn" style="padding:8px 10px;border-radius:12px" href="#list"><span class="t" data-en="List asset" data-ru="Листинг">List asset</span></a></td>
+                  <td><span class="status"><span class="dot" style="background:var(--muted)"></span><span class="t" data-en="Observed" data-ru="Observed">Observed</span></span></td>
+                  <td><a class="btn" style="padding:7px 10px; border-radius:10px" href="#list"><span class="t" data-en="List" data-ru="Листинг">List</span></a></td>
                 </tr>
                 <tr>
                   <td><strong class="t" data-en="Preserved Genetic Archive" data-ru="Законсервированный генетический архив">Preserved Genetic Archive</strong><div class="fine">BAIN-CCX-0019</div></td>
-                  <td>Yakutia</td>
+                  <td class="t" data-en="Yakutia" data-ru="Якутия">Yakutia</td>
                   <td class="t" data-en="Under assessment" data-ru="На оценке">Under assessment</td>
-                  <td><span class="status cleared"><span class="dot"></span><span class="t" data-en="Cleared" data-ru="Клиринг пройден">Cleared</span></span></td>
-                  <td><a class="btn" style="padding:8px 10px;border-radius:12px" href="#docs"><span class="t" data-en="View terms" data-ru="Условия">View terms</span></a></td>
+                  <td><span class="status"><span class="dot ok"></span><span class="t" data-en="Certified" data-ru="Certified">Certified</span></span></td>
+                  <td><a class="btn" style="padding:7px 10px; border-radius:10px" href="#docs"><span class="t" data-en="Terms" data-ru="Условия">Terms</span></a></td>
                 </tr>
               </tbody>
             </table>
@@ -454,281 +501,145 @@
       </div>
     </section>
 
-    <section id="how">
+    <hr class="divider">
+
+    <!-- ═══════ PIPELINE ═══════ -->
+    <section id="pipeline">
       <div class="wrap">
-        <div class="kicker t" data-en="How it works" data-ru="Как работает">How it works</div>
-        <div class="panel pad">
-          <h2 style="margin:0 0 14px 0;">
-            <span class="t"
-              data-en="Listing → Verification → Classification → Clearing → Settlement"
-              data-ru="Листинг → Верификация → Классификация → Клиринг → Урегулирование">
-              Listing → Verification → Classification → Clearing → Settlement
-            </span>
-          </h2>
-          <p class="hint t"
-             data-en="v1 is an operational pipeline. It produces artifacts: an Asset ID, a verified profile, a class assignment, and a registry entry."
-             data-ru="v1 — это операционный конвейер. Он производит артефакты: Asset ID, верифицированный профиль, присвоение класса и запись в реестре.">
-            v1 is an operational pipeline. It produces artifacts: an Asset ID, a verified profile, a class assignment, and a registry entry.
-          </p>
-
-          <div style="height:14px"></div>
-
-          <div class="steps">
-            <div class="step">
-              <div class="n">01</div>
-              <div class="t t" data-en="List" data-ru="Листинг">List</div>
-              <div class="d t" data-en="Submit territory/asset parameters and initial documentation." data-ru="Подайте параметры территории/актива и исходные материалы.">Submit territory/asset parameters and initial documentation.</div>
-              <div class="out t" data-en="Output: Asset ID" data-ru="Выход: Asset ID">Output: Asset ID</div>
-            </div>
-            <div class="step">
-              <div class="n">02</div>
-              <div class="t t" data-en="Verify" data-ru="Верификация">Verify</div>
-              <div class="d t" data-en="Route to scientific verification layer (institutional workflow)." data-ru="Маршрутизация в научную верификацию (институциональный процесс).">Route to scientific verification layer (institutional workflow).</div>
-              <div class="out t" data-en="Output: Verified profile" data-ru="Выход: Верифицированный профиль">Output: Verified profile</div>
-            </div>
-            <div class="step">
-              <div class="n">03</div>
-              <div class="t t" data-en="Classify" data-ru="Классификация">Classify</div>
-              <div class="d t" data-en="Assign capital class + reference band according to the Exchange taxonomy." data-ru="Присвойте класс капитала + референсный диапазон по таксономии биржи.">Assign capital class + reference band according to the Exchange taxonomy.</div>
-              <div class="out t" data-en="Output: Class + band" data-ru="Выход: Класс + диапазон">Output: Class + band</div>
-            </div>
-            <div class="step">
-              <div class="n">04</div>
-              <div class="t t" data-en="Clear" data-ru="Клиринг">Clear</div>
-              <div class="d t" data-en="Register into the clearing ledger and lock reserve state." data-ru="Внесите в клиринговый реестр и зафиксируйте статус резерва.">Register into the clearing ledger and lock reserve state.</div>
-              <div class="out t" data-en="Output: Registry entry" data-ru="Выход: Запись в реестре">Output: Registry entry</div>
-            </div>
-            <div class="step">
-              <div class="n">05</div>
-              <div class="t t" data-en="Settle" data-ru="Урегулирование">Settle</div>
-              <div class="d t" data-en="Institutional settlement via approved counterparties and terms." data-ru="Институциональное урегулирование через утверждённых контрагентов и условия.">Institutional settlement via approved counterparties and terms.</div>
-              <div class="out t" data-en="Output: Agreement / instrument" data-ru="Выход: Соглашение / инструмент">Output: Agreement / instrument</div>
-            </div>
-          </div>
+        <div class="section-head">
+          <div class="kicker t" data-en="Operational Pipeline" data-ru="Операционный конвейер">Operational Pipeline</div>
+          <h2><span class="t" data-en="From Territory to Settlement" data-ru="От территории к расчёту">From Territory to Settlement</span></h2>
+          <p class="t" data-en="The formula is immutable: Territory → Scientific Verification → Sovereign Registry → Financial Instrument." data-ru="Формула непреклонна: Территория → Научная верификация → Суверенный реестр → Финансовое решение.">The formula is immutable: Territory → Scientific Verification → Sovereign Registry → Financial Instrument.</p>
+        </div>
+        <div class="pipeline">
+          <div class="pipe"><div class="n">01</div><div class="t" data-en="List" data-ru="Листинг">List</div><div class="d t" data-en="Submit territory parameters, initial documentation. BAIN ID assigned." data-ru="Подайте параметры территории, исходные материалы. Присваивается BAIN ID.">Submit territory parameters, initial documentation. BAIN ID assigned.</div><div class="out">→ BAIN ID</div></div>
+          <div class="pipe"><div class="n">02</div><div class="t" data-en="Verify" data-ru="Верификация">Verify</div><div class="d t" data-en="Dual-track MRV: Roshydromet (Track 1) + international satellite (Track 2). IPCC Tier 3." data-ru="Двухтрековая MRV: Росгидромет (Track 1) + международный спутниковый (Track 2). IPCC Tier 3.">Dual-track MRV: Roshydromet (Track 1) + international satellite (Track 2). IPCC Tier 3.</div><div class="out">→ Verified profile</div></div>
+          <div class="pipe"><div class="n">03</div><div class="t" data-en="Certify" data-ru="Сертификация">Certify</div><div class="d t" data-en="EAA cryptographic signature. Capital class assigned. Reserve ratio calculated." data-ru="Криптографическая подпись ЭАА. Класс капитала. Расчёт коэффициента резерва.">EAA cryptographic signature. Capital class assigned. Reserve ratio calculated.</div><div class="out">→ EAA signature</div></div>
+          <div class="pipe"><div class="n">04</div><div class="t" data-en="Clear" data-ru="Клиринг">Clear</div><div class="d t" data-en="Register into BCCS clearing ledger. Lock reserve state. α ≤ 40% enforced." data-ru="Внесение в клиринговый реестр BCCS. Фиксация резерва. α ≤ 40% обязателен.">Register into BCCS clearing ledger. Lock reserve state. α ≤ 40% enforced.</div><div class="out">→ Registry entry</div></div>
+          <div class="pipe"><div class="n">05</div><div class="t" data-en="Settle" data-ru="Расчёт">Settle</div><div class="d t" data-en="Bilateral sovereign settlement. Three-in-one: financial + commodity + carbon. Algorithmic resolution." data-ru="Двусторонний суверенный расчёт. Три в одном: финансовый + товарный + углеродный. Алгоритмическое разрешение.">Bilateral sovereign settlement. Three-in-one: financial + commodity + carbon. Algorithmic resolution.</div><div class="out">→ Final settlement</div></div>
         </div>
       </div>
     </section>
 
+    <hr class="divider">
+
+    <!-- ═══════ LIST ASSET ═══════ -->
     <section id="list">
       <div class="wrap">
-        <div class="kicker t" data-en="List an asset" data-ru="Подать актив">List an asset</div>
-
         <div class="grid2">
-          <div class="panel pad">
-            <h2 style="margin:0 0 10px 0" class="t" data-en="Submit Cryo Asset (v1)" data-ru="Подача крио-актива (v1)">Submit Cryo Asset (v1)</h2>
-            <p class="hint t"
-               data-en="v1 submission is structured. You will receive an Asset ID and a status. Verification routing is institutional."
-               data-ru="Подача v1 — структурированная. Вы получите Asset ID и статус. Маршрутизация верификации — институциональная.">
-              v1 submission is structured. You will receive an Asset ID and a status. Verification routing is institutional.
-            </p>
-
-            <form class="form" onsubmit="return handleSubmit(event)">
-              <div class="row2">
-                <div>
-                  <label class="t" data-en="Entity / operator" data-ru="Организация / оператор">Entity / operator</label>
-                  <input required placeholder="Operator name" />
+          <div>
+            <div class="kicker t" data-en="List an Asset" data-ru="Подать актив">List an Asset</div>
+            <div class="panel pad">
+              <h2 style="font-family:var(--display); font-size:28px; font-weight:700; margin-bottom:12px" class="t" data-en="Submit Cryo Asset" data-ru="Подача крио-актива">Submit Cryo Asset</h2>
+              <p class="hint t" data-en="Structured submission. You will receive a BAIN ID and BCCS state tracking. Verification routing is institutional through the EAA framework." data-ru="Структурированная подача. Вы получите BAIN ID и трекинг состояний BCCS. Маршрутизация верификации — институциональная через ЭАА.">Structured submission. You will receive a BAIN ID and BCCS state tracking. Verification routing is institutional through the EAA framework.</p>
+              <form class="form" style="margin-top:16px" onsubmit="return handleSubmit(event)">
+                <div class="row2">
+                  <div><label class="t" data-en="Entity / operator" data-ru="Организация / оператор">Entity / operator</label><input required placeholder="Operator name" /></div>
+                  <div><label class="t" data-en="Role" data-ru="Роль">Role</label><select required><option value="" selected disabled>—</option><option>Regional Operator</option><option>Scientific Operator</option><option>Sovereign Entity</option><option>Institutional Partner</option></select></div>
                 </div>
-                <div>
-                  <label class="t" data-en="Role" data-ru="Роль">Role</label>
-                  <select required>
-                    <option value="" selected disabled>—</option>
-                    <option>Regional Operator</option>
-                    <option>Scientific Operator</option>
-                    <option>Sovereign Entity</option>
-                    <option>Institutional Partner</option>
-                  </select>
+                <div class="row2">
+                  <div><label class="t" data-en="Territory / region" data-ru="Территория / регион">Territory / region</label><input required placeholder="e.g., Western Siberia" /></div>
+                  <div><label class="t" data-en="Asset class" data-ru="Класс актива">Asset class</label><select required><option value="" selected disabled>—</option><option>Cryo Biome Reserve</option><option>Preserved Genetic Archive</option><option>Carbon Stability Stratum</option><option>Thermodynamic Gradient Zone</option><option>Cryo Heritage Site</option></select></div>
                 </div>
-              </div>
-
-              <div class="row2">
-                <div>
-                  <label class="t" data-en="Territory / region" data-ru="Территория / регион">Territory / region</label>
-                  <input required placeholder="e.g., Western Siberia" />
+                <div class="row2">
+                  <div><label class="t" data-en="Contact email" data-ru="E-mail">Contact email</label><input type="email" required placeholder="name@org.tld" /></div>
+                  <div><label class="t" data-en="Objective" data-ru="Цель">Objective</label><select required><option value="" selected disabled>—</option><option>Registry listing</option><option>Verification routing</option><option>Clearing readiness</option><option>Institutional settlement</option></select></div>
                 </div>
-                <div>
-                  <label class="t" data-en="Asset class (proposed)" data-ru="Класс (предварительно)">Asset class (proposed)</label>
-                  <select required>
-                    <option value="" selected disabled>—</option>
-                    <option>Cryo Biome Reserve</option>
-                    <option>Preserved Genetic Archive</option>
-                    <option>Carbon Stability Stratum</option>
-                    <option>Thermodynamic Gradient Zone</option>
-                    <option>Cryo Heritage Site</option>
-                  </select>
+                <div><label class="t" data-en="Submission notes" data-ru="Комментарий">Submission notes</label><textarea placeholder="Provide parameters, data sources, and existing assessments."></textarea></div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap">
+                  <button class="btn primary" type="submit"><span class="t" data-en="Create submission" data-ru="Создать заявку">Create submission</span></button>
+                  <a class="btn" href="#access"><span class="t" data-en="Need access?" data-ru="Нужен доступ?">Need access?</span></a>
                 </div>
-              </div>
-
-              <div class="row2">
-                <div>
-                  <label class="t" data-en="Contact email" data-ru="E-mail для связи">Contact email</label>
-                  <input type="email" required placeholder="name@org.tld" />
-                </div>
-                <div>
-                  <label class="t" data-en="Objective" data-ru="Цель">Objective</label>
-                  <select required>
-                    <option value="" selected disabled>—</option>
-                    <option>Registry listing</option>
-                    <option>Verification routing</option>
-                    <option>Clearing readiness</option>
-                    <option>Institutional settlement</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label class="t" data-en="Submission notes" data-ru="Комментарий к подаче">Submission notes</label>
-                <textarea placeholder="Provide basic parameters, data sources, and any existing assessments."></textarea>
-              </div>
-
-              <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-                <button class="btn primary" type="submit">
-                  <span class="t" data-en="Create submission" data-ru="Создать заявку">Create submission</span>
-                </button>
-                <a class="btn" href="#access">
-                  <span class="t" data-en="Need institutional access?" data-ru="Нужен доступ?">Need institutional access?</span>
-                </a>
-              </div>
-
-              <p class="fine t"
-                 data-en="v1 is a controlled pipeline. You will receive an Asset ID and a status within the operational window."
-                 data-ru="v1 — контролируемый конвейер. Вы получите Asset ID и статус в рамках операционного окна.">
-                v1 is a controlled pipeline. You will receive an Asset ID and a status within the operational window.
-              </p>
-            </form>
-          </div>
-
-          <aside class="panel pad">
-            <h2 style="margin:0 0 10px 0" class="t" data-en="What you get in v1" data-ru="Что вы получаете в v1">What you get in v1</h2>
-            <div class="cards" style="grid-template-columns:1fr;">
-              <div class="card">
-                <h3>Asset ID</h3>
-                <p class="t" data-en="A unique identifier for tracking the asset through the pipeline." data-ru="Уникальный идентификатор для отслеживания по конвейеру.">A unique identifier for tracking the asset through the pipeline.</p>
-                <div class="mini">BAIN-CCX-####</div>
-              </div>
-              <div class="card">
-                <h3 class="t" data-en="Status tracking" data-ru="Статусы">Status tracking</h3>
-                <p class="t" data-en="Inventory → Verification → Classified → Cleared." data-ru="Инвентаризация → Верификация → Класс → Клиринг.">Inventory → Verification → Classified → Cleared.</p>
-              </div>
-              <div class="card">
-                <h3 class="t" data-en="Clearing ledger entry" data-ru="Запись в реестре">Clearing ledger entry</h3>
-                <p class="t" data-en="Cleared assets registered for institutional settlement and reserve logic." data-ru="Клиринговые активы регистрируются для институционального урегулирования и логики резерва.">Cleared assets registered for institutional settlement and reserve logic.</p>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section id="access">
-      <div class="wrap">
-        <div class="kicker t" data-en="Access" data-ru="Доступ">Access</div>
-        <div class="panel pad">
-          <h2 style="margin:0 0 10px 0" class="t" data-en="Institutional onboarding" data-ru="Институциональный онбординг">Institutional onboarding</h2>
-          <p class="hint t"
-             data-en="CryoCapital Exchange is designed for institutional counterparties. Access is granted by role and mandate."
-             data-ru="CryoCapital Exchange рассчитан на институциональных участников. Доступ выдаётся по роли и мандату.">
-            CryoCapital Exchange is designed for institutional counterparties. Access is granted by role and mandate.
-          </p>
-          <div class="cards">
-            <div class="card">
-              <h3 class="t" data-en="Sovereign / Public" data-ru="Государственный контур">Sovereign / Public</h3>
-              <p class="t" data-en="State bodies, sovereign programs, strategic reserves." data-ru="Ведомства, суверенные программы, стратегические резервы.">State bodies, sovereign programs, strategic reserves.</p>
-              <div class="mini t" data-en="Access: mandate review" data-ru="Доступ: проверка мандата">Access: mandate review</div>
-            </div>
-            <div class="card">
-              <h3 class="t" data-en="Scientific validators" data-ru="Научные валидаторы">Scientific validators</h3>
-              <p class="t" data-en="Verification workflows, method committees, audit trails." data-ru="Верификация, методкомитеты, аудиторские следы.">Verification workflows, method committees, audit trails.</p>
-              <div class="mini t" data-en="Access: workflow role" data-ru="Доступ: роль в процессе">Access: workflow role</div>
-            </div>
-            <div class="card">
-              <h3 class="t" data-en="Institutional capital" data-ru="Институциональный капитал">Institutional capital</h3>
-              <p class="t" data-en="Settlement counterparties, structured instruments (phased)." data-ru="Контрагенты урегулирования, инструменты (по фазам).">Settlement counterparties, structured instruments (phased).</p>
-              <div class="mini t" data-en="Access: compliance gate" data-ru="Доступ: комплаенс">Access: compliance gate</div>
+              </form>
             </div>
           </div>
-          <div style="height:16px"></div>
-          <div class="actions">
-            <a class="btn primary" href="mailto:info@cryocapital.exchange">
-              <span class="t" data-en="Request access" data-ru="Запросить доступ">Request access</span>
-            </a>
-            <a class="btn" href="#docs">
-              <span class="t" data-en="Read governance" data-ru="Читать управление">Read governance</span>
-            </a>
+          <div>
+            <div class="kicker t" data-en="Access" data-ru="Доступ" id="access">Access</div>
+            <div class="panel pad">
+              <h2 style="font-family:var(--display); font-size:28px; font-weight:700; margin-bottom:16px" class="t" data-en="Institutional Onboarding" data-ru="Институциональный доступ">Institutional Onboarding</h2>
+              <div class="cards" style="grid-template-columns:1fr">
+                <div class="card"><h3 style="color:var(--accent)" class="t" data-en="Sovereign / Public" data-ru="Государственный контур">Sovereign / Public</h3><p class="t" data-en="State bodies, sovereign programs, strategic reserves. Access by mandate review." data-ru="Ведомства, суверенные программы, стратегические резервы. Доступ по мандату.">State bodies, sovereign programs, strategic reserves. Access by mandate review.</p></div>
+                <div class="card"><h3 style="color:var(--gold)" class="t" data-en="Scientific Validators" data-ru="Научные валидаторы">Scientific Validators</h3><p class="t" data-en="EAA workflow roles. Verification methods, audit trails, MRV access." data-ru="Роли в процессе ЭАА. Методы верификации, аудиторские следы, доступ к MRV.">EAA workflow roles. Verification methods, audit trails, MRV access.</p></div>
+                <div class="card"><h3 style="color:var(--emerald)" class="t" data-en="Institutional Capital" data-ru="Институциональный капитал">Institutional Capital</h3><p class="t" data-en="Settlement counterparties, Commodity Drawing Rights, bilateral treaty framework." data-ru="Контрагенты расчётов, Товарные права требования, двусторонняя договорная рамка.">Settlement counterparties, Commodity Drawing Rights, bilateral treaty framework.</p></div>
+              </div>
+              <div class="actions" style="margin-top:16px">
+                <a class="btn primary" href="mailto:hq@kryonis.global"><span class="t" data-en="Request access" data-ru="Запросить доступ">Request access</span></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
+    <hr class="divider">
+
+    <!-- ═══════ DOCS ═══════ -->
     <section id="docs">
       <div class="wrap">
-        <div class="kicker t" data-en="Docs" data-ru="Документы">Docs</div>
-        <div class="grid2">
-          <div class="panel pad">
-            <h2 style="margin:0 0 10px 0" class="t" data-en="Documentation" data-ru="Документация">Documentation</h2>
-            <div class="cards" style="grid-template-columns:1fr;">
-              <div class="card">
-                <h3 class="t" data-en="Whitepaper (EN)" data-ru="Whitepaper (EN)">Whitepaper (EN)</h3>
-                <p class="t" data-en="Founding framework and protocol rationale." data-ru="Фундаментальная рамка и логика протокола.">Founding framework and protocol rationale.</p>
-                <div class="actions" style="margin-top:12px"><a class="btn" href="#">Open →</a></div>
-              </div>
-              <div class="card">
-                <h3 class="t" data-en="Whitepaper (RU)" data-ru="Whitepaper (RU)">Whitepaper (RU)</h3>
-                <p class="t" data-en="Russian-language protocol articulation." data-ru="Русскоязычное изложение протокола.">Russian-language protocol articulation.</p>
-                <div class="actions" style="margin-top:12px"><a class="btn" href="#">Открыть →</a></div>
-              </div>
-              <div class="card">
-                <h3 class="t" data-en="Taxonomy & Listing Rules" data-ru="Таксономия и правила листинга">Taxonomy & Listing Rules</h3>
-                <p class="t" data-en="Asset classes, verification routing, and status lifecycle." data-ru="Классы активов, маршрутизация верификации и жизненный цикл статусов.">Asset classes, verification routing, and status lifecycle.</p>
-              </div>
-            </div>
+        <div class="section-head">
+          <div class="kicker t" data-en="Documentation" data-ru="Документация">Documentation</div>
+          <h2><span class="t" data-en="Strategic Documents" data-ru="Стратегические документы">Strategic Documents</span></h2>
+        </div>
+        <div class="cards c3">
+          <div class="card" style="border-color:rgba(92,200,255,.18)">
+            <h3 class="t" data-en="The Thermodynamic Dollar V3 (EN)" data-ru="Термодинамический доллар V3 (EN)">The Thermodynamic Dollar V3 (EN)</h3>
+            <p class="t" data-en="18 chapters. Biophysical reserve architecture, legal drafts (86-FZ amendments, EAA charter, Russia-China treaty, constitutional law), 12 mathematical models, Chinese institutional pathway, five strategic facts." data-ru="18 глав. Биофизическая архитектура, законодательные проекты (поправки 86-ФЗ, устав ЭАА, договор РФ-КНР, конституционный закон), 12 матмоделей, китайский институциональный путь, пять стратегических фактов.">
+              18 chapters. Biophysical reserve architecture, legal drafts (86-FZ amendments, EAA charter, Russia-China treaty, constitutional law), 12 mathematical models, Chinese institutional pathway, five strategic facts.
+            </p>
+            <div class="mini">February 2026 · KRYONIS × ОБР</div>
           </div>
-
-          <aside class="panel pad">
-            <h2 style="margin:0 0 10px 0" class="t" data-en="Operational definitions" data-ru="Операционные определения">Operational definitions</h2>
-            <div class="card"><h3>Asset ID</h3><p class="t" data-en="Persistent identifier for a listed cryo asset. Tracks lifecycle and audit trail." data-ru="Постоянный идентификатор крио-актива. Отслеживает цикл и аудит.">Persistent identifier for a listed cryo asset. Tracks lifecycle and audit trail.</p></div>
-            <div style="height:10px"></div>
-            <div class="card"><h3 class="t" data-en="Clearing" data-ru="Клиринг">Clearing</h3><p class="t" data-en="Registry entry with validated class + verified profile + settlement readiness." data-ru="Запись в реестре с валидированным классом + верифицированным профилем + готовностью к урегулированию.">Registry entry with validated class + verified profile + settlement readiness.</p></div>
-            <div style="height:10px"></div>
-            <div class="card"><h3 class="t" data-en="Settlement" data-ru="Урегулирование">Settlement</h3><p class="t" data-en="Institutional agreements via approved counterparties. Secondary markets are phased." data-ru="Институциональные соглашения через утверждённых контрагентов. Вторичный рынок — по фазам.">Institutional agreements via approved counterparties. Secondary markets are phased.</p></div>
-          </aside>
+          <div class="card" style="border-color:rgba(201,168,76,.18)">
+            <h3 class="t" data-en="Термодинамический доллар V3 (RU)" data-ru="Термодинамический доллар V3 (RU)">Термодинамический доллар V3 (RU)</h3>
+            <p class="t" data-en="Full Russian-language edition. Identical architecture and legal drafts." data-ru="Полная русскоязычная версия. Идентичная архитектура и правовые проекты.">Full Russian-language edition. Identical architecture and legal drafts.</p>
+            <div class="mini">Февраль 2026 · KRYONIS × ОБР</div>
+          </div>
+          <div class="card" style="border-color:rgba(46,139,110,.18)">
+            <h3 class="t" data-en="BCCS Protocol Specification" data-ru="Спецификация протокола BCCS">BCCS Protocol Specification</h3>
+            <p class="t" data-en="BARS/VRL/CSM/SIL/ARL components. Seven states. BAIN ID format. Not crypto." data-ru="Компоненты BARS/VRL/CSM/SIL/ARL. Семь состояний. Формат BAIN ID. Не криптовалюта.">BARS/VRL/CSM/SIL/ARL components. Seven states. BAIN ID format. Not crypto.</p>
+            <div class="mini">bioclearing.global</div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- ═══════ FOOTER ═══════ -->
   <footer>
     <div class="wrap">
       <div class="foot">
         <div>
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div class="brand-badge" aria-hidden="true" style="width:24px;height:24px;border-radius:9px"></div>
+          <div style="display:flex; align-items:center; gap:12px">
+            <div class="brand-mark" style="width:22px; height:22px; border-radius:8px"></div>
             <div>
-              <strong>CryoCapital Exchange</strong><br />
-              <span class="t" data-en="Market Infrastructure v1" data-ru="Рыночная инфраструктура v1">Market Infrastructure v1</span>
+              <strong>CryoCapital Exchange</strong><br>
+              <span class="t" data-en="Sovereign Biosphere Settlement Infrastructure" data-ru="Суверенная инфраструктура биосферного расчёта">Sovereign Biosphere Settlement Infrastructure</span>
             </div>
           </div>
-          <div class="fine" style="margin-top:10px">© 2026 CryoCapital Exchange. cryocapital.exchange</div>
+          <div class="fine" style="margin-top:12px">© 2026 CryoCapital Exchange · cryocapital.exchange</div>
         </div>
         <div class="cols">
           <div>
-            <div class="fine" style="font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55);">Product</div>
-            <div style="margin-top:10px; display:grid; gap:6px;">
-              <a href="#market" class="t" data-en="Registry" data-ru="Реестр">Registry</a>
-              <a href="#how" class="t" data-en="Pipeline" data-ru="Конвейер">Pipeline</a>
-              <a href="#list" class="t" data-en="Listing" data-ru="Листинг">Listing</a>
+            <div class="col-head">Protocol</div>
+            <div class="col-links">
+              <a href="#architecture">BCCS Architecture</a>
+              <a href="#eaa">EAA</a>
+              <a href="#pipeline">Pipeline</a>
+              <a href="https://bioclearing.global" target="_blank">bioclearing.global</a>
             </div>
           </div>
           <div>
-            <div class="fine" style="font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55);">Institutional</div>
-            <div style="margin-top:10px; display:grid; gap:6px;">
-              <a href="#access" class="t" data-en="Access" data-ru="Доступ">Access</a>
-              <a href="#docs" class="t" data-en="Docs" data-ru="Документы">Docs</a>
-              <a href="mailto:info@cryocapital.exchange">info@cryocapital.exchange</a>
+            <div class="col-head">Institutional</div>
+            <div class="col-links">
+              <a href="#market">Registry</a>
+              <a href="#list">Listing</a>
+              <a href="#access">Access</a>
+              <a href="mailto:hq@kryonis.global">hq@kryonis.global</a>
             </div>
           </div>
           <div>
-            <div class="fine" style="font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:rgba(231,238,247,.55);">Legal</div>
-            <div style="margin-top:10px; display:grid; gap:6px;">
+            <div class="col-head">Legal</div>
+            <div class="col-links">
+              <a href="https://kryonis.global" target="_blank">kryonis.global</a>
               <a href="#" class="t" data-en="Terms" data-ru="Условия">Terms</a>
               <a href="#" class="t" data-en="Privacy" data-ru="Конфиденциальность">Privacy</a>
               <a href="#" class="t" data-en="Disclosures" data-ru="Раскрытия">Disclosures</a>
@@ -736,46 +647,38 @@
           </div>
         </div>
       </div>
-      <div class="fine t" style="margin-top:22px; opacity:.7"
-           data-en="Disclaimer: v1 provides registry and clearing pipeline. Capital instruments and secondary trading are phased and subject to role-gated compliance. KRYONIS Sovereign Systems · ОБР · Kurchatov Institute · CBD Art.15 · ЦФА 259-FZ"
-           data-ru="Дисклеймер: v1 — реестр и клиринговый конвейер. Инструменты капитала и вторичная торговля — по фазам. KRYONIS Sovereign Systems · ОБР · Курчатовский институт · КБР Ст.15 · ЦФА 259-ФЗ">
-        Disclaimer: v1 provides registry and clearing pipeline. Capital instruments and secondary trading are phased and subject to role-gated compliance. KRYONIS Sovereign Systems · ОБР · Kurchatov Institute · CBD Art.15 · ЦФА 259-FZ
+      <div class="fine t" style="margin-top:24px; opacity:.6"
+           data-en="KRYONIS Sovereign Systems Limited · ОБР (Russian Society of Biotechnologists, est. 2003) · Kurchatov Institute · CBD Art.15 · 86-ФЗ · 340-ФЗ · 34-ФЗ · 41-ФЗ · ЦФА 259-ФЗ · Art.108 Constitution RF"
+           data-ru="KRYONIS Sovereign Systems Limited · ОБР (Общество биотехнологов России, осн. 2003) · Курчатовский институт · КБР Ст.15 · 86-ФЗ · 340-ФЗ · 34-ФЗ · 41-ФЗ · ЦФА 259-ФЗ · Ст.108 Конституции РФ">
+        KRYONIS Sovereign Systems Limited · ОБР (Russian Society of Biotechnologists, est. 2003) · Kurchatov Institute · CBD Art.15 · 86-ФЗ · 340-ФЗ · 34-ФЗ · 41-ФЗ · ЦФА 259-ФЗ · Art.108 Constitution RF
       </div>
     </div>
   </footer>
 
   <script>
-    let lang = "en";
-
+    let lang="en";
     function setLang(l){
-      lang = l;
-      document.documentElement.lang = l;
-      document.getElementById("btn-en").classList.toggle("active", l === "en");
-      document.getElementById("btn-ru").classList.toggle("active", l === "ru");
-      document.querySelectorAll(".t").forEach(el => {
-        const val = el.getAttribute("data-" + l);
-        if (val) el.innerHTML = val;
+      lang=l;
+      document.documentElement.lang=l;
+      document.getElementById("btn-en").classList.toggle("active",l==="en");
+      document.getElementById("btn-ru").classList.toggle("active",l==="ru");
+      document.querySelectorAll(".t").forEach(el=>{
+        const v=el.getAttribute("data-"+l);
+        if(v) el.innerHTML=v;
       });
-      document.title = l === "ru"
-        ? "CryoCapital Exchange — Рыночная инфраструктура v1"
-        : "CryoCapital Exchange — Market Infrastructure v1";
+      document.title=l==="ru"
+        ?"CryoCapital Exchange — Суверенная инфраструктура биосферного расчёта"
+        :"CryoCapital Exchange — Sovereign Biosphere Settlement Infrastructure";
     }
-
-    function stamp(){
-      const d = new Date();
-      document.getElementById("ts").textContent = d.toISOString().slice(0,19).replace("T"," ");
-    }
-    stamp();
-    setInterval(stamp, 15000);
-
+    function stamp(){document.getElementById("ts").textContent=new Date().toISOString().slice(0,19).replace("T"," ")}
+    stamp(); setInterval(stamp,15000);
     function handleSubmit(e){
       e.preventDefault();
-      alert(lang === "ru"
-        ? "Заявка создана (demo). Подключите backend для присвоения Asset ID и статусного трекинга."
-        : "Submission created (demo). Wire backend: assign Asset ID, status tracker.");
+      alert(lang==="ru"
+        ?"Заявка создана (demo). Backend: присвоение BAIN ID и маршрутизация через ЭАА."
+        :"Submission created (demo). Backend: BAIN ID assignment and EAA routing.");
       return false;
     }
-
     setLang("en");
   </script>
 </body>
